@@ -27,6 +27,21 @@ Locally, with TeX Live installed:
 xelatex main && bibtex main && xelatex main && xelatex main
 ```
 
+## Known first-build issues
+
+Because this has never been compiled, expect to spend a little time on the
+first run:
+
+- **`\href` / `\url` need hyperref.** `acl.sty` loads it, so nothing is
+  declared here. If the build errors, uncomment the guarded line near the top
+  of `main.tex` — but never load hyperref twice, that causes an option clash.
+- **The CJK font.** `main.tex` asks for Noto Serif CJK SC. If TeX cannot find
+  it, substitute one you have (Songti SC and Source Han Serif are common) in
+  the `\setCJKmainfont` line. On Overleaf, Noto is available.
+- **Table widths.** The per-level results table is seven columns in a
+  single-column ACL layout; if it overflows, wrap it in `\resizebox` or move it
+  to a `table*`.
+
 ## Before submitting
 
 - Switch `\usepackage[review]{acl}` to `\usepackage[final]{acl}` and uncheck
