@@ -40,35 +40,82 @@ benchmark to receive submissions.
 
 Do this **before** the paper goes out — the DOI is what the paper cites.
 
-1. Sign in at <https://zenodo.org> with GitHub.
-2. Settings → GitHub → flip the switch on `harukicoder/hsk30`.
-   (Only public repositories appear, so make it public first.)
-3. Cut a release: `gh release create v0.1.0 --title "v0.1.0" --generate-notes`
-4. Zenodo mints a DOI automatically and reads `CITATION.cff` for metadata.
-5. Add the DOI badge to `README.md` and the DOI to `CITATION.cff`.
+`.zenodo.json` pins the record's metadata (author as "Serrano, Alvaro", title,
+description, keywords, licence) so Zenodo does not infer them from the
+repository. It is committed, so any release from now on carries it.
 
-## PyPI
-
-Name `hsk30` was free as of 2026-09-01. Build artifacts are gitignored;
-regenerate them rather than committing.
+**Diagnosing a toggle that did not take.** Zenodo installs a webhook on the
+repository when the switch saves. Check with:
 
 ```bash
-python3 -m venv /tmp/rel && /tmp/rel/bin/pip install -q build twine
-/tmp/rel/bin/python -m build
-/tmp/rel/bin/twine check dist/*
-/tmp/rel/bin/twine upload --repository testpypi dist/*   # rehearse first
-/tmp/rel/bin/twine upload dist/*
+gh api repos/harukicoder/hsk30/hooks --jq '.[].config.url'
 ```
 
-Use a scoped API token, not your password. Test the TestPyPI install in a
-clean venv before the real upload.
+An empty result means the switch is not actually on, whatever the page shows.
+Zenodo only lists **public** repositories, and its list is cached — press
+**Sync now** first, then toggle.
 
-## HuggingFace dataset
+**Ordering matters.** Zenodo captures only releases created *after* the webhook
+exists. A release cut beforehand is invisible to it, and re-tagging does not
+help. Once the hook is confirmed, cut a fresh release.
 
-The corpus is CC BY 4.0 and has a datasheet. Upload
-`corpus/hsk30_graded_readers.jsonl` with `corpus/DATASHEET.md` as the dataset
-card, and link back to the repo. Download counts are the adoption metric worth
-tracking.
+**Fallback if the integration stays broken:** upload the release tarball to
+Zenodo manually via **New upload**. It mints the same kind of DOI; you just
+lose the automatic capture of future releases.
+
+## PyPI — no token required
+
+`.github/workflows/publish.yml` uses **Trusted Publishing**: PyPI is told to
+trust this repository and workflow by name, and GitHub mints a short-lived
+identity token at publish time. No API token exists in the repo, in GitHub
+secrets, or anywhere you have to copy, store or transmit.
+
+**One-time setup** (about two minutes, all on pypi.org):
+
+1. Create an account and verify the email. PyPI requires 2FA — set it up now,
+   it is required before you can publish.
+2. Go to **Your projects → Publishing → Add a pending publisher**. "Pending"
+   is correct: the project does not exist yet, and this creates it on first
+   publish.
+3. Fill in exactly:
+   - PyPI project name — `hsk30`
+   - Owner — `harukicoder`
+   - Repository name — `hsk30`
+   - Workflow name — `publish.yml`
+   - Environment name — `pypi`
+4. Save. Nothing else to do.
+
+Publishing then happens automatically on every GitHub release, and only after
+the test suite and the paper-figure check pass. To publish the existing
+release, re-run the workflow: `gh workflow run publish.yml`.
+
+Name `hsk30` was free as of 2026-09-01; claim it soon now the repo is public.
+
+## HuggingFace dataset — needs a write token
+
+No OIDC equivalent here, so a token is unavoidable.
+
+1. Create an account at huggingface.co and verify the email.
+2. **Settings → Access Tokens → Create new token**, type **Write**, name it
+   something like `hsk30-upload`.
+3. Copy it. It is shown once.
+
+Then either run the upload yourself:
+
+```bash
+pip install huggingface_hub
+huggingface-cli login          # paste the token at the prompt
+huggingface-cli upload harukicoder/hsk30-graded-readers corpus/ --repo-type dataset
+```
+
+or put the token in a file outside the repo the way the DeepSeek key was
+handled, and it can be scripted. **Do not paste it into a chat window** — a
+write token can modify anything on your account, unlike the DeepSeek key which
+only spent credit.
+
+Upload `hsk30_graded_readers.jsonl` and `hsk30_heldout.jsonl`, with
+`DATASHEET.md` as the dataset card and a link back to the repo. Download counts
+are the adoption metric worth tracking.
 
 ## Paper
 
