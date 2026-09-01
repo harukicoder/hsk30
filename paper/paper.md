@@ -533,13 +533,13 @@ rather than a learned readability model, so compliance is checkable exactly and
 without a judge. HSKBench is, to our knowledge, the first difficulty-controlled
 generation benchmark for Chinese grounded in an official national standard.
 
-> ⚠ **Verification status.** Chinese-language searching located the
-> authoritative development paper and confirmed its comparison with the 2021
-> standard is qualitative, and surfaced only adjacent prior work
-> (textbook-to-standard alignment; the 1992→2009 outline transition). **CNKI
-> full text remained unreachable**, so a CNKI-indexed paper cannot be excluded.
-> Given the syllabus is under a year old, the residual risk is low but not
-> zero.
+We searched in both English and Chinese and found only adjacent prior work:
+textbook-to-standard vocabulary alignment studies, and comparisons of the 1992
+and 2009 HSK outlines. We were unable to search CNKI full text, so we state the
+novelty claim as bounded rather than absolute: no quantitative comparison of
+these two documents appears in the sources available to us, and given the
+syllabus is under a year old, we consider a prior one unlikely but cannot
+exclude it.
 
 ## 10 Limitations
 

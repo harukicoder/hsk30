@@ -53,8 +53,8 @@ All three anticipated hazards were resolved on 1 September 2026:
   anonymity if the venue is not double-blind.
 - BEA is typically **8 pages plus unlimited references**; check the current
   call, and check whether it is anonymous — the author block is filled in.
-- Resolve the three `\todo{}` markers (they compile as visible red text and
-  are impossible to miss).
+- ~~Resolve the `\todo{}` markers~~ — all resolved. The macro is removed, so a
+  stray `\todo` will now fail the build rather than print quietly in red.
 - Re-run `python3 ../../scripts/reproduce.py` and confirm every number in the
   tables still matches. None of them are typed by hand upstream; do not let
   them become hand-typed here.
