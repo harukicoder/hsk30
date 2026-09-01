@@ -139,7 +139,7 @@ actually on the shelf.
 | Path | Contents |
 | --- | --- |
 | `src/hsk30/` | The library and its five graded lists (MIT) |
-| `corpus/` | 102 aligned graded readers, 1,185 sentences (CC BY 4.0) |
+| `corpus/` | 102 aligned graded readers + a 30-text held-out split (CC BY 4.0) |
 | `benchmark/` | HSKBench — controlled-difficulty generation |
 | `paper/` | The accompanying paper and its figures |
 | `scripts/reproduce.py` | Recomputes every published figure |
@@ -180,6 +180,15 @@ counts reproduce the published cumulative totals (300 / 500 / 1,000 / 2,000 /
 11,000 *entries* but only 10,896 distinct words (homographs like 所/所2 get
 their own rows), and it grades **3,088** recognition characters, not the 3,079
 widely reported.
+
+## Where to find it
+
+| | |
+| --- | --- |
+| Package | [`pip install hsk30`](https://pypi.org/project/hsk30/) |
+| Archived release | [doi:10.5281/zenodo.22234657](https://doi.org/10.5281/zenodo.22234657) |
+| Corpus | [harukicoder/hsk30-graded-readers](https://huggingface.co/datasets/harukicoder/hsk30-graded-readers) on HuggingFace |
+| Source | [github.com/harukicoder/hsk30](https://github.com/harukicoder/hsk30) |
 
 ## Data sources
 

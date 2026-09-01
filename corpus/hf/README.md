@@ -82,17 +82,24 @@ Human authors writing to an explicit level target hit it only **61.8%** of the
 time across this corpus, overshooting on easy material and undershooting on
 hard. Treat the shelf labels as bands, not point claims.
 
-Full datasheet (Gebru et al. format): see `DATASHEET.md` in the
-[repository](https://github.com/harukicoder/hsk30).
+Full datasheet (Gebru et al. format): `DATASHEET.md`, alongside this file.
+
+## Related
+
+- **Grader:** [`pip install hsk30`](https://pypi.org/project/hsk30/) — grades text
+  against either HSK 3.0 document
+- **Archived release with DOI:** [10.5281/zenodo.22234657](https://doi.org/10.5281/zenodo.22234657)
+- **Source, benchmark and paper:** [github.com/harukicoder/hsk30](https://github.com/harukicoder/hsk30)
 
 ## Citation
 
 ```bibtex
-@misc{serrano2026hsk30corpus,
-  title  = {HSK 3.0 Graded Reader Corpus},
-  author = {Serrano, Alvaro},
-  year   = {2026},
-  note   = {CC BY 4.0},
-  url    = {https://github.com/harukicoder/hsk30}
+@dataset{serrano2026hsk30corpus,
+  title     = {HSK 3.0 Graded Reader Corpus},
+  author    = {Serrano, Alvaro},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.22234657},
+  note      = {CC BY 4.0}
 }
 ```
