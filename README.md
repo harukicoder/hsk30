@@ -147,7 +147,7 @@ Generating text *at* a level turns out to be much harder than grading it.
 Human authors writing to an explicit target hit it **61.8%** of the time,
 overshooting at the easy end and undershooting at the hard end. HSKBench scores
 that task objectively — the grader is the metric, the way a compiler is the
-metric for generated code. See [`benchmark/README.md`](benchmark/README.md).
+metric for generated code. See [`benchmark/README.md`](https://github.com/harukicoder/hsk30/blob/main/benchmark/README.md).
 
 ## Versions
 
