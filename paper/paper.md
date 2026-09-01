@@ -151,10 +151,14 @@ report 3,079; we believe that figure to be incorrect.
 
 **Table 2: Pairwise level agreement.**
 
-**Membership is not agreement.** The syllabus's developers report a 99.2%
-vocabulary overlap rate with HSK 2.0 and describe the revision as optimisation
-rather than replacement (Feng et al., 2026). Both characterisations concern
-*membership* — whether a word appears at all. Our membership figures are lower
+**Membership is not agreement.** The syllabus's developers compare their
+vocabulary outline against the 2021 standard's word list directly, and
+characterise the relationship as 与《等级标准》中词表相比…词汇总量差异不大，
+重合率高 — "compared with the Grading Standards' word list, little difference in
+total quantity, and high overlap" (Feng et al., 2026). Secondary coverage
+reports a 99.2% overlap figure against HSK 2.0, though we could not locate it
+in the primary source and do not rely on it. Every one of these
+characterisations concerns *membership* — whether a word appears at all. Our membership figures are lower
 (96.2% of our HSK 2.0 list appears in the syllabus, 89.8% in the 2021
 standard), plausibly because our HSK 2.0 list is a public reconstruction of
 4,991 words rather than the official 5,000-word 词汇大纲, and because the
@@ -411,12 +415,23 @@ al. (2023) on the limits of replication.
 
 **The documents' own literature.** Feng et al. (2026), writing in
 *International Chinese Language Education*, give the authoritative account of
-the syllabus's development. It is qualitative: it reports a high overlap rate,
-states that the syllabus was benchmarked against the 2021 standard (对标《等级
-标准》), and describes new vocabulary as distributed across levels with orderly
-continuity — but does not quantify how many words changed level, nor compare
-the two documents word by word. We are not aware of a published quantitative
-comparison of the kind in §4, in either language.
+the syllabus's development. Critically for this paper, they *do* compare the
+syllabus against the 2021 standard's word list — and the comparison is entirely
+qualitative: "little difference in total quantity, and high overlap", with new
+vocabulary "distributed across levels with orderly continuity". No counts, no
+percentages, no per-level table, and no word-by-word comparison. The
+quantitative gap in §4 is therefore not a gap they overlooked so much as one
+their framing does not surface.
+
+Chinese-language searching found substantial adjacent work — textbook-to-standard
+vocabulary alignment studies, and comparisons of the 1992 and 2009 HSK outlines
+— but no quantitative level-comparison of the 2021 standard against the 2025
+syllabus, which is unsurprising given the syllabus is under a year old.
+
+Interest in the underlying problem is not confined to Chinese: BEA 2026 ran a
+shared task on Vocabulary Difficulty Prediction for English learners. The
+question this paper asks of Chinese — what does a learner need to know to read
+this — is being asked in parallel elsewhere.
 
 **The problem is live in deployed tools.** Commercial HSK text checkers grade
 against "the new HSK 3.0 standard" without naming which document, and at least
@@ -451,12 +466,13 @@ rather than a learned readability model, so compliance is checkable exactly and
 without a judge. HSKBench is, to our knowledge, the first difficulty-controlled
 generation benchmark for Chinese grounded in an official national standard.
 
-> ⚠ **Verification status.** Chinese-language searches were run and located the
-> authoritative development paper (Feng et al., 2026), which is qualitative; no
-> prior quantitative level-comparison was found. **CNKI full text was not
-> reachable**, so a definitive novelty claim still requires a CNKI search of
-> 《世界汉语教学》, 《语言教学与研究》 and 《国际中文教育》. This is the only
-> outstanding verification.
+> ⚠ **Verification status.** Chinese-language searching located the
+> authoritative development paper and confirmed its comparison with the 2021
+> standard is qualitative, and surfaced only adjacent prior work
+> (textbook-to-standard alignment; the 1992→2009 outline transition). **CNKI
+> full text remained unreachable**, so a CNKI-indexed paper cannot be excluded.
+> Given the syllabus is under a year old, the residual risk is low but not
+> zero.
 
 ## 10 Limitations
 

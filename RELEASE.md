@@ -68,9 +68,38 @@ tracking.
 - [ ] Compile with **XeLaTeX** (see `paper/acl/README.md`) — it has never been
       compiled, so budget time for the first build
 - [ ] Re-run `python3 scripts/check_paper.py` after any edit to the numbers
-- [ ] Decide arXiv vs Zenodo/OSF. arXiv cs.CL needs an endorsement for a first
-      submission without an institutional affiliation; Zenodo and OSF do not
-      gatekeep and still give a citable DOI and timestamp.
+- [ ] **Publishing route — settled: Zenodo now, BEA 2027 later.** See below.
+
+## Publishing routes, accurately
+
+Nothing here requires anyone's permission. The only gated route is arXiv, and
+it is optional.
+
+**arXiv — needs an endorser, and got harder.** On 21 January 2026 arXiv stopped
+accepting an institutional email address as a qualifier for new authors. Every
+first-time submitter now needs endorsement from an established contributor to
+that archive, regardless of affiliation. This is a gate on arXiv, not on
+publishing. Pursue it only if an endorser turns up naturally; do not wait on it.
+
+**Zenodo — no gatekeeping, do this first.** CERN-operated, permanent, mints a
+real DOI, and reads `CITATION.cff` automatically. It cites as a dataset and
+software release, which is exactly what this is. Available the day the repo
+goes public.
+
+**OSF Preprints — no gatekeeping.** A second option for the paper specifically
+if you want a preprint DOI separate from the software DOI.
+
+**BEA — the peer-review target, but the 2026 edition has passed.** BEA 2026
+closed on 23 March 2026 and ran on 2–3 July 2026. **BEA 2027 is the next
+window**, with a deadline likely around March 2027. Worth noting that BEA 2026
+ran a shared task on *Vocabulary Difficulty Prediction for English Learners* —
+the community is actively working on this exact problem, which is good for
+reception and worth citing.
+
+Peer review is stronger evidence than a preprint, but it is slow. The sequence
+that gets something citable now and something reviewed later is: **Zenodo DOI
+this month, BEA 2027 in March.** If a nearer venue is wanted, look at other ACL
+workshops and LREC rather than waiting nine months.
 
 ## Housekeeping
 
