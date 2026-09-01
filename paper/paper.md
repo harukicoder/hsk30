@@ -578,6 +578,14 @@ either document and records which, an aligned corpus, and a benchmark measuring
 the harder half of the problem — producing text at a level rather than
 measuring it — on which human authors score 61.8%.
 
+## Availability
+
+Software, corpus and benchmark are archived at
+**doi:10.5281/zenodo.22234657** (concept DOI, resolving to the latest
+version; this release is doi:10.5281/zenodo.22234658). The library is on
+PyPI as `hsk30` and the source at
+<https://github.com/harukicoder/hsk30>. Code is MIT; the corpus is CC BY 4.0.
+
 ## Reproducibility
 
 All figures: `python3 scripts/reproduce.py`. The 2021 lists regenerate from
@@ -594,6 +602,8 @@ Verified as of September 2026 unless marked ⚠.
 - Center for Language Education and Cooperation (中外语言交流合作中心) (2025).
   新版HSK考试大纲 [HSK Examination Syllabus]. Published November 2025, in force
   July 2026.
+- Serrano, A. (2026). hsk30: grading Chinese text against either document
+  called HSK 3.0. Zenodo. doi:10.5281/zenodo.22234657
 - Feng, L., Huang, L., Xie, N., Yu, T., Liu, S., Zhang, H., & Yun, T. (2026).
   《中文水平考试HSK考试大纲》（HSK 3.0）研制解读 [Interpretation of the
   development of the HSK 3.0 examination syllabus]. *International Chinese

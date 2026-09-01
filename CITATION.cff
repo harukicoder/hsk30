@@ -5,6 +5,14 @@ type: software
 authors:
   - family-names: Serrano
     given-names: Alvaro
+doi: "10.5281/zenodo.22234657"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.22234657"
+    description: Concept DOI — always resolves to the latest version
+  - type: doi
+    value: "10.5281/zenodo.22234658"
+    description: DOI for version 0.1.1
 repository-code: "https://github.com/harukicoder/hsk30"
 url: "https://github.com/harukicoder/hsk30"
 abstract: >-

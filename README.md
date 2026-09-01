@@ -1,5 +1,10 @@
 # hsk30
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22234657.svg)](https://doi.org/10.5281/zenodo.22234657)
+[![PyPI](https://img.shields.io/pypi/v/hsk30.svg)](https://pypi.org/project/hsk30/)
+[![tests](https://github.com/harukicoder/hsk30/actions/workflows/tests.yml/badge.svg)](https://github.com/harukicoder/hsk30/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Grade Chinese text against HSK — against **either** document that gets called
 "HSK 3.0", and it will tell you which one it used.
 
@@ -220,13 +225,18 @@ a text two levels. The legacy behaviour remains available as
 ## Citation
 
 ```bibtex
-@misc{serrano2026hsk30,
-  title  = {hsk30: Grading Chinese Text Against the HSK 3.0 Standard},
-  author = {Serrano, Alvaro},
-  year   = {2026},
-  url    = {https://github.com/harukicoder/hsk30}
+@software{serrano2026hsk30,
+  title     = {hsk30: grading Chinese text against either document called HSK 3.0},
+  author    = {Serrano, Alvaro},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.22234657},
+  url       = {https://doi.org/10.5281/zenodo.22234657}
 }
 ```
+
+The DOI above is the *concept* DOI: it always resolves to the latest version.
+To cite this exact release, use `10.5281/zenodo.22234658`.
 
 ## Licence
 

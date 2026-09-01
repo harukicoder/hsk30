@@ -28,6 +28,11 @@
       "identifier": "https://github.com/harukicoder/hsk30",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "https://pypi.org/project/hsk30/",
+      "relation": "isIdenticalTo",
+      "scheme": "url"
     }
   ]
 }
