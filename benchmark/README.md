@@ -65,8 +65,16 @@ obvious to any reader, and the length constraint rules out the trivial attack.
 
 | System | Level accuracy | Mean signed error |
 | --- | --- | --- |
-| Human authors (corpus, written to target) | **61.8%** | +0.27 |
+| deepseek-chat (temp 0) | **66.7%** | +0.24 |
+| Human authors (corpus, written to target) | 61.8% | +0.27 |
 | Corpus retrieval (no model, ignores topic) | 59.3% | +0.27 |
+
+**Read the per-level curve, not the aggregate.** `deepseek-chat` scores
+16 / 24 / 72 / 88 / 100 / 100 across HSK 1–6. The perfect scores at the top are
+not skill: at HSK 5–6 a 95% bar drawn against 2,600+ characters is satisfied by
+almost any fluent Chinese, so the constraint barely binds. **HSK 1–2 is the
+discriminating region**, and a system answering only the top three levels would
+score 96%. Always report `--per-level`.
 
 The human figure is the number to beat, and it is not 100%. Careful authors
 working to an explicit level target still miss it four times in ten, and

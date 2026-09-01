@@ -342,10 +342,12 @@ authors can be scored on the same task.
 
 | System | Level accuracy | Mean signed error |
 | --- | ---: | ---: |
-| Human authors | **61.8%** | +0.27 |
+| deepseek-chat (temp 0) | **66.7%** | +0.24 |
+| Human authors | 61.8% | +0.27 |
 | Corpus retrieval (no model) | 59.3% | +0.27 |
 
-**Table 5: Reference points.**
+**Table 5: Overall results.** All three cluster within seven points, and all
+three overshoot on average.
 
 Human accuracy fails *directionally*: authors overshoot by 1.23 levels on the
 easiest shelf and undershoot by 0.75 on the hardest, regressing toward middle
@@ -353,10 +355,53 @@ difficulty regardless of instruction. Writing to a level target is a genuinely
 hard control problem for people — the practical argument for an objective
 grader in the authoring loop, and what makes the benchmark non-trivial.
 
-> ⚠ **Model baselines are not yet reported.** §8 defines the benchmark and
-> establishes human and no-model reference points; running current language
-> models against it is the obvious next experiment and should be included
-> before submission.
+### 8.4 The aggregate score is misleading
+
+The overall figures in Table 5 hide the result that matters. Broken down by
+target level, `deepseek-chat` does not degrade gracefully — it inverts.
+
+| Target | HSK 1 | HSK 2 | HSK 3 | HSK 4 | HSK 5 | HSK 6 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Accuracy | 16% | 24% | 72% | 88% | **100%** | **100%** |
+| Signed error | +1.56 | +0.92 | +0.40 | −0.16 | −0.72 | −0.56 |
+
+**Table 6: Level accuracy by target,** `deepseek-chat` at temperature 0.
+
+Perfect scores at HSK 5–6 are not evidence of skill. At those levels the
+constraint is nearly vacuous: almost any fluent Chinese passage satisfies a
+95% coverage bar drawn against 2,600-plus characters, so the task reduces to
+writing Chinese at all. The constraint only begins to bite at HSK 3, and by
+HSK 1 the model fails **21 of 25 times**.
+
+This is a limitation of the benchmark as much as a finding about the model, and
+it has a direct consequence: **the aggregate score should not be reported
+alone.** A system that answered only the top three levels would score 96%. We
+report the per-level curve as the primary result and treat HSK 1–2 as the
+discriminating region. Future versions should either reweight by level or drop
+the levels where the constraint does not bind.
+
+### 8.5 How generation fails
+
+The failure at low levels is not one hard word. Across the 21 HSK 1 failures,
+the median text carries **seven distinct above-target characters** totalling
+15.2% of its characters — three times the 5% budget — while the *largest single*
+offending character contributes a median of only 3.3%, comfortably under it.
+Almost no failure has a single blocking character.
+
+This is diffuse accumulation, and it distinguishes model failure from the
+authoring failures in §6.4, where one repeated hard character (糕, 豆豆, 蜡烛)
+carried the whole overshoot and could be fixed by one edit. A model missing
+HSK 1 by 15% cannot be repaired by substituting a word; it has written at the
+wrong level throughout.
+
+The directional bias is shared with human authors, though: both overshoot on
+easy targets and undershoot on hard ones, regressing toward middle difficulty
+regardless of the instruction. Whatever produces that bias is not specific to
+people.
+
+Length compliance was 73.3% and single-character budget violations 2.7%.
+Held-out topics scored 63.3% against 67.5% on corpus-adjacent topics, a gap
+small enough to suggest the task is not topic-bound.
 
 ## 9 Related work
 
