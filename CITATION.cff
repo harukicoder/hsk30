@@ -5,6 +5,7 @@ type: software
 authors:
   - family-names: Serrano
     given-names: Alvaro
+    orcid: "https://orcid.org/0009-0006-4701-9026"
 doi: "10.5281/zenodo.22234657"
 identifiers:
   - type: doi
@@ -65,6 +66,7 @@ preferred-citation:
   authors:
     - family-names: Serrano
       given-names: Alvaro
+      orcid: "https://orcid.org/0009-0006-4701-9026"
   year: 2026
   doi: "10.5281/zenodo.22239032"
   notes: Preprint
