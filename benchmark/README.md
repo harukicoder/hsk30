@@ -66,11 +66,14 @@ obvious to any reader, and the length constraint rules out the trivial attack.
 | System | Level accuracy | Mean signed error |
 | --- | --- | --- |
 | deepseek-chat (temp 0) | **66.7%** | +0.24 |
+| deepseek-reasoner (temp 0) | 64.0% | +0.49 |
 | Human authors (corpus, written to target) | 61.8% | +0.27 |
 | Corpus retrieval (no model, ignores topic) | 59.3% | +0.27 |
 
 **Read the per-level curve, not the aggregate.** `deepseek-chat` scores
-16 / 24 / 72 / 88 / 100 / 100 across HSK 1–6. The perfect scores at the top are
+16 / 24 / 72 / 88 / 100 / 100 across HSK 1–6; `deepseek-reasoner` scores
+48 / 48 / 80 / 80 / 76 / 52. They are 2.7 points apart overall and 48 apart at
+HSK 6. The perfect scores at the top are
 not skill: at HSK 5–6 a 95% bar drawn against 2,600+ characters is satisfied by
 almost any fluent Chinese, so the constraint barely binds. **HSK 1–2 is the
 discriminating region**, and a system answering only the top three levels would

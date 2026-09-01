@@ -381,11 +381,13 @@ authors can be scored on the same task.
 | System | Level accuracy | Mean signed error |
 | --- | ---: | ---: |
 | deepseek-chat (temp 0) | **66.7%** | +0.24 |
+| deepseek-reasoner (temp 0) | 64.0% | +0.49 |
 | Human authors | 61.8% | +0.27 |
 | Corpus retrieval (no model) | 59.3% | +0.27 |
 
-**Table 6: Overall results.** All three cluster within seven points, and all
-three overshoot on average.
+**Table 6: Overall results.** All four cluster within seven points, and all
+four overshoot on average. We show below that this table is close to
+uninformative.
 
 Human accuracy fails *directionally*: authors overshoot by 1.23 levels on the
 easiest shelf and undershoot by 0.75 on the hardest, regressing toward middle
@@ -400,10 +402,11 @@ target level, `deepseek-chat` does not degrade gracefully — it inverts.
 
 | Target | HSK 1 | HSK 2 | HSK 3 | HSK 4 | HSK 5 | HSK 6 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Accuracy | 16% | 24% | 72% | 88% | **100%** | **100%** |
-| Signed error | +1.56 | +0.92 | +0.40 | −0.16 | −0.72 | −0.56 |
+| `deepseek-chat` | 16% | 24% | 72% | 88% | **100%** | **100%** |
+| `deepseek-reasoner` | **48%** | **48%** | **80%** | 80% | 76% | 52% |
+| Difference | +32 | +24 | +8 | −8 | −24 | −48 |
 
-**Table 7: Level accuracy by target,** `deepseek-chat` at temperature 0.
+**Table 7: Level accuracy by target,** both models at temperature 0.
 
 Perfect scores at HSK 5–6 are not evidence of skill. At those levels the
 constraint is nearly vacuous: almost any fluent Chinese passage satisfies a
@@ -415,10 +418,39 @@ This is a limitation of the benchmark as much as a finding about the model, and
 it has a direct consequence: **the aggregate score should not be reported
 alone.** A system that answered only the top three levels would score 96%. We
 report the per-level curve as the primary result and treat HSK 1–2 as the
-discriminating region. Future versions should either reweight by level or drop
-the levels where the constraint does not bind.
+discriminating region.
 
-### 8.5 How generation fails
+The second model makes the case unanswerable.
+
+### 8.5 Reasoning helps at a floor and hurts at a ceiling
+
+`deepseek-reasoner` scores 64.0% against `deepseek-chat`'s 66.7% — 2.7 points
+worse, and on the aggregate a slightly inferior system. Per level the two are
+barely the same kind of model. The difference row in Table 7 is monotonic
+across the whole scale, from +32 to −48.
+
+Averaged over the bottom half of the scale, reasoning is worth **+21.3
+points** (37.3% → 58.7%). Over the top half it costs **−26.7** (96.0% →
+69.3%). At HSK 1, where every other system fails, the reasoner triples
+`deepseek-chat`'s accuracy.
+
+The reading we find most plausible is that these are two different tasks
+wearing one instruction. Writing at HSK 1 is a *constraint-satisfaction*
+problem: stay inside a 246-character inventory, which rewards planning, and the
+reasoner's longer deliberation buys real accuracy — its length compliance is
+also higher (80.0% against 73.3%). Writing at HSK 6 is not a constraint problem
+at all, because almost any fluent Chinese satisfies it; the winning strategy is
+to write normally. There the reasoner's deliberation actively hurts. Asked for
+advanced prose, it reaches for advanced vocabulary and overshoots the ceiling
+into the 7–9 band — its mean signed error at HSK 6 is +0.20 where
+`deepseek-chat` sits at −0.56.
+
+**Reasoning buys you a floor and costs you a ceiling.** Two systems 2.7 points
+apart in aggregate differ by 48 points on a single level, in a direction that
+reverses across the scale. Any evaluation of difficulty-controlled generation
+that reports one number is measuring the wrong thing.
+
+### 8.6 How generation fails
 
 The failure at low levels is not one hard word. Across the 21 HSK 1 failures,
 the median text carries **seven distinct above-target characters** totalling
@@ -437,9 +469,10 @@ easy targets and undershoot on hard ones, regressing toward middle difficulty
 regardless of the instruction. Whatever produces that bias is not specific to
 people.
 
-Length compliance was 73.3% and single-character budget violations 2.7%.
-Held-out topics scored 63.3% against 67.5% on corpus-adjacent topics, a gap
-small enough to suggest the task is not topic-bound.
+For `deepseek-chat`, length compliance was 73.3% and single-character budget
+violations 2.7%. Held-out topics scored 63.3% against 67.5% on corpus-adjacent
+topics for `deepseek-chat`, and 63.3% against 64.2% for `deepseek-reasoner` —
+gaps small enough to suggest the task is not topic-bound.
 
 ## 9 Related work
 
