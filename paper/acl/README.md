@@ -17,30 +17,35 @@ are not in this repository. Download the official template from
 
 ## Building
 
-Easiest, and works from a tablet: upload `main.tex` + `refs.bib` + the ACL
-style files to [Overleaf](https://overleaf.com), set the compiler to **XeLaTeX**
-in Menu → Settings.
-
-Locally, with TeX Live installed:
-
 ```bash
-xelatex main && bibtex main && xelatex main && xelatex main
+./build.sh
 ```
 
-## Known first-build issues
+Fetches the ACL style files if absent and compiles with
+[tectonic](https://tectonic-typesetting.github.io) (`brew install tectonic`).
+It reports overfull boxes and fails on BibTeX errors, so a broken build cannot
+pass silently.
 
-Because this has never been compiled, expect to spend a little time on the
-first run:
+**Verified building on macOS, 1 September 2026:** 7 pages, zero overfull boxes,
+zero unresolved citations, Chinese rendering correctly in Songti SC.
 
-- **`\href` / `\url` need hyperref.** `acl.sty` loads it, so nothing is
-  declared here. If the build errors, uncomment the guarded line near the top
-  of `main.tex` — but never load hyperref twice, that causes an option clash.
-- **The CJK font.** `main.tex` asks for Noto Serif CJK SC. If TeX cannot find
-  it, substitute one you have (Songti SC and Source Han Serif are common) in
-  the `\setCJKmainfont` line. On Overleaf, Noto is available.
-- **Table widths.** The per-level results table is seven columns in a
-  single-column ACL layout; if it overflows, wrap it in `\resizebox` or move it
-  to a `table*`.
+From a tablet, or without installing anything: upload `main.tex`, `refs.bib`
+and the two ACL style files to [Overleaf](https://overleaf.com) and set the
+compiler to **XeLaTeX** in Menu → Settings.
+
+## Notes from the first build
+
+All three anticipated hazards were resolved on 1 September 2026:
+
+- **hyperref** — `acl.sty` loads it at line 195, so `main.tex` declares
+  nothing. Do not add it; loading twice causes an option clash.
+- **`\bibliographystyle`** — `acl.sty` also issues this. Declaring it again in
+  `main.tex` makes BibTeX abort with *"Illegal, another \bibstyle command"*.
+  This bit once; the line is gone.
+- **The CJK font** — set to `Songti SC`, which ships with macOS. On Overleaf or
+  Linux use `Noto Serif CJK SC`.
+- **Table widths** — the seven-column results table fits the single-column
+  layout unmodified. No `\resizebox` needed.
 
 ## Before submitting
 

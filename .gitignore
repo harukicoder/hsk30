@@ -17,3 +17,13 @@ preds*.jsonl
 # HF upload bundle: the card is tracked, the data files are copies
 corpus/hf/*.jsonl
 corpus/hf/DATASHEET.md
+
+# LaTeX build artifacts and fetched third-party style files
+paper/acl/*.pdf
+paper/acl/*.log
+paper/acl/*.blg
+paper/acl/*.aux
+paper/acl/*.bbl
+paper/acl/*.out
+paper/acl/acl.sty
+paper/acl/acl_natbib.bst

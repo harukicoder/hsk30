@@ -15,7 +15,10 @@
 % Chinese. xeCJK needs XeLaTeX; change the font if it is unavailable on your
 % system (Noto Serif CJK SC and Songti SC are common alternatives).
 \usepackage{xeCJK}
-\setCJKmainfont{Noto Serif CJK SC}[AutoFakeBold=true]
+% Songti SC ships with macOS and is a serif CJK face, which matches the Latin
+% body text. On Overleaf or Linux, Noto Serif CJK SC is the equivalent and is
+% usually present; swap the name if the build cannot find this one.
+\setCJKmainfont{Songti SC}[AutoFakeBold=true]
 
 % acl.sty loads hyperref itself, which is why \href and \url below need no
 % package here. If the first build errors on an undefined \href, uncomment the
@@ -527,7 +530,8 @@ Word and character lists derive from published national standards. No human
 subjects were involved. An intended application is a Chinese-learning website
 operated by the author.
 
+% acl.sty already issues \bibliographystyle{acl_natbib}; declaring it again
+% makes BibTeX abort with "Illegal, another \bibstyle command".
 \bibliography{refs}
-\bibliographystyle{acl_natbib}
 
 \end{document}
