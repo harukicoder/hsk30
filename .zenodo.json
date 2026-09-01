@@ -1,0 +1,33 @@
+{
+  "title": "hsk30: grading Chinese text against either document called HSK 3.0",
+  "description": "<p>&ldquo;HSK 3.0&rdquo; names two different official documents: the GF0025-2021 national grading standard, in force since July 2021, and the examination syllabus published in November 2025 and in force since July 2026. They assign different levels to 41.5% of the words and 40.7% of the characters they share, and grading real texts against one rather than the other changes the level of roughly half of them.</p><p>This release contains a dependency-free Python library that grades Chinese text against either document and records which; a validated extraction of the 2025 examination syllabus from the official 406-page PDF; an aligned corpus of 102 graded readers with per-word pinyin and gloss plus a disjoint 30-text held-out split; and HSKBench, a difficulty-controlled generation benchmark in which the grader serves as the metric rather than as the source of labels.</p><p>Software is MIT licensed; the corpus is CC BY 4.0 and carries a datasheet disclosing LLM-assisted authorship.</p>",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "creators": [
+    {
+      "name": "Serrano, Alvaro"
+    }
+  ],
+  "keywords": [
+    "Chinese",
+    "Mandarin",
+    "HSK",
+    "readability",
+    "text difficulty",
+    "language learning",
+    "second language acquisition",
+    "computational linguistics",
+    "controlled generation",
+    "benchmark",
+    "corpus"
+  ],
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/harukicoder/hsk30",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
