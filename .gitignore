@@ -7,3 +7,9 @@ dist/
 .venv/
 venv/
 .DS_Store
+
+# never commit credentials
+.env
+*.env
+benchmark/*.jsonl.out
+preds*.jsonl

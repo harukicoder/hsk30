@@ -63,7 +63,9 @@ Contributions:
    5,400 / 11,000), and we find it grades **3,088** recognition characters,
    correcting the 3,079 widely reported by secondary sources.
 2. **A quantification of how far the documents disagree** (§4), pairwise across
-   all three reference lists, for words and for characters.
+   all three reference lists, for words and for characters. The syllabus's own
+   development paper reports overlap but not level change; we distinguish the
+   two, and show that high overlap coexists with high disagreement.
 3. **A measurement of what that costs in practice** (§5): 48% of texts in an
    authentic graded-reader corpus change level.
 4. **A character-level grading method and library** (§6) that grades against
@@ -149,7 +151,19 @@ report 3,079; we believe that figure to be incorrect.
 
 **Table 2: Pairwise level agreement.**
 
-Three findings follow.
+**Membership is not agreement.** The syllabus's developers report a 99.2%
+vocabulary overlap rate with HSK 2.0 and describe the revision as optimisation
+rather than replacement (Feng et al., 2026). Both characterisations concern
+*membership* — whether a word appears at all. Our membership figures are lower
+(96.2% of our HSK 2.0 list appears in the syllabus, 89.8% in the 2021
+standard), plausibly because our HSK 2.0 list is a public reconstruction of
+4,991 words rather than the official 5,000-word 词汇大纲, and because the
+published overlap figure's computation is not stated. We do not dispute it.
+The point is that a high overlap rate and a high level-disagreement rate are
+compatible, and only the second determines whether a text is graded correctly.
+The words are largely the same words; they are not at the same levels.
+
+Three further findings follow.
 
 **The two "HSK 3.0" documents disagree with each other on 41.5% of shared
 vocabulary.** This is the central result. They are not drafts of one another;
@@ -205,10 +219,18 @@ at shelf level is systematic rather than noisy:
 
 **Table 4: Median measured level per shelf.** Five of six shift by a full level.
 
-The direction is consistent: text is harder under the examination syllabus.
-Because the syllabus front-loads fewer characters at the low levels (246 at
-level 1 against the standard's 300), material that clears a beginner bar under
-the 2021 standard does not clear it under the examination.
+The direction is consistent, and the mechanism is simple. The syllabus grades
+**371 characters at levels 1–2 combined, against the 2021 standard's 600** — a
+beginner inventory 38% smaller. A text that reaches 95% coverage within 600
+characters frequently cannot reach it within 371, so it lands a level higher.
+
+This is the *same fact* the syllabus's developers describe as "significantly
+reducing the vocabulary difficulty of the entry stage" (显著降低了入门阶段的
+词汇难度; Feng et al., 2026), viewed from the other side. Less is demanded of a
+beginning learner, which is a pedagogical improvement; the arithmetic
+consequence is that beginner material grades higher. Both statements are true,
+and a tool that reports levels needs to model the second while its users read
+about the first.
 
 The practical consequence is that a placement or material-selection decision
 made with a tool calibrated to the 2021 standard will, about half the time,
@@ -342,6 +364,21 @@ grader in the authoring loop, and what makes the benchmark non-trivial.
 Ravenhorst-Kalovski (2010), whose minimal 95% threshold we adopt; Kremmel et
 al. (2023) on the limits of replication.
 
+**The documents' own literature.** Feng et al. (2026), writing in
+*International Chinese Language Education*, give the authoritative account of
+the syllabus's development. It is qualitative: it reports a high overlap rate,
+states that the syllabus was benchmarked against the 2021 standard (对标《等级
+标准》), and describes new vocabulary as distributed across levels with orderly
+continuity — but does not quantify how many words changed level, nor compare
+the two documents word by word. We are not aware of a published quantitative
+comparison of the kind in §4, in either language.
+
+**The problem is live in deployed tools.** Commercial HSK text checkers grade
+against "the new HSK 3.0 standard" without naming which document, and at least
+one does so with greedy longest-match word segmentation over a bundled word
+list — the approach §6.1 shows to be unusable for grading — while publishing no
+data provenance or version. We name no vendor; the pattern is general.
+
 **Chinese readability assessment.** The dominant approach is supervised
 classification over engineered features. CRIE (Sung et al., 2016) extracts 82
 multilevel features, trained on Taiwanese school textbooks; a CFL variant
@@ -362,11 +399,13 @@ a learned readability model, compliance is checkable exactly and without a
 judge. HSKBench is, to our knowledge, the first difficulty-controlled
 generation benchmark for Chinese grounded in an official national standard.
 
-> ⚠ **Verification remaining.** The novelty claims must be checked against the
-> Chinese-language literature — CNKI and 《世界汉语教学》/《语言教学与研究》
-> are where a prior HSK document comparison would most likely appear, and these
-> searches were conducted in English. Confirm full metadata for the
-> readability-controlled-generation references before citing individually.
+> ⚠ **Verification status.** Chinese-language searches were run and located the
+> authoritative development paper (Feng et al., 2026), which is qualitative; no
+> prior quantitative level-comparison was found. **CNKI full text was not
+> reachable**, so a definitive novelty claim still requires a CNKI search of
+> 《世界汉语教学》, 《语言教学与研究》 and 《国际中文教育》. Also confirm full
+> metadata for the readability-controlled-generation references before citing
+> them individually.
 
 ## 10 Limitations
 
@@ -421,6 +460,10 @@ Verified as of September 2026 unless marked ⚠.
 - Center for Language Education and Cooperation (中外语言交流合作中心) (2025).
   新版HSK考试大纲 [HSK Examination Syllabus]. Published November 2025, in force
   July 2026.
+- Feng, L., Huang, L., Xie, N., Yu, T., Liu, S., Zhang, H., & Yun, T. (2026).
+  《中文水平考试HSK考试大纲》（HSK 3.0）研制解读 [Interpretation of the
+  development of the HSK 3.0 examination syllabus]. *International Chinese
+  Language Education* (国际中文教育), 11(1).
 - Hu, M., & Nation, P. (2000). Unknown vocabulary density and reading
   comprehension. *Reading in a Foreign Language*, 13(1), 403–430.
 - Kremmel, B., et al. (2023). Unknown Vocabulary Density and Reading

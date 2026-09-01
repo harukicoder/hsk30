@@ -83,6 +83,18 @@ python3 benchmark/baselines/retrieval.py > /tmp/retrieval.jsonl
 python3 benchmark/evaluate.py /tmp/retrieval.jsonl --per-level
 ```
 
+## Running a model
+
+```bash
+export DEEPSEEK_API_KEY=...          # or ANTHROPIC_API_KEY / OPENAI_API_KEY
+python3 benchmark/baselines/run_model.py --api deepseek --model deepseek-chat > preds.jsonl
+python3 benchmark/evaluate.py preds.jsonl --per-level --name deepseek-chat
+```
+
+No third-party packages. **Report decoding parameters** — temperature
+materially affects level accuracy, since a model sampling freely wanders off
+the character budget. The default here is temperature 0.
+
 ## Submitting
 
 Open a pull request adding your scored report to `benchmark/results/`, with the

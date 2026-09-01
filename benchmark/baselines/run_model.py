@@ -6,8 +6,13 @@
     python3 benchmark/evaluate.py preds.jsonl --per-level --name claude-opus-4-5
 
     # any OpenAI-compatible endpoint
-    export OPENAI_API_KEY=...
-    python3 benchmark/baselines/run_model.py --api openai --model gpt-5 > preds.jsonl
+    export DEEPSEEK_API_KEY=...
+    python3 benchmark/baselines/run_model.py --api deepseek \
+        --model deepseek-chat > preds.jsonl
+
+    # or point at any other compatible server
+    python3 benchmark/baselines/run_model.py --api openai \
+        --base-url https://host/v1/chat/completions --model some-model
 
 No third-party packages: the request is a few lines of urllib, which keeps the
 benchmark runnable without a dependency stack that would itself need pinning
@@ -35,6 +40,14 @@ TASKS = os.path.join(HERE, "..", "tasks.jsonl")
 ENDPOINTS = {
     "anthropic": "https://api.anthropic.com/v1/messages",
     "openai": "https://api.openai.com/v1/chat/completions",
+    "deepseek": "https://api.deepseek.com/v1/chat/completions",
+}
+
+#: Which environment variable holds the key for each provider.
+KEY_ENV = {
+    "anthropic": "ANTHROPIC_API_KEY",
+    "openai": "OPENAI_API_KEY",
+    "deepseek": "DEEPSEEK_API_KEY",
 }
 
 
@@ -45,9 +58,9 @@ def post(url, payload, headers, timeout=120):
         return json.loads(r.read().decode("utf-8"))
 
 
-def call(api, model, prompt, key, temperature, max_tokens):
+def call(api, model, prompt, key, temperature, max_tokens, base_url=None):
     if api == "anthropic":
-        body = post(ENDPOINTS["anthropic"], {
+        body = post(base_url or ENDPOINTS["anthropic"], {
             "model": model,
             "max_tokens": max_tokens,
             "temperature": temperature,
@@ -58,7 +71,8 @@ def call(api, model, prompt, key, temperature, max_tokens):
             "anthropic-version": "2023-06-01",
         })
         return "".join(b.get("text", "") for b in body.get("content", []))
-    body = post(ENDPOINTS["openai"], {
+    # deepseek and openai share the chat-completions shape.
+    body = post(base_url or ENDPOINTS[api], {
         "model": model,
         "temperature": temperature,
         "max_tokens": max_tokens,
@@ -74,6 +88,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--model", required=True)
     ap.add_argument("--api", default="anthropic", choices=sorted(ENDPOINTS))
+    ap.add_argument("--base-url", default=None,
+                    help="override the endpoint for a compatible server")
     ap.add_argument("--tasks", default=TASKS)
     ap.add_argument("--temperature", type=float, default=0.0)
     ap.add_argument("--max-tokens", type=int, default=2048)
@@ -81,7 +97,7 @@ def main() -> int:
     ap.add_argument("--retries", type=int, default=3)
     args = ap.parse_args()
 
-    env = "ANTHROPIC_API_KEY" if args.api == "anthropic" else "OPENAI_API_KEY"
+    env = KEY_ENV[args.api]
     key = os.environ.get(env)
     if not key:
         print("set %s" % env, file=sys.stderr)
@@ -98,7 +114,7 @@ def main() -> int:
         for attempt in range(args.retries):
             try:
                 text = call(args.api, args.model, task["prompt"], key,
-                            args.temperature, args.max_tokens)
+                            args.temperature, args.max_tokens, args.base_url)
                 break
             except (urllib.error.HTTPError, urllib.error.URLError, KeyError) as exc:
                 if attempt == args.retries - 1:
