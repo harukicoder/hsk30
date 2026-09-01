@@ -13,3 +13,7 @@ venv/
 *.env
 benchmark/*.jsonl.out
 preds*.jsonl
+
+# HF upload bundle: the card is tracked, the data files are copies
+corpus/hf/*.jsonl
+corpus/hf/DATASHEET.md
