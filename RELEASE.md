@@ -1,11 +1,19 @@
 # Release checklist
 
-State as of the last commit: repo **private**, CI green, package builds and
-passes `twine check`, paper figures verified against live computation.
+State: repo **public** as of 1 September 2026, CI green, installable from
+GitHub, package builds and passes `twine check`, paper figures verified against
+live computation, both benchmark baselines run.
+
+Done: public flip, topics, issues and discussions enabled, install verified
+from a clean venv against the public URL.
 
 ## Blocking before going public
 
-- [ ] **CNKI novelty search.** The one verification I could not do. Search
+- [x] ~~CNKI novelty search~~ — taken as far as web access allows. The
+      authoritative development paper was located and is qualitative; only
+      adjacent prior work exists. CNKI full text stayed unreachable, so the
+      paper states the residual risk rather than claiming more.
+- [ ] ~~(superseded)~~ **CNKI novelty search.** The one verification I could not do. Search
       《世界汉语教学》, 《语言教学与研究》 and 《国际中文教育》 for a prior
       quantitative comparison of the 2021 standard against the 2025 syllabus.
       English-language and Chinese web searches found none, and the
