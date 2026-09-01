@@ -580,7 +580,8 @@ measuring it — on which human authors score 61.8%.
 
 ## Availability
 
-Software, corpus and benchmark are archived at
+This paper is archived at **doi:10.5281/zenodo.22239032**.
+Software, corpus and benchmark are archived separately at
 **doi:10.5281/zenodo.22234657** (concept DOI, resolving to the latest
 version; this release is doi:10.5281/zenodo.22234658). The library is on
 PyPI as `hsk30` and the source at

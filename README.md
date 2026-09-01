@@ -1,5 +1,6 @@
 # hsk30
 
+[![Paper](https://img.shields.io/badge/paper-zenodo.22239032-b31b1b.svg)](https://doi.org/10.5281/zenodo.22239032)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22234657.svg)](https://doi.org/10.5281/zenodo.22234657)
 [![PyPI](https://img.shields.io/pypi/v/hsk30.svg)](https://pypi.org/project/hsk30/)
 [![tests](https://github.com/harukicoder/hsk30/actions/workflows/tests.yml/badge.svg)](https://github.com/harukicoder/hsk30/actions/workflows/tests.yml)
@@ -186,6 +187,7 @@ widely reported.
 | | |
 | --- | --- |
 | Package | [`pip install hsk30`](https://pypi.org/project/hsk30/) |
+| Paper | [doi:10.5281/zenodo.22239032](https://doi.org/10.5281/zenodo.22239032) |
 | Archived release | [doi:10.5281/zenodo.22234657](https://doi.org/10.5281/zenodo.22234657) |
 | Corpus | [harukicoder/hsk30-graded-readers](https://huggingface.co/datasets/harukicoder/hsk30-graded-readers) on HuggingFace |
 | Source | [github.com/harukicoder/hsk30](https://github.com/harukicoder/hsk30) |
@@ -232,6 +234,22 @@ a text two levels. The legacy behaviour remains available as
 `is_proper_noun_ascii`.
 
 ## Citation
+
+Cite the paper:
+
+```bibtex
+@misc{serrano2026whichhsk,
+  title     = {Which {HSK} 3.0? Two Official Documents, and Half of All
+               Grading Decisions Change},
+  author    = {Serrano, Alvaro},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.22239032},
+  note      = {Preprint}
+}
+```
+
+Or the software and data specifically:
 
 ```bibtex
 @software{serrano2026hsk30,

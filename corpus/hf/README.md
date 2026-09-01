@@ -88,6 +88,7 @@ Full datasheet (Gebru et al. format): `DATASHEET.md`, alongside this file.
 
 - **Grader:** [`pip install hsk30`](https://pypi.org/project/hsk30/) — grades text
   against either HSK 3.0 document
+- **Paper:** [10.5281/zenodo.22239032](https://doi.org/10.5281/zenodo.22239032) — the findings this corpus supports
 - **Archived release with DOI:** [10.5281/zenodo.22234657](https://doi.org/10.5281/zenodo.22234657)
 - **Source, benchmark and paper:** [github.com/harukicoder/hsk30](https://github.com/harukicoder/hsk30)
 
