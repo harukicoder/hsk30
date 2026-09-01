@@ -38,7 +38,7 @@ from .grade import (
     strip_punct,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "BAND", "LEVELS", "DEFAULT_BUDGET", "DEFAULT_THRESHOLD", "DEFAULT_STANDARD",
