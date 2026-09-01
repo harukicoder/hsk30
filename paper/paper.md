@@ -242,6 +242,39 @@ disagree with the same decision made against the examination the learner sits.
 **Any tool reporting an "HSK 3.0 level" should state which document it used.**
 Ours records it on every result.
 
+### 5.1 Is this an artefact of the threshold, or of this corpus?
+
+Neither. Two obvious objections are that 48% reflects a convenient choice of
+the 95% bar, and that it reflects something peculiar to these 102 texts.
+
+| Threshold | Changed | Harder | Easier |
+| ---: | ---: | ---: | ---: |
+| 0.80 | 54.9% | 54 | 2 |
+| 0.85 | 61.8% | 59 | 4 |
+| 0.90 | 54.9% | 55 | 1 |
+| **0.95** | **48.0%** | 43 | 6 |
+| 0.98 | 43.1% | 26 | 18 |
+| 1.00 | 46.1% | 21 | 26 |
+
+**Table 5: The regrading result across coverage thresholds.**
+
+Between 43% and 62% of texts change level at *every* threshold, and the 48% we
+report at 0.95 is among the lowest values in the sweep — the choice is
+conservative rather than convenient.
+
+The *direction* is threshold-dependent, and reverses. Below 0.95 the syllabus
+grades texts harder almost without exception; at 0.98 and above the balance
+tips the other way. The mechanism is the same one as §5: the syllabus grades
+88 more characters in total (3,088 against 3,000), so as the bar approaches
+full coverage, the larger inventory starts to help rather than hurt, while at
+lower bars the smaller beginner allocation dominates. Both effects are real and
+they act in opposite directions at opposite ends of the scale.
+
+We also replicated on a **disjoint set of 30 texts** from a separate content
+stream, which played no part in any decision reported here: **14 of 30 changed
+level (46.7%), all of them harder**. The finding is not a property of the
+released corpus.
+
 ## 6 Method
 
 ### 6.1 Character-level, not word-level
@@ -304,7 +337,8 @@ a wider window — four misfiles stretched one shelf's middle-80% range to
 
 ## 7 The corpus
 
-We release 102 word-aligned graded texts: 1,185 sentences, 8,682 tokens, 14,417
+We release 102 word-aligned graded texts, plus a disjoint 30-text held-out
+split used for the replication in §5.1: 1,185 sentences, 8,682 tokens, 14,417
 graded characters, on six shelves (22/22/22/12/12/12), mean length rising from
 49 to about 290 characters. Every token carries hanzi, pinyin and gloss; every
 sentence a translation.
@@ -350,7 +384,7 @@ authors can be scored on the same task.
 | Human authors | 61.8% | +0.27 |
 | Corpus retrieval (no model) | 59.3% | +0.27 |
 
-**Table 5: Overall results.** All three cluster within seven points, and all
+**Table 6: Overall results.** All three cluster within seven points, and all
 three overshoot on average.
 
 Human accuracy fails *directionally*: authors overshoot by 1.23 levels on the
@@ -361,7 +395,7 @@ grader in the authoring loop, and what makes the benchmark non-trivial.
 
 ### 8.4 The aggregate score is misleading
 
-The overall figures in Table 5 hide the result that matters. Broken down by
+The overall figures in Table 6 hide the result that matters. Broken down by
 target level, `deepseek-chat` does not degrade gracefully — it inverts.
 
 | Target | HSK 1 | HSK 2 | HSK 3 | HSK 4 | HSK 5 | HSK 6 |
@@ -369,7 +403,7 @@ target level, `deepseek-chat` does not degrade gracefully — it inverts.
 | Accuracy | 16% | 24% | 72% | 88% | **100%** | **100%** |
 | Signed error | +1.56 | +0.92 | +0.40 | −0.16 | −0.72 | −0.56 |
 
-**Table 6: Level accuracy by target,** `deepseek-chat` at temperature 0.
+**Table 7: Level accuracy by target,** `deepseek-chat` at temperature 0.
 
 Perfect scores at HSK 5–6 are not evidence of skill. At those levels the
 constraint is nearly vacuous: almost any fluent Chinese passage satisfies a

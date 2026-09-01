@@ -27,6 +27,10 @@ const STORY_FILES = [
   "data/stories.js", "data/stories-extra.js", "data/stories-curated.js",
   "data/stories-volume-2.js", "data/stories-volume-3.js", "data/stories-volume-4.js"
 ];
+// A separate content stream, never part of the main shelves. Exported as a
+// held-out split so the regrading result can be replicated on texts that
+// played no part in establishing it.
+const HELDOUT_FILE = "data/daily-stories.js";
 const SHELVES = ["newbie", "beginner", "intermediate", "upper", "advanced", "native"];
 
 const sandbox = { window: {}, console };
@@ -95,7 +99,34 @@ fs.writeFileSync("corpus/hsk30_graded_readers.jsonl",
 fs.writeFileSync("corpus/reference_grades.json",
   JSON.stringify(reference, null, 1) + "\n");
 
+// ---- held-out split ----
+const hsandbox = { window: {}, console };
+vm.createContext(hsandbox);
+vm.runInContext(fs.readFileSync(path.join(root, "data/hsk-levels.js"), "utf8"), hsandbox);
+vm.runInContext(fs.readFileSync(path.join(root, HELDOUT_FILE), "utf8"), hsandbox);
+const heldIds = new Set(out.map(r => r.id));
+const held = (hsandbox.window.DAILY_STORIES || [])
+  .filter(s => s && s.id && Array.isArray(s.sentences) && !heldIds.has(s.id))
+  .map(story => {
+    const sentences = (story.sentences || []).map(s => ({
+      hz: (s.words || []).map(w => w.hz).join(""),
+      en: s.en || "",
+      words: (s.words || []).map(w => ({ hz: w.hz, py: w.py || "", en: w.en || "" }))
+    }));
+    return {
+      id: story.id, shelf: story.level,
+      shelf_index: SHELVES.indexOf(story.level) + 1,
+      title: story.title, description: story.description || "",
+      text: sentences.map(s => s.hz).join(""),
+      sentences, n_sentences: sentences.length,
+      n_chars: referenceGrade(story).chars
+    };
+  });
+fs.writeFileSync("corpus/hsk30_heldout.jsonl",
+  held.map(r => JSON.stringify(r)).join("\n") + "\n");
+
 console.log("wrote corpus/hsk30_graded_readers.jsonl  %d texts", out.length);
+console.log("wrote corpus/hsk30_heldout.jsonl         %d texts", held.length);
 console.log("wrote corpus/reference_grades.json");
 const byShelf = {};
 out.forEach(r => { byShelf[r.shelf] = (byShelf[r.shelf] || 0) + 1; });

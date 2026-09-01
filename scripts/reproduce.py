@@ -101,6 +101,46 @@ def regrade(rows):
     }
 
 
+HELDOUT = os.path.join(HERE, "..", "corpus", "hsk30_heldout.jsonl")
+
+
+def robustness(rows):
+    """Is the regrading result an artefact of the 95% threshold, or of this corpus?
+
+    Neither. It survives every threshold from 0.80 to 1.00 and replicates on a
+    disjoint set of texts that played no part in establishing it.
+    """
+    def changed(items, threshold):
+        n = h = e = 0
+        for r in items:
+            toks = [w for s in r["sentences"] for w in s["words"]]
+            a = hsk30.grade_tokens(toks, threshold=threshold, standard="2021").level
+            b = hsk30.grade_tokens(toks, threshold=threshold, standard="2025").level
+            if a == b:
+                continue
+            n += 1
+            ka = BAND + 1 if a is None else a
+            kb = BAND + 1 if b is None else b
+            if kb > ka:
+                h += 1
+            else:
+                e += 1
+        return {"changed": n, "pct": round(100.0 * n / len(items), 1),
+                "harder": h, "easier": e}
+
+    sweep = {("%.2f" % t): changed(rows, t)
+             for t in (0.80, 0.85, 0.90, 0.95, 0.98, 1.00)}
+
+    held = None
+    if os.path.exists(HELDOUT):
+        with open(HELDOUT, encoding="utf-8") as fh:
+            items = [json.loads(line) for line in fh if line.strip()]
+        main_ids = {r["id"] for r in rows}
+        assert not (main_ids & {r["id"] for r in items}), "held-out set is not disjoint"
+        held = dict(changed(items, 0.95), n=len(items))
+    return {"threshold_sweep": sweep, "heldout": held}
+
+
 def migration():
     """How HSK 2.0 and the 2021 grading standard disagree."""
     old, new = hsk30.words("2.0"), hsk30.words("2021")
@@ -249,6 +289,7 @@ def main():
             "characters": compare_characters(),
         },
         "regrade": regrade(rows),
+        "robustness": robustness(rows),
         "derived_vs_official": derived_vs_official(),
         "corpus": corpus_summary(rows),
         "port_fidelity": port_fidelity(rows),
@@ -283,6 +324,20 @@ def main():
         flag = "" if m_["2021"] == m_["2025"] else "   <- shifts"
         print("    %-13s 2021 HSK %-4s  2025 HSK %-4s%s"
               % (shelf, m_["2021"], m_["2025"], flag))
+    print()
+
+    rb = report["robustness"]
+    print("ROBUSTNESS")
+    print("  threshold  changed  harder  easier")
+    for th, v in rb["threshold_sweep"].items():
+        mark = "   <- reported" if th == "0.95" else ""
+        print("    %s     %3d (%.1f%%)  %3d    %3d%s"
+              % (th, v["changed"], v["pct"], v["harder"], v["easier"], mark))
+    if rb["heldout"]:
+        h = rb["heldout"]
+        print("  held-out replication (%d disjoint texts, 0.95): %d changed (%.1f%%), "
+              "harder %d, easier %d" % (h["n"], h["changed"], h["pct"],
+                                        h["harder"], h["easier"]))
     print()
 
     m, c, d = report["migration"], report["characters"], report["derived_vs_official"]

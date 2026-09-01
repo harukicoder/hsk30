@@ -2,8 +2,9 @@
 
 Following Gebru et al., *Datasheets for Datasets* (2021).
 
-**Version** 1.0 · **Released** 2026 · **Licence** CC BY 4.0 · **Size** 102 texts,
-1,185 sentences, 8,682 word tokens, 14,417 graded characters
+**Version** 1.1 · **Released** 2026 · **Licence** CC BY 4.0 · **Size** 102 texts,
+1,185 sentences, 8,682 word tokens, 14,417 graded characters, plus a disjoint
+30-text held-out split
 
 ---
 
@@ -22,7 +23,14 @@ funding.
 
 ## Composition
 
-Each line of `hsk30_graded_readers.jsonl` is one text:
+Two files, identical in schema:
+
+- `hsk30_graded_readers.jsonl` — the main corpus, 102 texts on six shelves
+- `hsk30_heldout.jsonl` — 30 texts from a separate content stream, disjoint by
+  id, held out so results can be replicated on material that played no part in
+  establishing them
+
+Each line is one text:
 
 | Field | Description |
 | --- | --- |

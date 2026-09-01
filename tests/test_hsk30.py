@@ -252,6 +252,38 @@ def test_shelf_difficulty_increases_across_the_corpus():
     assert easy_shares == sorted(easy_shares, reverse=True), easy_shares
 
 
+def test_heldout_split_is_disjoint_and_replicates():
+    """The replication in the paper, pinned so it cannot drift."""
+    path = os.path.join(HERE, "..", "corpus", "hsk30_heldout.jsonl")
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as fh:
+        held = [json.loads(line) for line in fh if line.strip()]
+    assert len(held) == 30
+    assert not ({r["id"] for r in held} & {r["id"] for r in _corpus()})
+
+    changed = sum(
+        1 for r in held
+        if hsk30.grade_tokens(_tokens(r), standard="2021").level
+        != hsk30.grade_tokens(_tokens(r), standard="2025").level)
+    # 46.7% on the held-out set against 48.0% on the released corpus.
+    assert 12 <= changed <= 16, changed
+
+
+def test_regrading_survives_every_threshold():
+    """Between 43% and 62% of texts change level at any threshold 0.80-1.00."""
+    rows = _corpus()
+    for threshold in (0.80, 0.85, 0.90, 0.95, 0.98, 1.00):
+        changed = sum(
+            1 for r in rows
+            if hsk30.grade_tokens(_tokens(r), threshold=threshold,
+                                  standard="2021").level
+            != hsk30.grade_tokens(_tokens(r), threshold=threshold,
+                                  standard="2025").level)
+        pct = 100.0 * changed / len(rows)
+        assert 40 < pct < 65, (threshold, pct)
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items())
              if n.startswith("test_") and callable(f)]
