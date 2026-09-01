@@ -400,12 +400,16 @@ function of an official published standard, with no training data and no
 learned parameters, and is auditable in a way a classifier is not.
 
 \paragraph{Difficulty-controlled generation.} Controlling generated readability
-is active, largely in English and against CEFR. Our contribution is narrower
-and more reproducible: because the target is an explicit character inventory
-rather than a learned readability model, compliance is checkable exactly and
-without a judge.
-\todo{Confirm metadata for recent readability-controlled-generation work
-before citing individually.}
+is active, largely in English and against CEFR.
+\citet{imperial2023flesch} evaluate instruction-tuned models against FKGL and
+CEFR on teaching tasks. \citet{barayan2025analyzing} analyse zero-shot
+readability-controlled simplification and report a limited ability to control
+readability reliably. Our \S\ref{sec:bench} result is the same phenomenon in
+Chinese, and sharpens it: control does not fail uniformly but collapses at one
+end of the scale, precisely where the constraint binds. Our contribution is
+also narrower and more reproducible, because the target is an explicit
+character inventory rather than a learned readability model, so compliance is
+checkable exactly and without a judge.
 
 \section{Limitations}
 

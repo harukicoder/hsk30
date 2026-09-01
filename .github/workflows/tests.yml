@@ -25,6 +25,9 @@ jobs:
       - name: Reproduce every published figure
         run: python scripts/reproduce.py
 
+      - name: Check the paper's figures against live computation
+        run: python scripts/check_paper.py
+
   data-integrity:
     # The shipped tables must still match their upstream sources. This is the
     # check that would have caught the standards mix-up earlier: it fails loudly

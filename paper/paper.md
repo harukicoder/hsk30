@@ -436,21 +436,27 @@ and no learned parameters. It answers a narrower question — what a reader must
 placement decision must be explained to a learner.
 
 **Difficulty-controlled generation.** Controlling generated readability is
-active, largely in English and against CEFR: readability-controlled
-simplification, CEFR-guided prompting with lexical constraints, RL approaches
-optimising a readability reward. Our contribution is narrower and more
-reproducible: because the target is an explicit character inventory rather than
-a learned readability model, compliance is checkable exactly and without a
-judge. HSKBench is, to our knowledge, the first difficulty-controlled
+active, largely in English and against CEFR. Imperial and Tayyar Madabushi
+(2023) evaluate instruction-tuned models against FKGL and CEFR on teaching
+tasks and find, counter-intuitively, that ChatGPT underperforms smaller
+open models. Barayan et al. (2025) analyse zero-shot readability-controlled
+sentence simplification and report a **limited ability to control readability
+reliably**, with significant gaps between intended and achieved levels.
+
+Our §8.4 result is the same phenomenon in Chinese, and sharpens it: control
+does not fail uniformly but collapses at one end of the scale, precisely where
+the constraint binds. Our contribution is also narrower and more reproducible
+than this line of work, because the target is an explicit character inventory
+rather than a learned readability model, so compliance is checkable exactly and
+without a judge. HSKBench is, to our knowledge, the first difficulty-controlled
 generation benchmark for Chinese grounded in an official national standard.
 
 > ⚠ **Verification status.** Chinese-language searches were run and located the
 > authoritative development paper (Feng et al., 2026), which is qualitative; no
 > prior quantitative level-comparison was found. **CNKI full text was not
 > reachable**, so a definitive novelty claim still requires a CNKI search of
-> 《世界汉语教学》, 《语言教学与研究》 and 《国际中文教育》. Also confirm full
-> metadata for the readability-controlled-generation references before citing
-> them individually.
+> 《世界汉语教学》, 《语言教学与研究》 and 《国际中文教育》. This is the only
+> outstanding verification.
 
 ## 10 Limitations
 
@@ -509,8 +515,14 @@ Verified as of September 2026 unless marked ⚠.
   《中文水平考试HSK考试大纲》（HSK 3.0）研制解读 [Interpretation of the
   development of the HSK 3.0 examination syllabus]. *International Chinese
   Language Education* (国际中文教育), 11(1).
+- Barayan, A., Camacho-Collados, J., & Alva-Manchego, F. (2025). Analyzing
+  Zero-Shot Readability-Controlled Sentence Simplification. *COLING 2025*.
+  aclanthology.org/2025.coling-main.452
 - Hu, M., & Nation, P. (2000). Unknown vocabulary density and reading
   comprehension. *Reading in a Foreign Language*, 13(1), 403–430.
+- Imperial, J. M., & Tayyar Madabushi, H. (2023). Flesch or Fumble? Evaluating
+  Readability Standard Alignment of Instruction-Tuned Language Models. *EMNLP
+  GEM Workshop 2023*. arXiv:2309.05454
 - Kremmel, B., et al. (2023). Unknown Vocabulary Density and Reading
   Comprehension: Replicating Hu and Nation (2000). *Language Learning*.
   doi:10.1111/lang.12622
