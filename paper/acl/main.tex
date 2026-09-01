@@ -1,0 +1,447 @@
+% Compile with XeLaTeX (the paper quotes Chinese throughout).
+% Needs acl.sty and acl_natbib.bst from github.com/acl-org/acl-style-files
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor}
+
+% Chinese. xeCJK needs XeLaTeX; change the font if it is unavailable on your
+% system (Noto Serif CJK SC and Songti SC are common alternatives).
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}[AutoFakeBold=true]
+
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+
+\title{Which HSK 3.0? Two Official Documents, and Half of All\\
+       Grading Decisions Change}
+
+\author{Alvaro Serrano \\
+  Independent researcher \\
+  \texttt{alvaro.serrano.gp@gmail.com}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+``HSK 3.0'' names two different official documents.
+《国际中文教育中文水平等级标准》 (GF0025-2021) is a national grading standard in
+force since 1 July 2021; the 新版HSK考试大纲 is the examination syllabus
+published in November 2025 and in force since July 2026. They are widely
+conflated. We show the conflation is consequential. The two documents assign
+different levels to \textbf{41.5\%} of the words and \textbf{40.7\%} of the
+characters they share. Grading a corpus of 102 authentic graded readers against
+one rather than the other changes the assigned level of \textbf{48\% of texts},
+almost always upward, and shifts five of six shelf medians by a full level.
+Measured against HSK 2.0, the two disagree about their own predecessor: 81.8\%
+of jointly graded words moved under the 2021 standard against 51.1\% under the
+2025 syllabus. We contribute a validated extraction of the 2025 syllabus,
+previously available only as a 406-page PDF, whose per-level counts reproduce
+the official totals exactly; an open, tested, dependency-free library that
+grades against either document and reports which; an aligned 102-text
+graded-reader corpus; and HSKBench, a controlled-difficulty generation
+benchmark in which the grader is the metric rather than the source of labels.
+Human authors writing to an explicit level target hit it 61.8\% of the time.
+\end{abstract}
+
+\section{Introduction}
+
+Graded reading material is the backbone of second-language literacy
+instruction, and grading it requires answering a narrow question: what does a
+reader need to know to read this text? For Chinese, the answer has been
+anchored for two decades to the HSK vocabulary lists.
+
+That anchor moved, and it is not obvious \emph{to what}. Practitioners speak of
+``HSK 3.0'' as a single thing. It is not. A national grading standard was
+issued in 2021 \citep{moe2021standard} and an examination syllabus in 2025
+\citep{clec2025syllabus}, four years apart, with different word lists,
+different character inventories and different level boundaries. Popular
+reference sites quote one document's level counts beside the other's
+vocabulary; tools report ``HSK 3.0'' levels without saying which document
+produced them.
+
+We show this is not a pedantic distinction. Nearly half of real texts receive a
+different level depending on which document is used, and the disagreement runs
+in a consistent direction. A learner placed by a tool calibrated to the 2021
+standard is being placed against a document that is not the examination they
+will sit.
+
+\noindent Contributions:
+
+\begin{enumerate}
+\item \textbf{A validated extraction of the 2025 examination syllabus}
+  (\S\ref{sec:extract}). Our per-level entry counts reproduce the official
+  cumulative totals exactly, and we find it grades \textbf{3{,}088} recognition
+  characters, correcting the 3{,}079 widely reported by secondary sources.
+\item \textbf{A quantification of how far the documents disagree}
+  (\S\ref{sec:disagree}). The syllabus's own development paper
+  \citep{feng2026hsk30} reports overlap but not level change; we distinguish
+  the two, and show that high overlap coexists with high disagreement.
+\item \textbf{A measurement of what that costs} (\S\ref{sec:cost}): 48\% of
+  texts in an authentic graded-reader corpus change level.
+\item \textbf{A character-level grading method and library}
+  (\S\ref{sec:method}) that grades against either document and records which.
+\item \textbf{A corpus and a benchmark} (\S\ref{sec:corpus},
+  \S\ref{sec:bench}), the latter measuring difficulty-\emph{controlled
+  generation}, on which human authors score 61.8\%.
+\end{enumerate}
+
+\section{Background}
+
+\subsection{Three documents, routinely conflated}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llr@{}}
+\toprule
+\textbf{Document} & \textbf{Date} & \textbf{Words} \\
+\midrule
+HSK 2.0 exam lists & 2009--10 & 4{,}991 \\
+GF0025-2021 & 1 Jul 2021 & 10{,}916 \\
+2025 exam syllabus & Jul 2026 & 10{,}896 \\
+\bottomrule
+\end{tabular}
+\caption{What ``HSK 3.0'' can mean.}
+\label{tab:documents}
+\end{table}
+
+The 2021 document is a 语言文字规范 issued by the Ministry of Education and the
+State Language Commission, covering syllables, characters, vocabulary and
+grammar across three levels and nine bands. It is the document with public
+machine-readable transcriptions, and therefore the one most existing tooling
+uses --- including, until this work, our own.
+
+The 2025 document is the examination syllabus, issued by the Center for
+Language Education and Cooperation (中外语言交流合作中心), and governs the
+examination itself.
+
+Both grade characters separately from words, which matters: the character
+inventory is what gates reading (\S\ref{sec:charlevel}). Levels 7, 8 and 9 are
+a single undifferentiated band in both; tools advertising an ``HSK 8 word
+list'' have invented a split neither document makes.
+
+\subsection{Coverage thresholds}
+
+\citet{hu2000unknown} found that around 98\% coverage of running words was
+needed for adequate unassisted comprehension. \citet{laufer2010lexical}
+proposed two thresholds: an optimal 98\% and a \textbf{minimal 95\%}, at which
+comprehension is adequate \emph{with support}. Graded readers are read with
+support, so we adopt 95\% as the default and expose it as a parameter. The 98\%
+figure has since been partially challenged: \citet{kremmel2023replicating}
+could not fully replicate it in a different population, and the original
+regression rested on 66 participants.
+
+This literature measures coverage over \emph{words}, in English. We apply the
+threshold to Chinese characters for the reasons in \S\ref{sec:charlevel}; that
+transfer is a principled assumption, not a result.
+
+\section{Extracting the 2025 syllabus}
+\label{sec:extract}
+
+The syllabus is published as a 406-page PDF with a genuine text layer, so
+extraction is parsing rather than OCR. Vocabulary occupies pp.~79--354 as rows
+of 序号 等级 词语 拼音 词性; recognition characters (认读字) occupy
+pp.~356--376, numbered per level.
+
+Two details are easy to get wrong. \textbf{The level field carries more than a
+level}: a row reading 1（4） means the word is introduced at level 1 and has a
+further sense graded at level 4. We take the primary level. \textbf{The
+published totals count entries, not words}: the syllabus numbers 11{,}000
+entries, but homographs graded at two levels appear as separate rows
+(所 / 所2). These collapse to \textbf{10{,}896 distinct words}.
+
+Validation is exact: parsed entry counts per level reproduce the official
+cumulative figures (300 / 500 / 1{,}000 / 2{,}000 / 3{,}600 / 5{,}400 /
+11{,}000). For characters, each level's parsed count equals that level's
+maximum item index, with no cross-level duplicates, giving \textbf{3{,}088}
+recognition characters. Secondary sources widely report 3{,}079; we believe
+that figure to be incorrect.
+
+\section{How far the documents disagree}
+\label{sec:disagree}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Comparison} & \textbf{Shared} & \textbf{Same} & \textbf{Moved} \\
+\midrule
+2.0 $\rightarrow$ 2021    & 4{,}482 & 814     & 81.8\% \\
+2.0 $\rightarrow$ 2025    & 4{,}802 & 2{,}349 & 51.1\% \\
+2021 $\rightarrow$ 2025   & 9{,}674 & 5{,}662 & \textbf{41.5\%} \\
+\bottomrule
+\end{tabular}
+\caption{Pairwise level agreement.}
+\label{tab:agreement}
+\end{table}
+
+\paragraph{Membership is not agreement.} The syllabus's developers report a
+99.2\% vocabulary overlap rate with HSK 2.0 and describe the revision as
+optimisation rather than replacement \citep{feng2026hsk30}. Both
+characterisations concern \emph{membership} --- whether a word appears at all.
+Our membership figures are lower (96.2\% of our HSK 2.0 list appears in the
+syllabus), plausibly because our HSK 2.0 list is a public reconstruction of
+4{,}991 words rather than the official 5{,}000-word 词汇大纲, and because the
+published figure's computation is not stated. We do not dispute it. The point
+is that a high overlap rate and a high level-disagreement rate are compatible,
+and only the second determines whether a text is graded correctly. The words
+are largely the same words; they are not at the same levels.
+
+\paragraph{The two ``HSK 3.0'' documents disagree with each other} on 41.5\% of
+shared vocabulary. They are not drafts of one another; they are separate
+gradings.
+
+\paragraph{They also disagree about their predecessor.} Judged against the 2021
+standard, HSK 2.0 looks almost entirely regraded (81.8\% moved). Judged against
+the syllabus, barely half moved. A practitioner who read ``81.8\% of HSK
+vocabulary changed level'' and acted on it would have substantially
+overestimated the disruption to the actual examination.
+
+\paragraph{Characters diverge similarly.} The 2021 standard grades exactly
+3{,}000 characters (300 per level 1--6, 1{,}200 at 7--9); the syllabus grades
+3{,}088 with a markedly uneven distribution (246 / 125 / 284 / 441 / 431 / 413
+/ 1{,}148). Of the 2{,}945 characters both grade, \textbf{1{,}200 (40.7\%) sit
+at different levels}.
+
+Within the HSK 2.0 $\rightarrow$ 2021 comparison the instability is
+concentrated above the beginner band: 91\% of HSK 2.0 level-1 words keep their
+level, against 35\% at level 2 and 11--23\% from level 3 upward. The beginner
+foundation is stable under every comparison, which may explain why the scale of
+the change has attracted little attention.
+
+\section{What it costs in practice}
+\label{sec:cost}
+
+We regraded all 102 texts of our corpus (\S\ref{sec:corpus}) under both
+documents, holding method, threshold and proper-noun policy constant so the
+document is the only variable. \textbf{49 of 102 texts (48.0\%) change level};
+43 become harder and 6 easier. Shifts are almost all a single level.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Shelf} & \textbf{2021} & \textbf{2025} \\
+\midrule
+newbie       & HSK 2 & HSK 3 \\
+beginner     & HSK 2 & HSK 3 \\
+intermediate & HSK 3 & HSK 4 \\
+upper        & HSK 4 & HSK 5 \\
+advanced     & HSK 4 & HSK 5 \\
+native       & HSK 5 & HSK 5 \\
+\bottomrule
+\end{tabular}
+\caption{Median measured level per shelf. Five of six shift a full level.}
+\label{tab:shelves}
+\end{table}
+
+The mechanism is simple. The syllabus grades \textbf{371 characters at levels
+1--2 combined, against the 2021 standard's 600} --- a beginner inventory 38\%
+smaller. A text reaching 95\% coverage within 600 characters frequently cannot
+reach it within 371, so it lands a level higher.
+
+This is the \emph{same fact} the developers describe as ``significantly
+reducing the vocabulary difficulty of the entry stage''
+(显著降低了入门阶段的词汇难度; \citealp{feng2026hsk30}), viewed from the other
+side. Less is demanded of a beginning learner, which is a pedagogical
+improvement; the arithmetic consequence is that beginner material grades
+higher. Both statements are true, and a tool reporting levels needs to model
+the second while its users read about the first.
+
+\textbf{Any tool reporting an ``HSK 3.0 level'' should state which document it
+used.} Ours records it on every result.
+
+\section{Method}
+\label{sec:method}
+
+\subsection{Character-level, not word-level}
+\label{sec:charlevel}
+
+Word-level grading fails on segmented Chinese for a mundane reason: segmenters
+emit tokens absent from any graded list. Phrase tokens such as 我的, 七点 and
+蓝色 are natural segmentation output but not list entries, so the ``unknown''
+share exceeds 95\% at every level and ordinary beginner text grades as
+off-scale. Both documents' separate character gradings resolve this, and
+reflect a fact about Chinese: the character inventory, not the word inventory,
+gates reading.
+
+\subsection{The official character list, not a derived one}
+
+Deriving a character's level from the lowest-level word containing it agrees
+with the 2021 official list on 2{,}962 of 2{,}969 derivable characters --- and
+misgrades seven: 哥, 妈, 妹, 弟, 王, 第, 零. The failure is systematic: 哥, 妈,
+妹 and 弟 are level-1 characters whose only listed words are the reduplicated
+哥哥 and 妈妈, graded at level 4. Derivation misgrades precisely the vocabulary
+a beginner meets first.
+
+\subsection{Proper nouns}
+
+Names should not count towards difficulty: a reader does not need a character's
+name in productive vocabulary, because it is glossed in place. In our corpus a
+text titled \emph{My Puppy Doudou} graded two levels high entirely on 豆豆, the
+dog's name.
+
+Proper nouns are romanised with a leading capital, making them detectable where
+pinyin is available. One trap: an ASCII \verb|^[A-Z]| test silently fails on
+accented capitals --- Ōuzhōu (欧洲), Ōuyà (欧亚), Ā Q Zhèngzhuàn (阿Q正传).
+Since 欧 and 洲 are both advanced-band characters, missing one place name moved
+a text two levels.
+
+\subsection{Thresholds and character budgets}
+
+A text's level is the lowest level at which cumulative character coverage
+reaches the threshold. Characters outside the graded inventory count in the
+denominator but never accumulate.
+
+One consequence is not obvious to authors: reaching a 95\% bar means holding
+the above-target share below 5\%, so \textbf{any single character exceeding
+that budget blocks the target alone}. In a 75-character passage a fourth
+repetition of one advanced character suffices --- we observed a stylistic edit
+repeating 糕 a fourth time silently regress a text from level 3 to level 5.
+
+\subsection{Grading collections}
+
+Pooling a shelf's characters lets a few hard texts speak for all: pooling
+reported ``HSK 3'' for a shelf on which 16 of 22 texts individually read at
+HSK 1--2. We report the \textbf{median text}, and the interquartile range
+rather than a wider window.
+
+\section{The corpus}
+\label{sec:corpus}
+
+We release 102 word-aligned graded texts: 1{,}185 sentences, 8{,}682 tokens,
+14{,}417 graded characters, on six shelves, mean length rising from 49 to about
+290 characters. Every token carries hanzi, pinyin and gloss.
+
+The texts were \textbf{drafted with large-language-model assistance and then
+reviewed, edited and re-levelled by the author}; the datasheet discloses this
+fully. They are pedagogical material written to a level target, not naturally
+occurring Chinese.
+
+\section{HSKBench}
+\label{sec:bench}
+
+\subsection{Why not level prediction}
+
+The obvious benchmark is level prediction. When gold labels come from the
+grader under test, this measures only whether a model memorised a character
+list: circular and uninformative.
+
+We invert the relationship. \textbf{The grader is the metric, not the label.}
+The task is generation: produce a coherent passage on a topic, at a length,
+readable at a target level. Scoring runs the grader over the output as a
+compiler is run over generated code --- deterministic, no judge model, no API.
+
+\subsection{Task and metrics}
+
+150 tasks: six target levels $\times$ 25 topics, five topics held out. Primary
+metric is \textbf{level accuracy}, the share of outputs whose measured level
+does not exceed the target. We also report mean signed error, length
+compliance, and single-character budget violations. Unanswered tasks score as
+failures. Coherence is excluded from the automatic score: judging it needs a
+human or a model and would make results unreproducible.
+
+\subsection{A human reference point}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{System} & \textbf{Level acc.} & \textbf{Signed err.} \\
+\midrule
+Human authors & \textbf{61.8\%} & +0.27 \\
+Corpus retrieval & 59.3\% & +0.27 \\
+\bottomrule
+\end{tabular}
+\caption{Reference points.}
+\label{tab:bench}
+\end{table}
+
+Human accuracy fails \emph{directionally}: authors overshoot by 1.23 levels on
+the easiest shelf and undershoot by 0.75 on the hardest, regressing toward
+middle difficulty regardless of instruction. Writing to a level target is a
+genuinely hard control problem for people, which is what makes the benchmark
+non-trivial.
+
+\todo{Add model baselines. The benchmark and its human reference are
+established; results for current language models belong here.}
+
+\section{Related work}
+
+\paragraph{The documents' own literature.} \citet{feng2026hsk30} give the
+authoritative account of the syllabus's development. It is qualitative: it
+reports a high overlap rate and states that the syllabus was benchmarked
+against the 2021 standard, but does not quantify how many words changed level,
+nor compare the documents word by word. We are not aware of a published
+quantitative comparison of the kind in \S\ref{sec:disagree}, in either
+language.
+
+\todo{CNKI full text was not reachable. Search 《世界汉语教学》,
+《语言教学与研究》 and 《国际中文教育》 to settle the novelty claim.}
+
+\paragraph{The problem is live in deployed tools.} Commercial HSK text checkers
+grade against ``the new HSK 3.0 standard'' without naming which document, at
+least one using greedy longest-match word segmentation --- the approach
+\S\ref{sec:charlevel} shows to be unusable --- while publishing no data
+provenance or version.
+
+\paragraph{Chinese readability assessment.} The dominant approach is supervised
+classification over engineered features. CRIE \citep{sung2016crie} extracts 82
+multilevel features, trained on Taiwanese school textbooks; recent work applies
+pretrained transformers with feature fusion \citep{yang2025chinese}. Our method
+is deliberately not in this tradition: it is a transparent, deterministic
+function of an official published standard, with no training data and no
+learned parameters, and is auditable in a way a classifier is not.
+
+\paragraph{Difficulty-controlled generation.} Controlling generated readability
+is active, largely in English and against CEFR. Our contribution is narrower
+and more reproducible: because the target is an explicit character inventory
+rather than a learned readability model, compliance is checkable exactly and
+without a judge.
+\todo{Confirm metadata for recent readability-controlled-generation work
+before citing individually.}
+
+\section{Limitations}
+
+Coverage is not comprehension: 95\% character coverage is necessary, not
+sufficient, and grammar, register and world knowledge are unmodelled. The
+threshold itself is imported from word-level English research; establishing it
+empirically for L2 Chinese characters would be a contribution in itself. The
+corpus is 102 texts --- adequate as a reference and validation set, inadequate
+for training --- and the regrading result rests on it. It is LLM-assisted, as
+disclosed. The 2021 lists come from public transcriptions of a scanned PDF and
+the 2025 lists from our own extraction, validated against published totals but
+not against an official machine-readable release, which does not exist. We
+handle simplified characters only. Proper-noun exclusion needs pinyin, and
+place names are a grey area: excluding 欧洲 is defensible under the
+glossed-in-place principle and debatable under a vocabulary-knowledge one.
+Shelf assignments are a single annotator's, with no inter-annotator agreement.
+
+\section{Conclusion}
+
+``HSK 3.0'' names two official documents that disagree on 41.5\% of their
+shared vocabulary and 40.7\% of their shared characters, and choosing between
+them changes the assigned level of nearly half of real texts, almost always
+upward. The distinction is invisible in most current tooling. We release a
+validated extraction of the examination syllabus, a tested grader that works
+against either document and records which, an aligned corpus, and a benchmark
+measuring the harder half of the problem.
+
+\section*{Ethics and data statement}
+
+The corpus contains no personal data and describes invented characters in
+everyday situations; its LLM-assisted authorship is disclosed in the datasheet.
+Word and character lists derive from published national standards. No human
+subjects were involved. An intended application is a Chinese-learning website
+operated by the author.
+
+\bibliography{refs}
+\bibliographystyle{acl_natbib}
+
+\end{document}

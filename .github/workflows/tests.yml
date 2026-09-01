@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: python -m pip install --upgrade pip && python -m pip install ".[dev]"
+      - name: Test
+        run: pytest -q
+      - name: Reproduce every published figure
+        run: python scripts/reproduce.py
+
+  data-integrity:
+    # The shipped tables must still match their upstream sources. This is the
+    # check that would have caught the standards mix-up earlier: it fails loudly
+    # if the transcriptions drift rather than silently grading against stale data.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: python -m pip install --upgrade pip && python -m pip install .
+      - name: Verify 2021 tables against upstream
+        run: python scripts/gen_data.py --check

@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: "hsk30: grading Chinese text against either HSK 3.0 document"
+message: "If you use this software, dataset or benchmark, please cite it."
+type: software
+authors:
+  - family-names: Serrano
+    given-names: Alvaro
+repository-code: "https://github.com/harukicoder/hsk30"
+url: "https://github.com/harukicoder/hsk30"
+abstract: >-
+  "HSK 3.0" names two official documents: the GF0025-2021 national grading
+  standard, in force since July 2021, and the examination syllabus published in
+  November 2025 and in force since July 2026. They assign different levels to
+  41.5% of the words and 40.7% of the characters they share, and grading real
+  texts against one rather than the other changes the level of 48% of them.
+  This package grades Chinese text against either document, records which, and
+  ships an aligned graded-reader corpus and a difficulty-controlled generation
+  benchmark.
+keywords:
+  - chinese
+  - mandarin
+  - hsk
+  - readability
+  - language-learning
+  - second-language-acquisition
+  - controlled-generation
+license: MIT
+version: 0.1.0
+date-released: "2026-09-01"
+references:
+  - type: data
+    title: "HSK 3.0 Graded Reader Corpus"
+    authors:
+      - family-names: Serrano
+        given-names: Alvaro
+    license: CC-BY-4.0
+    year: 2026
+    notes: >-
+      102 aligned graded readers, 1,185 sentences, distributed with this
+      repository under corpus/. LLM-assisted authorship disclosed in the
+      datasheet.
+  - type: standard
+    title: "国际中文教育中文水平等级标准 (GF0025-2021)"
+    year: 2021
+    institution:
+      name: "Ministry of Education of the PRC and State Language Commission"
+    notes: "National grading standard, in force 1 July 2021."
+  - type: standard
+    title: "中文水平考试HSK考试大纲 (HSK 3.0 examination syllabus)"
+    year: 2025
+    institution:
+      name: "Center for Language Education and Cooperation (中外语言交流合作中心)"
+    notes: "Published November 2025, in force July 2026."
