@@ -1,0 +1,61 @@
+name: publish to PyPI
+
+# Publishes on a GitHub release, using PyPI Trusted Publishing (OIDC).
+# There is no API token anywhere in this repository or in its secrets: PyPI is
+# configured to trust this specific repository and workflow, and GitHub mints a
+# short-lived identity token at publish time. Nothing to leak, rotate, or paste
+# into a chat window.
+#
+# One-time setup on PyPI (see RELEASE.md):
+#   pypi.org -> Your projects -> Publishing -> Add a pending publisher
+#     PyPI project name: hsk30
+#     Owner:             harukicoder
+#     Repository:        hsk30
+#     Workflow name:     publish.yml
+#     Environment:       pypi
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Never ship a release that fails its own tests.
+      - name: Install and test
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ".[dev]"
+          pytest -q
+          python scripts/check_paper.py
+
+      - name: Build
+        run: |
+          python -m pip install build twine
+          python -m build
+          twine check dist/*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write        # required for Trusted Publishing; no secret needed
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
