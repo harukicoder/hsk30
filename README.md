@@ -119,20 +119,24 @@ levels 1–2, then 150 per level, 500 across 7–9.
 
 ```python
 p = hsk30.writing_profile("他在图书馆认真地准备考试。")
-p.at(6)      # 0.417 — share writable after finishing HSK 6 handwriting
-p.ceiling    # 0.417 — share writable at ANY level
+p.label      # '3'   — level needed for the part the curriculum covers
+p.ceiling    # 0.417 — and it covers 42% of the text
 p.outside    # 7 characters no HSK level asks you to hand-write
 ```
 
-That text reads at HSK 3 and is **41.7% writable at the top level**. The gap is
-not unusual: across our 102-text corpus the median text has roughly 60% of its
-characters in the writing curriculum at all.
+Read those two numbers together: *"HSK 3 handwriting for the part of this text
+the curriculum covers, and it covers 42% of it."* The text reads at HSK 3.
 
-**Why this is a curve and not a level.** The obvious design is to reuse the 95%
-coverage threshold against the writing list. It fails completely — every text
-in the corpus misses a 95% bar at every level, because the bar is unreachable
-by construction. A metric that returns the same answer for every input measures
-nothing, so `writing_profile` reports the curve and the ceiling instead.
+**Why two numbers.** The obvious design is a single level from a 95% coverage
+bar over the whole text. It fails completely: only 1,200 of the 3,088 graded
+characters are writable, so a median text has ~60% of its characters in the
+writing curriculum at all, and **every text in the corpus misses a 95% bar at
+every level**. A metric returning the same answer for every input measures
+nothing.
+
+Restricting the denominator to the writable subset makes a level meaningful
+again, and the ceiling carries the part that restriction drops. Either number
+alone misleads — the level flatters the text, the ceiling reads as failure.
 
 ### Character budgets
 

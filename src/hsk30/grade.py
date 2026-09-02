@@ -267,17 +267,32 @@ class WritingProfile:
 
     chars: int
     writable: Dict[int, float]
-    """Cumulative share writable at each level."""
+    """Cumulative share of the whole text writable at each level."""
     ceiling: float
     """Share writable at any level — the rest is outside the curriculum."""
     outside: int
     """Characters no HSK level requires a learner to hand-write."""
+    level: Optional[int] = None
+    """Level needed to write ``threshold`` of the *writable* characters.
+
+    Computed over the writable subset, not the whole text, because the whole
+    text can never reach a 95% bar (see :func:`writing_profile`). Read it
+    together with ``ceiling``: "you need HSK 4 handwriting for the part of this
+    text the curriculum covers, and it covers 62% of it".  ``None`` means no
+    character in the text is writable at any level.
+    """
+    threshold: float = DEFAULT_THRESHOLD
 
     def at(self, level: int) -> float:
         return self.writable.get(level, 0.0)
 
+    @property
+    def label(self) -> str:
+        return label(self.level) if self.level is not None else "nothing writable"
 
-def writing_profile(text: str, standard: str = "2025") -> WritingProfile:
+
+def writing_profile(text: str, standard: str = "2025",
+                    threshold: float = DEFAULT_THRESHOLD) -> WritingProfile:
     """Grade a text for HANDWRITING rather than reading.
 
     **Why this is not just `grade(kind="writing")`.**  The obvious design is to
@@ -288,17 +303,26 @@ def writing_profile(text: str, standard: str = "2025") -> WritingProfile:
     our 102-text corpus, *every single text* fails a 95% bar at every level.  A
     metric that returns the same answer for all inputs measures nothing.
 
-    So this reports a curve instead of a threshold: what share of the text a
-    learner could hand-write at each level, and the ceiling — the share that is
-    writable at any level.  ``1 - ceiling`` is the portion of the text no HSK
-    level asks a learner to produce by hand, which for ordinary prose is
-    substantial and is a fact about the standard, not about the text.
+    So the answer is split into two numbers that are each well defined:
+
+    * ``ceiling`` — how much of the text the curriculum covers at all.
+      ``1 - ceiling`` is the portion no HSK level asks a learner to produce by
+      hand, which for ordinary prose is substantial and is a fact about the
+      standard, not about the text.
+    * ``level`` — among the characters that *are* writable, the level needed to
+      write ``threshold`` of them.  Restricting the denominator to the writable
+      subset is what makes a single level meaningful here; applied to the whole
+      text the same question has no answer.
+
+    Reported together they say: "you need HSK 4 handwriting for the part of this
+    text the curriculum covers, and it covers 62% of it."  Either number alone
+    misleads — the level flatters the text, the ceiling reads as a failure.
     """
     table = characters(standard, kind="writing")
     chars = hanzi(text)
     total = len(chars)
     if not total:
-        return WritingProfile(0, {lvl: 0.0 for lvl in LEVELS}, 0.0, 0)
+        return WritingProfile(0, {lvl: 0.0 for lvl in LEVELS}, 0.0, 0, None, threshold)
 
     counts: Dict[Optional[int], int] = {}
     for ch in chars:
@@ -310,7 +334,11 @@ def writing_profile(text: str, standard: str = "2025") -> WritingProfile:
         running += counts.get(lvl, 0)
         cumulative[lvl] = running / total
     outside = counts.get(None, 0)
-    return WritingProfile(total, cumulative, running / total, outside)
+    writable_total = total - outside
+
+    # The level is computed over the writable subset; see the docstring.
+    level = _coverage_level(counts, writable_total, threshold) if writable_total else None
+    return WritingProfile(total, cumulative, running / total, outside, level, threshold)
 
 
 @dataclass(frozen=True)

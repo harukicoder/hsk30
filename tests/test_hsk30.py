@@ -322,9 +322,38 @@ def test_most_corpus_text_is_not_fully_writable():
     assert all(c < 0.95 for c in ceilings), max(ceilings)
 
 
+def test_writing_level_discriminates_between_texts():
+    """The whole point: a metric that gives every text the same answer is dead.
+
+    Computed over the whole text a 95% bar is unreachable and every text
+    returns None. Computed over the writable subset it spreads across levels.
+    """
+    rows = _corpus()
+    levels = {hsk30.writing_profile(r["text"]).label for r in rows}
+    assert len(levels) >= 4, levels
+    assert "nothing writable" not in levels
+
+
+def test_writing_level_is_computed_over_the_writable_subset():
+    """A text of purely level-1 writable characters writes at level 1, however
+    much of it sits outside the curriculum."""
+    p = hsk30.writing_profile("我是中国人。")
+    assert p.label == "1"
+    assert p.ceiling == 1.0          # every character is writable here
+    assert p.outside == 0
+
+
+def test_ceiling_and_level_answer_different_questions():
+    p = hsk30.writing_profile("他在图书馆认真地准备考试。")
+    assert p.label == "3"            # writable part needs HSK 3 handwriting
+    assert p.ceiling < 0.5           # but under half the text is writable
+    assert p.outside == 7
+
+
 def test_empty_text_has_a_safe_writing_profile():
     p = hsk30.writing_profile("")
     assert p.chars == 0 and p.ceiling == 0.0 and p.at(1) == 0.0
+    assert p.level is None and p.label == "nothing writable"
 
 
 def test_the_pooling_example_the_paper_cites_is_accurate():
