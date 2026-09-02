@@ -108,6 +108,7 @@ class Profile:
     standard: str = DEFAULT_STANDARD
     """Which document graded this: ``"2025"`` (exam) or ``"2021"`` (standard)."""
 
+
     @property
     def label(self) -> str:
         """``"3"``, ``"7-9"``, or ``"beyond HSK 9"``."""
@@ -184,6 +185,9 @@ def grade(
     the default) or ``"2021"`` (the national grading standard).  Roughly half of
     real texts grade differently under the two, so state which you used.
 
+    For handwriting, use :func:`writing_profile` instead — a coverage threshold
+    is the wrong instrument there, for the reason documented on that function.
+
     >>> grade("我是中国人。").label
     '1'
     """
@@ -255,6 +259,58 @@ def budget_violations(
         key=lambda row: (-row[2], row[0]),
     )
     return share, ranked
+
+
+@dataclass(frozen=True)
+class WritingProfile:
+    """How much of a text a learner could write by hand, level by level."""
+
+    chars: int
+    writable: Dict[int, float]
+    """Cumulative share writable at each level."""
+    ceiling: float
+    """Share writable at any level — the rest is outside the curriculum."""
+    outside: int
+    """Characters no HSK level requires a learner to hand-write."""
+
+    def at(self, level: int) -> float:
+        return self.writable.get(level, 0.0)
+
+
+def writing_profile(text: str, standard: str = "2025") -> WritingProfile:
+    """Grade a text for HANDWRITING rather than reading.
+
+    **Why this is not just `grade(kind="writing")`.**  The obvious design is to
+    reuse the 95% coverage threshold against the 书写字 list.  It does not work,
+    and the failure is total rather than marginal: the syllabus grades 3,088
+    characters for recognition but only 1,200 for writing, so a median text has
+    just under 60% of its characters in the writing curriculum at all.  Across
+    our 102-text corpus, *every single text* fails a 95% bar at every level.  A
+    metric that returns the same answer for all inputs measures nothing.
+
+    So this reports a curve instead of a threshold: what share of the text a
+    learner could hand-write at each level, and the ceiling — the share that is
+    writable at any level.  ``1 - ceiling`` is the portion of the text no HSK
+    level asks a learner to produce by hand, which for ordinary prose is
+    substantial and is a fact about the standard, not about the text.
+    """
+    table = characters(standard, kind="writing")
+    chars = hanzi(text)
+    total = len(chars)
+    if not total:
+        return WritingProfile(0, {lvl: 0.0 for lvl in LEVELS}, 0.0, 0)
+
+    counts: Dict[Optional[int], int] = {}
+    for ch in chars:
+        lvl = table.get(ch)
+        counts[lvl] = counts.get(lvl, 0) + 1
+
+    cumulative, running = {}, 0
+    for lvl in LEVELS:
+        running += counts.get(lvl, 0)
+        cumulative[lvl] = running / total
+    outside = counts.get(None, 0)
+    return WritingProfile(total, cumulative, running / total, outside)
 
 
 @dataclass(frozen=True)

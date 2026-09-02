@@ -110,6 +110,30 @@ Neither document splits them — in the 2021 standard they share a single
 5,599-word list and 1,200 characters. This package carries the band as level `7` and renders it
 `"7-9"`. A vendor advertising an "HSK 8 word list" invented the split.
 
+### Reading is not writing
+
+HSK 3.0 grades characters twice: **认读字** (recognition, 3,088 — what gates
+reading) and **书写字** (writing, 1,200 — what a learner must produce by hand).
+The second is a strict subset of the first, on a different curve: 100 across
+levels 1–2, then 150 per level, 500 across 7–9.
+
+```python
+p = hsk30.writing_profile("他在图书馆认真地准备考试。")
+p.at(6)      # 0.417 — share writable after finishing HSK 6 handwriting
+p.ceiling    # 0.417 — share writable at ANY level
+p.outside    # 7 characters no HSK level asks you to hand-write
+```
+
+That text reads at HSK 3 and is **41.7% writable at the top level**. The gap is
+not unusual: across our 102-text corpus the median text has roughly 60% of its
+characters in the writing curriculum at all.
+
+**Why this is a curve and not a level.** The obvious design is to reuse the 95%
+coverage threshold against the writing list. It fails completely — every text
+in the corpus misses a 95% bar at every level, because the bar is unreachable
+by construction. A metric that returns the same answer for every input measures
+nothing, so `writing_profile` reports the curve and the ceiling instead.
+
 ### Character budgets
 
 Reaching a 95% bar means keeping the above-target share under 5%, so a single
@@ -139,7 +163,7 @@ actually on the shelf.
 
 | Path | Contents |
 | --- | --- |
-| `src/hsk30/` | The library and its five graded lists (MIT) |
+| `src/hsk30/` | The library and its six graded lists (MIT) |
 | `corpus/` | 102 aligned graded readers + a 30-text held-out split (CC BY 4.0) |
 | `benchmark/` | HSKBench — controlled-difficulty generation |
 | `paper/` | The accompanying paper and its figures |

@@ -284,6 +284,49 @@ def test_regrading_survives_every_threshold():
         assert 40 < pct < 65, (threshold, pct)
 
 
+def test_writing_characters_are_a_subset_of_recognition():
+    """You cannot be asked to write a character you are not asked to read."""
+    w = hsk30.characters("2025", kind="writing")
+    r = hsk30.characters("2025")
+    assert len(w) == 1200
+    assert set(w) <= set(r), sorted(set(w) - set(r))[:10]
+
+
+def test_writing_list_only_exists_for_the_2025_syllabus():
+    for bad in ("2021", "2.0"):
+        try:
+            hsk30.characters(bad, kind="writing")
+        except ValueError:
+            continue
+        raise AssertionError("%s should not expose writing characters" % bad)
+
+
+def test_writing_profile_reports_a_curve_not_a_threshold():
+    """A 95% bar is unreachable for handwriting; the curve is the answer."""
+    p = hsk30.writing_profile("他在图书馆认真地准备考试。")
+    assert p.chars == 12
+    curve = [p.at(l) for l in LEVELS]
+    assert curve == sorted(curve)          # cumulative, non-decreasing
+    assert 0 < p.ceiling < 1               # some writable, much not
+    assert p.outside > 0
+    assert abs(curve[-1] - p.ceiling) < 1e-9
+
+
+def test_most_corpus_text_is_not_fully_writable():
+    """The gap between reading and writing requirements is large and real."""
+    rows = _corpus()
+    ceilings = [hsk30.writing_profile(r["text"]).ceiling for r in rows]
+    median = sorted(ceilings)[len(ceilings) // 2]
+    # Median text has roughly 60% of its characters in the writing curriculum.
+    assert 0.45 < median < 0.75, median
+    assert all(c < 0.95 for c in ceilings), max(ceilings)
+
+
+def test_empty_text_has_a_safe_writing_profile():
+    p = hsk30.writing_profile("")
+    assert p.chars == 0 and p.ceiling == 0.0 and p.at(1) == 0.0
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items())
              if n.startswith("test_") and callable(f)]

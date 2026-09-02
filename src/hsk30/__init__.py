@@ -34,7 +34,9 @@ from .grade import (
     hanzi,
     is_proper_noun,
     is_proper_noun_ascii,
+    WritingProfile,
     profile_shelf,
+    writing_profile,
     strip_punct,
 )
 
@@ -43,7 +45,7 @@ __version__ = "0.1.1"
 __all__ = [
     "BAND", "LEVELS", "DEFAULT_BUDGET", "DEFAULT_THRESHOLD", "DEFAULT_STANDARD",
     "resolve",
-    "Profile", "ShelfProfile",
+    "Profile", "ShelfProfile", "WritingProfile", "writing_profile",
     "budget_violations", "characters", "grade", "grade_tokens", "hanzi",
     "is_proper_noun", "is_proper_noun_ascii", "label", "profile_shelf", "strip_punct", "words",
     "__version__",

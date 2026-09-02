@@ -11,6 +11,7 @@ Two tables are extracted:
 
   词汇大纲  pp. 79-354   11,000 words: 序号 等级 词语 拼音 词性
   汉字大纲  pp. 356-376   recognition characters (认读字) per level
+  汉字大纲  pp. 377-384   writing characters (书写字) per level
 
 **The level field carries more than a level.**  A row reading ``1（4）`` means
 the word is introduced at level 1 and has a further sense or part of speech
@@ -19,8 +20,13 @@ parenthesis — because that is when a learner first meets the word, which is
 what grading a text requires.  Secondary levels are kept in the output for
 anyone who needs them.
 
-Writing characters (书写字) are deliberately not extracted: they grade
-production, not reading.
+**Two character dimensions, not one.** HSK 3.0 grades 认读字 (recognition —
+what a learner must read) separately from 书写字 (what they must write by
+hand). The two are not nested the way intuition suggests: the syllabus lists
+3,088 recognition characters against 1,200 writing characters, and the writing
+list is allocated on a different curve (100 at level 1, then 150 per level, 500
+across 7-9). Reading difficulty and production difficulty are different
+questions, and only the first has ever been extractable.
 """
 
 from __future__ import annotations
@@ -33,11 +39,13 @@ import sys
 
 BAND = 7
 VOCAB_PAGES = (79, 354)
-CHAR_PAGES = (355, 376)  # 书写字 begins at p377 and must not bleed in
+CHAR_PAGES = (355, 376)   # 认读字 — recognition
+WRITING_PAGES = (377, 384)  # 书写字 — writing
 
 # 序号 等级 词语 拼音 词性  →  41 1 都 dōu 副
 ROW = re.compile(r"^\s*(\d+)\s+(\d+(?:-9)?(?:（[^）]*）)*)\s+(\S+)\s+(\S+)\s*(.*)$")
 LEVEL_HEAD = re.compile(r"HSK（(.+?)）认读字")
+WRITING_HEAD = re.compile(r"HSK（(.+?)）书写字")
 CHAR_ITEM = re.compile(r"(\d+)\.\s*([一-鿿])")
 
 CN_NUM = {"一": 1, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6}
@@ -127,6 +135,21 @@ def main() -> int:
                 if current:
                     chars.setdefault(m.group(2), current)
 
+    # ---- writing characters ----
+    # The level 1-2 heading is combined ("HSK（一级）~（二级）书写字"), so the
+    # first band covers both levels; we record it as level 1, which is where a
+    # learner first meets those characters.
+    writing, current = {}, None
+    for page in range(WRITING_PAGES[0], WRITING_PAGES[1] + 1):
+        for line in page_text(reader, page - 1).split("\n"):
+            head = WRITING_HEAD.search(line)
+            if head:
+                label = head.group(1)
+                current = BAND if "七" in label else CN_NUM.get(label[0])
+            for m in CHAR_ITEM.finditer(line):
+                if current:
+                    writing.setdefault(m.group(2), current)
+
     os.makedirs(args.out, exist_ok=True)
     with open(os.path.join(args.out, "syllabus2025_words.tsv"), "w",
               encoding="utf-8") as fh:
@@ -141,6 +164,11 @@ def main() -> int:
         fh.write("character\tlevel\n")
         for c in sorted(chars):
             fh.write("%s\t%d\n" % (c, chars[c]))
+    with open(os.path.join(args.out, "syllabus2025_writing_chars.tsv"), "w",
+              encoding="utf-8") as fh:
+        fh.write("character\tlevel\n")
+        for c in sorted(writing):
+            fh.write("%s\t%d\n" % (c, writing[c]))
 
     # ---- validate against the counts the syllabus itself advertises ----
     counts = {}
@@ -168,9 +196,23 @@ def main() -> int:
     if dupes:
         print("  %d words graded at more than one level; kept the lower: %s"
               % (len(dupes), ", ".join(d[0] for d in dupes[:8])))
-    print("\nRECOGNITION CHARACTERS  %d" % len(chars))
+    print("\nRECOGNITION CHARACTERS (认读字)  %d" % len(chars))
     for lvl in (1, 2, 3, 4, 5, 6, BAND):
         print("  %-6s %5d" % ("7-9" if lvl == BAND else lvl, char_counts.get(lvl, 0)))
+
+    wcounts = {}
+    for lvl in writing.values():
+        wcounts[lvl] = wcounts.get(lvl, 0) + 1
+    print("\nWRITING CHARACTERS (书写字)  %d" % len(writing))
+    for lvl in (1, 2, 3, 4, 5, 6, BAND):
+        if wcounts.get(lvl):
+            print("  %-6s %5d" % ("7-9" if lvl == BAND else lvl, wcounts[lvl]))
+    overlap = sum(1 for c in writing if c in chars)
+    print("  %d of %d also appear in the recognition list" % (overlap, len(writing)))
+    only_write = [c for c in writing if c not in chars]
+    if only_write:
+        print("  %d writable but NOT in the recognition list: %s"
+              % (len(only_write), "".join(sorted(only_write))[:40]))
     print("\nwrote %s" % os.path.relpath(args.out))
     return 0 if ok else 2
 
