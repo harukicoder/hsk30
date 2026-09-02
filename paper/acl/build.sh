@@ -36,3 +36,5 @@ if grep -qiE "error" main.blg 2>/dev/null; then
   exit 1
 fi
 echo "bibliography: clean"
+
+python3 check_authorship.py || exit 1

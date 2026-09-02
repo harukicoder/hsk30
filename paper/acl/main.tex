@@ -1,7 +1,14 @@
 % Compile with XeLaTeX (the paper quotes Chinese throughout).
 % Needs acl.sty and acl_natbib.bst from github.com/acl-org/acl-style-files
+%
+% [final]  named author block, no line numbers  -- for preprints and camera-ready
+% [review] "Anonymous ACL submission", line numbers -- for double-blind submission
+%
+% This is the PREPRINT build and must stay [final]: a deposited PDF that does
+% not carry the author's name is not evidence of authorship. Switch to [review]
+% only when submitting to an anonymous venue, and switch it back afterwards.
 \documentclass[11pt]{article}
-\usepackage[review]{acl}
+\usepackage[final]{acl}
 
 \usepackage{times}
 \usepackage{latexsym}

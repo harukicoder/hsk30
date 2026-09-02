@@ -47,6 +47,24 @@ All three anticipated hazards were resolved on 1 September 2026:
 - **Table widths** — the seven-column results table fits the single-column
   layout unmodified. No `\resizebox` needed.
 
+## The one that nearly shipped
+
+`acl.sty` has two modes and both compile cleanly to the same page count:
+
+- **`[final]`** — named author block, no line numbers. **Preprints and
+  camera-ready. This build must stay here.**
+- **`[review]`** — prints *"Anonymous ACL submission"* and line numbers. For
+  double-blind submission only.
+
+The paper was written in `[review]`, which is right for submitting to a venue
+and wrong for anything deposited. A PDF that does not carry the author's name
+is not evidence of authorship, and the difference is one header line most
+people skim past — it reached two published Zenodo versions before anyone
+noticed. `check_authorship.py` now fails the build on an anonymised PDF.
+
+Switch to `[review]` only when submitting somewhere anonymous, and switch back
+immediately afterwards.
+
 ## Before submitting
 
 - Switch `\usepackage[review]{acl}` to `\usepackage[final]{acl}` and uncheck
