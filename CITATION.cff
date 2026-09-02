@@ -35,7 +35,7 @@ keywords:
   - controlled-generation
 license: MIT
 version: 0.2.0
-date-released: "2026-09-01"
+date-released: "2026-09-02"
 references:
   - type: data
     title: "HSK 3.0 Graded Reader Corpus"
