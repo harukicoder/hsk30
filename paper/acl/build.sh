@@ -30,7 +30,9 @@ tectonic -X compile main.tex --keep-logs
 
 echo
 echo "built main.pdf ($(wc -c < main.pdf | tr -d ' ') bytes)"
-grep -c "Overfull" main.log | xargs echo "overfull boxes:"
+# grep exits 1 when the count is 0, and `set -o pipefail` would abort the
+# script on exactly the good case, skipping the authorship check below.
+echo "overfull boxes: $(grep -c "Overfull" main.log || true)"
 if grep -qiE "error" main.blg 2>/dev/null; then
   echo "BIBTEX ERRORS — check main.blg" >&2
   exit 1
