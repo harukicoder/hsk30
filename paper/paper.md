@@ -335,6 +335,56 @@ read at HSK 1–2 against the 2021 standard. We report the **median text**, and 
 a wider window — four misfiles stretched one shelf's middle-80% range to
 "HSK 1–5", misinforming learners about the other eighteen texts.
 
+### 6.6 Reading is not writing, and the gap is a constant
+
+HSK 3.0 grades characters twice: **认读字** (recognition, 3,088 under the 2025
+syllabus) gates reading, while **书写字** (writing, 1,200) is what a learner
+must produce by hand. The writing list is a strict subset of the recognition
+list. No machine-readable version of it existed before this work; we extract it
+from the same syllabus PDF (§3).
+
+Applying a coverage threshold to the writing list directly does not work, and
+the failure is total. Because only 1,200 characters are graded for writing, a
+median text has around 60% of its characters in the writing curriculum at all,
+and **every text in our corpus misses a 95% bar at every level**. We therefore
+report two numbers: the **ceiling**, the share of a text writable at any level,
+and a **level** computed over the writable subset alone. Either alone misleads
+— the level flatters the text, the ceiling reads as failure.
+
+| Shelf | Read | Write | Writable ceiling |
+| --- | :--: | :--: | ---: |
+| newbie | 2 | 3 | 58.2% |
+| beginner | 3 | 3 | 57.9% |
+| intermediate | 4 | 4 | 60.5% |
+| upper | 4 | 4 | 57.7% |
+| advanced | 5 | 5 | 62.5% |
+| native | 5 | 5 | 61.8% |
+
+**Table 8: Median reading level, writing level and writable ceiling per shelf.**
+
+Two findings follow, and the second is the more surprising.
+
+**Writing difficulty tracks reading difficulty.** The median writing and
+reading levels agree on five of six shelves, and the mean per-text gap is
+between +0.27 and −0.33 levels throughout. For the portion of a text the
+curriculum covers, the standard is internally consistent: material that reads
+at a level also writes at roughly that level.
+
+**The writable ceiling is invariant.** It sits between 57.7% and 62.5% on every
+shelf — across the whole corpus, median 60.1% with an interquartile range of
+55.2–64.9%. This does not vary with difficulty. Whether a text is a 49-character
+beginner story or a 300-character literary passage, **about two characters in
+five are ones no HSK level asks a learner to write by hand.** That is a property
+of the standard, not of the text, and it is stable enough to be treated as a
+constant.
+
+A structural consequence is visible in the allocation. The syllabus issues its
+writing characters as 100 across levels 1–2 combined, then 150 per level, then
+500 across 7–9 — there is no separate level-2 writing allocation at all. Of the
+125 characters HSK 2 newly requires a learner to *read*, **five** are also
+required for writing. The reading and writing curricula advance on different
+schedules, and level 2 advances only one of them.
+
 ## 7 The corpus
 
 We release 102 word-aligned graded texts, plus a disjoint 30-text held-out

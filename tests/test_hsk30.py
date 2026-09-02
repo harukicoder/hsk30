@@ -383,6 +383,33 @@ def test_the_vacuity_argument_cites_the_right_inventory_size():
     assert sum(1 for v in chars.values() if v <= 5) == 1527
 
 
+def test_the_writable_ceiling_is_invariant_across_difficulty():
+    """§6.6's central claim: the ceiling does not vary with text difficulty.
+
+    If this ever fails, the paper's "it is a property of the standard, not of
+    the text" no longer holds and the section needs rewriting.
+    """
+    rows = _corpus()
+    shelves = ["newbie", "beginner", "intermediate", "upper", "advanced", "native"]
+    medians = []
+    for shelf in shelves:
+        ceilings = sorted(hsk30.writing_profile(r["text"]).ceiling
+                          for r in rows if r["shelf"] == shelf)
+        medians.append(ceilings[len(ceilings) // 2])
+    # Every shelf lands in a narrow band; the paper quotes 57.7-62.5%.
+    assert all(0.55 < m < 0.65 for m in medians), [round(m, 3) for m in medians]
+    assert max(medians) - min(medians) < 0.06, max(medians) - min(medians)
+
+
+def test_level_two_adds_almost_no_writing_requirement():
+    """The allocation quirk §6.6 reports: HSK 2 advances reading, not writing."""
+    rec = hsk30.characters("2025")
+    wri = hsk30.characters("2025", kind="writing")
+    lvl2 = [c for c, v in rec.items() if v == 2]
+    assert len(lvl2) == 125
+    assert sum(1 for c in lvl2 if c in wri) == 5
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items())
              if n.startswith("test_") and callable(f)]
