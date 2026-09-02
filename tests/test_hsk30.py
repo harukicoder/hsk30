@@ -327,6 +327,33 @@ def test_empty_text_has_a_safe_writing_profile():
     assert p.chars == 0 and p.ceiling == 0.0 and p.at(1) == 0.0
 
 
+def test_the_pooling_example_the_paper_cites_is_accurate():
+    """§6.5 claims pooling overstates the beginner shelf. Pin the exact numbers.
+
+    An earlier draft said 16 of 22; the true figure is 13, and the claim is only
+    true against the 2021 standard. Both are now asserted, because a rhetorical
+    example that drifts is worse than no example.
+    """
+    rows = [r for r in _corpus() if r["shelf"] == "beginner"]
+    assert len(rows) == 22
+    profiles = [hsk30.grade_tokens(_tokens(r), standard="2021") for r in rows]
+    shelf = hsk30.profile_shelf(profiles)
+    assert hsk30.label(shelf.pooled) == "3"
+    assert hsk30.label(shelf.median) == "2"
+    assert sum(1 for p in profiles if p.level and p.level <= 2) == 13
+
+
+def test_the_vacuity_argument_cites_the_right_inventory_size():
+    """§8.4 argues HSK 5-6 is near-vacuous because the inventory is large.
+
+    An earlier draft said "2,600-plus characters", which is wrong under either
+    standard. The 2025 syllabus grades 1,940 at HSK 6 or below.
+    """
+    chars = hsk30.characters("2025")
+    assert sum(1 for v in chars.values() if v <= 6) == 1940
+    assert sum(1 for v in chars.values() if v <= 5) == 1527
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items())
              if n.startswith("test_") and callable(f)]

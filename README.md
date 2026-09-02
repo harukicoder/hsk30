@@ -156,7 +156,7 @@ shelf.span_label   # 'HSK 2-3', the interquartile range
 
 Reports the **median text**. Pooling every character in a shelf lets a handful
 of hard texts speak for all of them: it reported "HSK 3" for a beginner shelf
-on which 16 of 22 texts individually read at HSK 1–2, describing nothing
+on which 13 of 22 texts individually read at HSK 1–2, describing nothing
 actually on the shelf.
 
 ## What's in this repository

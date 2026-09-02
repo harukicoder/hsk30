@@ -20,7 +20,8 @@ costs a ceiling: it is worth +21 points averaged over HSK 1–3, where staying
 inside a small character inventory is a planning problem, and −27 over HSK 4–6,
 where the constraint barely binds and deliberation just overshoots.
 
-Scores at HSK 5–6 are near-vacuous: a 95% bar drawn against 2,600+ characters
+Scores at HSK 5–6 are near-vacuous: a 95% bar drawn against the 1,940 characters
+graded at HSK 6 or below
 is met by almost any fluent Chinese. HSK 1–2 is where systems separate.
 
 ## Submitting

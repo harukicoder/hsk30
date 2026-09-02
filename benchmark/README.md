@@ -74,7 +74,8 @@ obvious to any reader, and the length constraint rules out the trivial attack.
 16 / 24 / 72 / 88 / 100 / 100 across HSK 1–6; `deepseek-reasoner` scores
 48 / 48 / 80 / 80 / 76 / 52. They are 2.7 points apart overall and 48 apart at
 HSK 6. The perfect scores at the top are
-not skill: at HSK 5–6 a 95% bar drawn against 2,600+ characters is satisfied by
+not skill: at HSK 5–6 a 95% bar drawn against the 1,940 characters graded at
+HSK 6 or below is satisfied by
 almost any fluent Chinese, so the constraint barely binds. **HSK 1–2 is the
 discriminating region**, and a system answering only the top three levels would
 score 96%. Always report `--per-level`.

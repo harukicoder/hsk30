@@ -330,8 +330,8 @@ The library reports offending characters and their shares.
 ### 6.5 Grading collections
 
 Pooling a shelf's characters lets a few hard texts speak for all: pooling
-reported "HSK 3" for a shelf on which 16 of 22 texts individually read at
-HSK 1–2. We report the **median text**, and the interquartile range rather than
+reported "HSK 3" for the beginner shelf, on which 13 of 22 texts individually
+read at HSK 1–2 against the 2021 standard. We report the **median text**, and the interquartile range rather than
 a wider window — four misfiles stretched one shelf's middle-80% range to
 "HSK 1–5", misinforming learners about the other eighteen texts.
 
@@ -410,7 +410,8 @@ target level, `deepseek-chat` does not degrade gracefully — it inverts.
 
 Perfect scores at HSK 5–6 are not evidence of skill. At those levels the
 constraint is nearly vacuous: almost any fluent Chinese passage satisfies a
-95% coverage bar drawn against 2,600-plus characters, so the task reduces to
+95% coverage bar drawn against the 1,940 characters graded at HSK 6 or below,
+so the task reduces to
 writing Chinese at all. The constraint only begins to bite at HSK 3, and by
 HSK 1 the model fails **21 of 25 times**.
 
