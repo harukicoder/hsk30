@@ -67,7 +67,7 @@ obvious to any reader, and the length constraint rules out the trivial attack.
 | --- | --- | --- |
 | deepseek-chat (temp 0) | **66.7%** | +0.24 |
 | deepseek-reasoner (temp 0) | 64.0% | +0.49 |
-| Human authors (corpus, written to target) | 61.8% | +0.27 |
+| Authored to target (corpus; LLM-drafted, human-edited) | 61.8% | +0.27 |
 | Corpus retrieval (no model, ignores topic) | 59.3% | +0.27 |
 
 **Read the per-level curve, not the aggregate.** `deepseek-chat` scores

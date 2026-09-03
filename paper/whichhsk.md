@@ -32,7 +32,7 @@ the official totals exactly; an open, tested, dependency-free library that
 grades text against either document and reports which; an aligned 102-text
 graded-reader corpus; and WriteToLevel, a controlled-difficulty generation
 benchmark in which the grader is the metric rather than the source of labels.
-Human authors writing to an explicit level target hit it 61.8% of the time.
+Texts authored to an explicit level target, with human review in the loop, hit it 61.8% of the time.
 
 ## 1 Introduction
 
@@ -71,7 +71,7 @@ Contributions:
 4. **A character-level grading method and library** (§6) that grades against
    either document and records which.
 5. **A corpus and a benchmark** (§7, §8), the latter measuring
-   difficulty-*controlled generation*, on which human authors score 61.8%.
+   difficulty-*controlled generation*, on which text authored to target scores 61.8%.
 
 ## 2 Background
 
@@ -423,7 +423,7 @@ failures. Coherence is excluded from the automatic score: judging it needs a
 human or a model and would make results unreproducible; the length constraint
 blocks the degenerate strategy of emitting a few easy characters.
 
-### 8.3 A human reference point
+### 8.3 A reference point from authored text
 
 The corpus texts were each written to a shelf with a nominal target, so human
 authors can be scored on the same task.
@@ -432,14 +432,14 @@ authors can be scored on the same task.
 | --- | ---: | ---: |
 | deepseek-chat (temp 0) | **66.7%** | +0.24 |
 | deepseek-reasoner (temp 0) | 64.0% | +0.49 |
-| Human authors | 61.8% | +0.27 |
+| Authored to target | 61.8% | +0.27 |
 | Corpus retrieval (no model) | 59.3% | +0.27 |
 
 **Table 6: Overall results.** All four cluster within seven points, and all
 four overshoot on average. We show below that this table is close to
 uninformative.
 
-Human accuracy fails *directionally*: authors overshoot by 1.23 levels on the
+Authored text fails *directionally*: it overshoots by 1.23 levels on the
 easiest shelf and undershoot by 0.75 on the hardest, regressing toward middle
 difficulty regardless of instruction. Writing to a level target is a genuinely
 hard control problem for people — the practical argument for an objective
@@ -515,7 +515,7 @@ carried the whole overshoot and could be fixed by one edit. A model missing
 HSK 1 by 15% cannot be repaired by substituting a word; it has written at the
 wrong level throughout.
 
-The directional bias is shared with human authors, though: both overshoot on
+The directional bias is shared with the authored corpus, though: both overshoot on
 easy targets and undershoot on hard ones, regressing toward middle difficulty
 regardless of the instruction. Whatever produces that bias is not specific to
 people.
@@ -637,7 +637,7 @@ levels without saying which document produced them. We release a validated
 extraction of the examination syllabus, a tested grader that works against
 either document and records which, an aligned corpus, and a benchmark measuring
 the harder half of the problem — producing text at a level rather than
-measuring it — on which human authors score 61.8%.
+measuring it — on which text authored to target scores 61.8%.
 
 ## Availability
 

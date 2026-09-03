@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""How often do *human* authors hit the level they were writing for?
+"""How often does text authored to an explicit level target actually hit it?
 
 The 102 corpus texts were each written for a shelf with a nominal HSK band.
-Scoring them the way WriteToLevel scores a model gives the human reference point —
-and it is not 100%.  Careful authors working to an explicit target still
-overshoot, most often at the easy end, which is the practical argument for
-having an objective grader in the authoring loop at all.
+Scoring them the way WriteToLevel scores a model gives a reference point for
+authored text — and it is not 100%.
+
+This is NOT a human baseline, and must not be reported as one: the corpus was
+drafted with LLM assistance and then edited to level by the author, as its
+datasheet discloses. What it measures is an authoring loop with a human in it,
+which still overshoots, most often at the easy end — the practical argument for
+putting an objective grader in that loop.
 
     python3 benchmark/baselines/human_reference.py
 """

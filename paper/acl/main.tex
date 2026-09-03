@@ -59,7 +59,8 @@ the official totals exactly; an open, tested, dependency-free library that
 grades against either document and reports which; an aligned 102-text
 graded-reader corpus; and WriteToLevel, a controlled-difficulty generation
 benchmark in which the grader is the metric rather than the source of labels.
-Human authors writing to an explicit level target hit it 61.8\% of the time,
+Texts authored to an explicit level target, with human review in the loop, hit
+it 61.8\% of the time,
 and two models 2.7 points apart in aggregate differ by 48 points on a single
 level.
 \end{abstract}
@@ -103,7 +104,7 @@ will sit.
   (\S\ref{sec:method}) that grades against either document and records which.
 \item \textbf{A corpus and a benchmark} (\S\ref{sec:corpus},
   \S\ref{sec:bench}), the latter measuring difficulty-\emph{controlled
-  generation}, on which human authors score 61.8\%.
+  generation}, on which text authored to target scores 61.8\%.
 \end{enumerate}
 
 \section{Background}
@@ -431,7 +432,7 @@ compliance, and single-character budget violations. Unanswered tasks score as
 failures. Coherence is excluded from the automatic score: judging it needs a
 human or a model and would make results unreproducible.
 
-\subsection{A human reference point}
+\subsection{A reference point from authored text}
 
 \begin{table}[t]
 \centering\small
@@ -441,12 +442,15 @@ human or a model and would make results unreproducible.
 \midrule
 \texttt{deepseek-chat} & \textbf{66.7\%} & +0.24 \\
 \texttt{deepseek-reasoner} & 64.0\% & +0.49 \\
-Human authors & 61.8\% & +0.27 \\
+Authored to target & 61.8\% & +0.27 \\
 Corpus retrieval & 59.3\% & +0.27 \\
 \bottomrule
 \end{tabular}
-\caption{Overall results. We show below that this table is close to
-uninformative.}
+\caption{Overall results. ``Authored to target'' is the 102-text corpus scored
+the way a model is: it was drafted with LLM assistance and edited to level by the
+author (\S\ref{sec:corpus}), so it is a reference point for text written to an
+explicit target, \emph{not} a human baseline. We show below that this table is
+close to uninformative.}
 \label{tab:bench}
 \end{table}
 
@@ -497,7 +501,7 @@ into the 7--9 band, with mean signed error $+0.20$ at HSK 6 where
 difficulty-controlled generation that reports one number is measuring the wrong
 thing.
 
-Human accuracy fails \emph{directionally}: authors overshoot by 1.23 levels on
+Authored text fails \emph{directionally}: it overshoots by 1.23 levels on
 the easiest shelf and undershoot by 0.75 on the hardest, regressing toward
 middle difficulty regardless of instruction. Writing to a level target is a
 genuinely hard control problem for people, which is what makes the benchmark
