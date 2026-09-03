@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+\usepackage[final]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{xeCJK}
+\setCJKmainfont{Songti SC}
+
+\title{Chinese CEFR Labels Inherit an Ambiguity:\\
+46\% of Texts Change Band with the Source Standard}
+
+\author{Alvaro Serrano \\
+  \textit{Independent researcher} \\
+  \texttt{alvaro.serrano.gp@gmail.com} \\
+  \texttt{orcid.org/0009-0006-4701-9026}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Multilingual CEFR resources now span thirteen languages
+\citep{imperial2025universalcefr}; Chinese is not among them. The obvious route
+in is HSK, the Chinese proficiency scale, which is routinely mapped onto the
+CEFR's six bands. That route is less well defined than it looks. ``HSK 3.0''
+names two official documents --- the GF0025-2021 national grading standard and
+the examination syllabus in force since July 2026 --- which assign different
+levels to 41.5\% of the vocabulary they share \citep{serrano2026whichhsk}. We
+show the ambiguity propagates: grading 102 graded readers against one document
+rather than the other moves \textbf{46.1\%} of them into a different CEFR band
+under the usual one-to-one correspondence, and \textbf{44.1\%} under a
+compressed correspondence that assumes HSK~6~$\approx$~B2. It replicates on a
+disjoint 30-text held-out split (46.7\%, 43.3\%). The movement is not noise:
+\textbf{42 of 47} texts move \emph{upward}, and on the held-out split all 14
+do. Choosing the wrong document does not add error, it shifts the distribution.
+We argue that any Chinese entry in a CEFR corpus must record which Chinese
+standard its labels derive from, and that no correspondence table can repair
+the problem, because the ambiguity sits upstream of the mapping.
+\end{abstract}
+
+\section{The gap, and why it is awkward to fill}
+
+\citet{imperial2025universalcefr} assemble 494{,}491 CEFR-labelled texts across
+thirteen languages and standardise them into one schema. Chinese is absent.
+This is not an oversight of scale --- Chinese is among the most-studied second
+languages in the world --- but a consequence of the inclusion criteria, which
+require a permissive licence, CEFR labels produced or validated by domain
+experts, and human authorship.
+
+The natural way to produce Chinese CEFR labels at scale is indirect: grade text
+against HSK, then map HSK levels onto CEFR bands. Learner-facing material does
+this constantly. The mapping is not official --- China's own standard declines
+to align itself to the CEFR --- but it is ubiquitous, and it is the implicit
+basis on which Chinese material is described as ``B1'' or ``C1'' in practice.
+
+This note reports an obstacle that sits before the mapping, and that a better
+mapping cannot fix.
+
+\section{Two documents named HSK 3.0}
+\label{sec:two}
+
+The name ``HSK 3.0'' is applied to two distinct official publications:
+
+\begin{itemize}
+\item \textbf{《国际中文教育中文水平等级标准》} (GF0025-2021), the national
+grading standard, in force since 1 July 2021. Nine levels, 11{,}092 words,
+3{,}000 characters.
+\item \textbf{新版HSK考试大纲}, the examination syllabus, published November
+2025 and in force since July 2026. 10{,}896 words, 3{,}088 recognition
+characters, and a separate 1{,}200-character writing inventory.
+\end{itemize}
+
+\citet{serrano2026whichhsk} compares them directly: of the 9{,}674 words the
+two share, 41.5\% sit at different levels; of the 2{,}945 shared characters,
+40.7\% do. Grading a corpus of authentic graded readers against one rather than
+the other changes the assigned HSK level of 48.0\% of texts. Tools and
+reference sites that report ``HSK 3.0'' levels overwhelmingly do not say which
+document they used.
+
+The question this note asks is narrow: does that disagreement survive
+projection onto the CEFR's coarser six-band scale, or does coarsening wash it
+out?
+
+\section{Method}
+
+\paragraph{Corpus.} 102 graded readers spanning six difficulty shelves, with
+per-word segmentation authored rather than produced by a segmenter, plus a
+disjoint 30-text held-out split. Both are released CC~BY~4.0 with a datasheet.
+We grade the authored segmentation directly; re-tokenising the raw strings with
+a segmenter yields materially different numbers and is not comparable to the
+published figures.
+
+\paragraph{Grading.} Each text is graded twice with the same open
+implementation \citep{serrano2026whichhsk}, once against GF0025-2021 and once
+against the 2025 syllabus. A text's level is the lowest level whose cumulative
+character inventory covers 95\% of its running characters, the minimal coverage
+threshold from \citet{laufer2010lexical}. Nothing about the procedure differs
+between the two runs except the inventory.
+
+\paragraph{Correspondences.} We use two, and report every figure under both.
+The \textbf{naive} correspondence is the one-to-one reading ubiquitous in
+learner material: HSK~$n$ maps to the $n$th CEFR band, with HSK 3.0's combined
+levels 7--9 mapped to C2. The \textbf{compressed} correspondence encodes the
+objection practitioners raise --- that vocabulary coverage overstates
+communicative range, so HSK~6 lands nearer B2 than C2 --- by mapping
+$\{1,2\}\!\to\!$A1, $3\!\to\!$A2, $4\!\to\!$B1, $\{5,6\}\!\to\!$B2,
+$\{7,8\}\!\to\!$C1, $9\!\to\!$C2.
+
+Neither is authoritative. That is the point of using both: a finding that holds
+under both does not rest on the choice.
+
+\section{Results}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+& \textbf{Readers} & \textbf{Held-out} \\
+& ($n$=102) & ($n$=30) \\
+\midrule
+HSK level changes        & 49 (48.0\%) & 14 (46.7\%) \\
+\addlinespace
+CEFR band, naive         & 47 (46.1\%) & 14 (46.7\%) \\
+\quad upward             & 42          & 14 \\
+\quad downward           & 5           & 0 \\
+\addlinespace
+CEFR band, compressed    & 45 (44.1\%) & 13 (43.3\%) \\
+\quad upward             & 42          & 13 \\
+\quad downward           & 3           & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Texts whose band differs depending on which HSK document was used.
+``Upward'' means the 2025 syllabus placed the text higher than the 2021
+standard did.}
+\label{tab:main}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+& \textbf{A1} & \textbf{A2} & \textbf{B1} & \textbf{B2} & \textbf{C1} & \textbf{C2} \\
+\midrule
+2021 basis & 3 & 28 & 32 & 18 & 14 & 7 \\
+2025 basis & 5 & 10 & 29 & 32 & 19 & 7 \\
+\bottomrule
+\end{tabular}
+\caption{Band distribution of the same 102 texts under the naive
+correspondence. The A2 population falls by 64\% and the B2 population rises by
+78\%; the corpus is not relabelled at random, it is relabelled harder.}
+\label{tab:dist}
+\end{table}
+
+Table~\ref{tab:main} gives the result. Coarsening to six bands does not wash
+the disagreement out: 46.1\% of texts change band under the naive
+correspondence, against 48.0\% that change HSK level. Compressing the
+correspondence --- which merges adjacent HSK levels and so should absorb
+single-level shifts --- reduces it only to 44.1\%. The pattern replicates on
+the held-out split at 46.7\% and 43.3\%.
+
+The direction is the more consequential finding. Of the 47 texts that move
+under the naive correspondence, 42 move upward; on the held-out split, all 14
+do. Table~\ref{tab:dist} shows the effect on the corpus as a whole: the A2
+population falls from 28 to 10 while B2 rises from 18 to 32. A researcher who
+picks the wrong document does not acquire noisy labels. They acquire a corpus
+that is systematically mis-levelled in one direction, which is the failure mode
+least likely to be caught by inspection and most likely to bias a model trained
+on it.
+
+\section{What this implies for multilingual CEFR resources}
+
+\paragraph{The provenance field is not optional.} The
+\citet{imperial2025universalcefr} schema records source dataset, language,
+granularity, production category and licence. For a Chinese entry this is
+insufficient: two entries could share every one of those values, be produced by
+the same procedure over the same texts, and still disagree on the band of
+nearly half of them. Chinese needs the source standard, with its version,
+recorded as data. We would expect the same to apply wherever a language's CEFR
+labels are derived through a national framework rather than assigned directly.
+
+\paragraph{No correspondence table fixes it.} It is tempting to read this as an
+argument for a better HSK--CEFR mapping. It is not. Both correspondences we
+test are applied identically to both gradings; the disagreement is generated
+before the mapping is consulted and passes through it. A third correspondence
+would behave the same way.
+
+\paragraph{Derived labels are not expert labels.} We are explicit that the
+labels here are algorithmic projections of a coverage threshold, not
+expert-assigned CEFR levels, and so do not meet the gold-standard criterion of
+\citet{imperial2025universalcefr}. The contribution is not a proposed dataset
+entry. It is a constraint that a future entry will have to satisfy.
+
+\section{Limitations}
+
+The corpus is LLM-assisted, disclosed in its datasheet, and pedagogically
+constrained; it is not a sample of naturally occurring Chinese and would not
+meet the human-authorship criterion of \citet{imperial2025universalcefr}. Its
+levels are ours, not experts'. Coverage is necessary but not sufficient for
+comprehension: grammar, register and world knowledge are unmodelled, and the
+95\% threshold is imported from word-level English research rather than
+established for L2 Chinese characters. Neither correspondence we use is
+official, and we make no claim that either is correct --- only that the finding
+does not depend on which is chosen. Finally, the 2025 syllabus takes effect in
+July 2026, so its practical consequences are not yet observable in learner
+outcomes.
+
+\section{Availability}
+
+The grading implementation is MIT licensed and installable as
+\texttt{pip install hsk30}; the corpus and held-out split are CC~BY~4.0. Every
+figure in this note is regenerated by \texttt{scripts/cefr\_mapping.py} in the
+same repository, which prints the table above from the corpus and the two
+inventories.
+
+\section*{Ethics and data statement}
+
+The corpus contains no personal data and describes invented characters in
+everyday situations; its LLM-assisted authorship is disclosed in its datasheet
+and again in the limitations above. Word and character lists derive from
+published national standards. No human subjects were involved. An intended
+application is a Chinese-learning website operated by the author.
+
+\bibliography{refs}
+
+\end{document}
