@@ -32,13 +32,11 @@ The package ships validated machine-readable extractions of three documents: the
 HSK 2.0 word list, the national grading standard 《国际中文教育中文水平等级标准》
 (GF0025-2021), and the examination syllabus published in November 2025 and in
 force since July 2026, including its separate 1,200-character handwriting
-inventory. It grades raw strings or pre-segmented tokens, reports per-level
-coverage curves rather than a single label, flags vocabulary that exceeds a
-level budget, and profiles a whole corpus shelf at once. Alongside the library it
-distributes an aligned 132-text graded-reader corpus with per-word pinyin and
-gloss under CC BY 4.0, and `WriteToLevel`, a difficulty-controlled generation
-benchmark in which the grader serves as the evaluation metric rather than as the
-source of labels.
+inventory. It grades raw strings or pre-segmented tokens, reports coverage curves rather
+than a single label, flags vocabulary exceeding a level budget, and profiles a
+whole corpus at once. It also distributes an aligned 132-text graded-reader
+corpus under CC BY 4.0 and `WriteToLevel`, a difficulty-controlled generation
+benchmark in which the grader is the metric rather than the source of labels.
 
 # Statement of need
 
@@ -68,18 +66,17 @@ is built on that property, and is distributed with the package so that the metri
 and the benchmark cannot drift apart.
 
 The package is dependency-free and runs offline against the standard library
-alone. This is deliberate: the intended users include classroom teachers and
-small programmes for whom an install that requires a build toolchain, an account
-or an internet connection is an install that does not happen.
+alone. This is deliberate: its intended users include classroom teachers and
+small programmes, for whom an install requiring a build toolchain, an account or
+an internet connection is an install that does not happen.
 
 # State of the field
 
 Automatic readability assessment for Chinese is dominated by supervised
-classification over engineered linguistic features. CRIE extracts eighty-two
-multilevel indices trained on Taiwanese school textbooks [@sung2016crie], and
-more recent work applies pretrained transformers with feature fusion
-[@yang2025chinese]. These approaches model more than vocabulary coverage and will
-outperform a coverage threshold on many tasks.
+classification over engineered features: CRIE extracts eighty-two multilevel
+indices trained on Taiwanese textbooks [@sung2016crie], and recent work applies
+pretrained transformers with feature fusion [@yang2025chinese]. Both model more
+than vocabulary coverage and will outperform a threshold on many tasks.
 
 `hsk30` is deliberately not in that tradition. It is a transparent, deterministic
 function of an official published standard, auditable line by line in a way a
@@ -89,25 +86,56 @@ answers *how hard does this look*, `hsk30` answers *what does this standard say*
 mapping and examination alignment actually turn on.
 
 The closest adjacent resource is `HSKBenchmark` [@yang2026hskbenchmark], which
-tunes and evaluates models across HSK levels 3 to 6 and scores grammar coverage
-and syntactic complexity. It draws its grammar inventory from the 2021 standard
-while building its corpus from textbook series aligned to earlier outlines, and
-does not state which document defines its levels — an instance of precisely the
-ambiguity this package is built to make visible.
+evaluates models across HSK levels 3 to 6. It draws its grammar inventory from
+the 2021 standard while building its corpus from textbook series aligned to
+earlier outlines, and does not state which document defines its levels — an
+instance of precisely the ambiguity this package makes visible.
 
 # Quality control
 
 The library carries 39 tests, run on every push against Python 3.9 through 3.13,
-and executable either under `pytest` or as a plain script with no test framework
-installed. The syllabus extraction self-validates: its per-level entry counts are
-asserted against the cumulative totals published in the source document, and the
-build fails if they diverge. A separate script re-derives every figure quoted in
-the accompanying papers from live computation, so that published numbers and
-shipped data cannot drift apart silently.
+executable under `pytest` or as a plain script with no test framework installed.
+The syllabus extraction self-validates: per-level entry counts are asserted
+against the totals published in the source document, and the build fails if they
+diverge. A separate script re-derives every figure quoted in the accompanying
+papers from live computation, so published numbers and shipped data cannot drift
+apart silently.
+
+# AI usage disclosure
+
+Generative AI was used substantially in this project and is disclosed here in
+full, as JOSS requires.
+
+**Tools.** Anthropic's Claude, used interactively throughout development.
+
+**Where applied.** Three distinct places. (1) The 132-text graded-reader corpus
+was authored with LLM assistance; this is disclosed in the corpus datasheet and
+in the limitations of the accompanying research papers, and it is the reason the
+corpus is described as pedagogically constrained rather than as a sample of
+natural Chinese. (2) The library implementation, test suite and extraction
+scripts were written with AI assistance. (3) The papers, including this one, were
+drafted with AI assistance.
+
+**Nature of the assistance.** Implementation and drafting, directed by the
+author. The problem framing is the author's: the observation that "HSK 3.0" names
+two documents rather than one, and the decision to make the grader record which
+document it used, originated in his own product work and are the reason the
+package exists. The design decisions that shape it — grading characters rather
+than words after word-level coverage proved unreachable, refusing a runtime
+dependency, shipping official inventories rather than derived ones, and
+self-validating extractions against published totals — were made and are
+defended by the author.
+
+**Human review.** All AI-assisted output was reviewed by the author, and that
+review has repeatedly been the binding check rather than a formality. Reading the
+compiled PDF is what caught that it had been built in anonymised review mode;
+reading the paper is what caught a stray editing marker; and a claim that this
+work's benchmark was the first of its kind was withdrawn after the author's
+scrutiny surfaced earlier work [@yang2026hskbenchmark]. Automated checks passed
+in every one of those cases.
 
 # Acknowledgements
 
-The corpus was authored with the assistance of a large language model, disclosed
-in full in its datasheet. No other funding or institutional support was involved.
+No funding or institutional support was involved.
 
 # References
