@@ -99,7 +99,7 @@ def figures():
     out["regrade changed"] = changed
     out["regrade changed pct"] = round(100.0 * changed / len(rows), 1)
 
-    # Human reference on HSKBench.
+    # Human reference on WriteToLevel.
     shelf_target = {"newbie": 1, "beginner": 2, "intermediate": 3,
                     "upper": 4, "advanced": 5, "native": 6}
     hits = 0

@@ -105,7 +105,7 @@ the measured level for anything quantitative.
 ## Uses
 
 **Intended.** Readability and difficulty-estimation research; evaluating
-controlled-difficulty generation (see HSKBench); building and testing graded
+controlled-difficulty generation (see WriteToLevel); building and testing graded
 reading tools; teaching material for HSK 1–6.
 
 **Not appropriate.** As a sample of naturally occurring Chinese; for training a
@@ -115,7 +115,7 @@ LLM-assisted.
 
 **Risk of a feedback loop.** Because the texts were LLM-assisted, a system
 evaluated on how well it *matches this corpus* may be rewarded for resembling
-its own training distribution. HSKBench avoids this by scoring generation
+its own training distribution. WriteToLevel avoids this by scoring generation
 against the objective character standard rather than against these texts.
 
 ## Distribution and maintenance

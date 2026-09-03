@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score a submission against HSKBench.
+"""Score a submission against WriteToLevel.
 
     python3 benchmark/evaluate.py predictions.jsonl [--per-level] [--json]
 
@@ -95,7 +95,7 @@ def aggregate(rows):
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Score a submission against HSKBench.")
+    ap = argparse.ArgumentParser(description="Score a submission against WriteToLevel.")
     ap.add_argument("predictions", help="JSONL of {task_id, output}")
     ap.add_argument("--tasks", default=TASKS)
     ap.add_argument("--per-level", action="store_true")
@@ -148,7 +148,7 @@ def main() -> int:
         return 0
 
     o = report["overall"]
-    print("HSKBench — %s" % report["system"])
+    print("WriteToLevel — %s" % report["system"])
     print("  tasks scored          %d (%d missing, %d unknown ids)"
           % (o["n"], report["missing_tasks"], report["unknown_task_ids"]))
     print("  level accuracy        %.1f%%" % (100 * o["level_accuracy"]))

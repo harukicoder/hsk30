@@ -169,17 +169,17 @@ actually on the shelf.
 | --- | --- |
 | `src/hsk30/` | The library and its six graded lists (MIT) |
 | `corpus/` | 102 aligned graded readers + a 30-text held-out split (CC BY 4.0) |
-| `benchmark/` | HSKBench — controlled-difficulty generation |
+| `benchmark/` | WriteToLevel — controlled-difficulty generation |
 | `paper/` | The accompanying paper and its figures |
 | `scripts/reproduce.py` | Recomputes every published figure |
 | `scripts/extract_syllabus_2025.py` | Parses the official syllabus PDF |
 | `corpus/syllabus2025/PROVENANCE.md` | Where the 2025 tables come from, and their rights position |
 
-## HSKBench
+## WriteToLevel
 
 Generating text *at* a level turns out to be much harder than grading it.
 Human authors writing to an explicit target hit it **61.8%** of the time,
-overshooting at the easy end and undershooting at the hard end. HSKBench scores
+overshooting at the easy end and undershooting at the hard end. WriteToLevel scores
 that task objectively — the grader is the metric, the way a compiler is the
 metric for generated code. See [`benchmark/README.md`](https://github.com/harukicoder/hsk30/blob/main/benchmark/README.md).
 

@@ -1,10 +1,10 @@
-# HSKBench
+# WriteToLevel
 
 **Can a model write Chinese at a level it was asked for?**
 
 Grading text is easy. *Generating* text that lands on a difficulty target is
 not — and it is what teachers, textbook authors and reading apps actually need.
-HSKBench measures it.
+WriteToLevel measures it.
 
 ## The task
 
@@ -27,7 +27,7 @@ The obvious benchmark — "predict the HSK level of this text" — is worthless
 when the labels come from the grader being tested. It measures whether a model
 memorised a character list.
 
-HSKBench inverts this. **The grader is the metric, not the label.** A model
+WriteToLevel inverts this. **The grader is the metric, not the label.** A model
 must produce text that survives an objective check, the way generated code must
 survive a compiler. Scoring involves no model, no judge and no API key, so any
 result is exactly reproducible.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the HSKBench task set.
+"""Generate the WriteToLevel task set.
 
 Deterministic: the committed tasks.jsonl is exactly what this emits.  Rerun
 after editing TOPICS or LENGTHS, and commit the result.

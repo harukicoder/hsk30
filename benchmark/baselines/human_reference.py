@@ -2,7 +2,7 @@
 """How often do *human* authors hit the level they were writing for?
 
 The 102 corpus texts were each written for a shelf with a nominal HSK band.
-Scoring them the way HSKBench scores a model gives the human reference point —
+Scoring them the way WriteToLevel scores a model gives the human reference point —
 and it is not 100%.  Careful authors working to an explicit target still
 overshoot, most often at the easy end, which is the practical argument for
 having an objective grader in the authoring loop at all.

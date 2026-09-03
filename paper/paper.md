@@ -30,7 +30,7 @@ the 2025 syllabus. We contribute a validated extraction of the 2025 syllabus
 (previously available only as a 406-page PDF), whose per-level counts reproduce
 the official totals exactly; an open, tested, dependency-free library that
 grades text against either document and reports which; an aligned 102-text
-graded-reader corpus; and HSKBench, a controlled-difficulty generation
+graded-reader corpus; and WriteToLevel, a controlled-difficulty generation
 benchmark in which the grader is the metric rather than the source of labels.
 Human authors writing to an explicit level target hit it 61.8% of the time.
 
@@ -399,7 +399,7 @@ fully. They are pedagogical material written to a level target, not naturally
 occurring Chinese, and should not be used as a sample of native usage or to
 train a general language model.
 
-## 8 HSKBench
+## 8 WriteToLevel
 
 ### 8.1 Why not level prediction
 
@@ -581,8 +581,18 @@ does not fail uniformly but collapses at one end of the scale, precisely where
 the constraint binds. Our contribution is also narrower and more reproducible
 than this line of work, because the target is an explicit character inventory
 rather than a learned readability model, so compliance is checkable exactly and
-without a judge. HSKBench is, to our knowledge, the first difficulty-controlled
-generation benchmark for Chinese grounded in an official national standard.
+without a judge.
+
+Closest to this work is HSKBenchmark (Yang et al., 2026), which tunes and
+evaluates models across HSK 3-6 over 79 textbooks, scoring grammar coverage,
+error rate and syntactic complexity. It draws its grammar inventory from the
+2021 national standard while building its corpus from textbook series aligned
+to earlier outlines, and does not state which document defines its levels --
+the conflation this paper documents, in a contemporary benchmark. WriteToLevel
+differs in what it measures: compliance is an exact set-membership check
+against an explicit, versioned character inventory, so it requires neither a
+judge nor a learned model, and the benchmark records which document it graded
+against. We therefore make no priority claim over it.
 
 We searched in both English and Chinese and found only adjacent prior work:
 textbook-to-standard vocabulary alignment studies, and comparisons of the 1992
@@ -603,7 +613,7 @@ exclude it.
 - **Corpus scale.** 102 texts is adequate as a reference and validation set,
   inadequate for training. The regrading result (§5) rests on it, and would be
   strengthened by replication on a larger and independently authored corpus.
-- **LLM-assisted corpus**, disclosed in the datasheet. HSKBench avoids the
+- **LLM-assisted corpus**, disclosed in the datasheet. WriteToLevel avoids the
   resulting feedback loop by scoring against the standard rather than the
   texts, but the corpus itself carries the caveat.
 - **The transcriptions are not the documents.** The 2021 lists come from public

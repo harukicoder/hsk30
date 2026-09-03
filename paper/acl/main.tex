@@ -57,7 +57,7 @@ of jointly graded words moved under the 2021 standard against 51.1\% under the
 previously available only as a 406-page PDF, whose per-level counts reproduce
 the official totals exactly; an open, tested, dependency-free library that
 grades against either document and reports which; an aligned 102-text
-graded-reader corpus; and HSKBench, a controlled-difficulty generation
+graded-reader corpus; and WriteToLevel, a controlled-difficulty generation
 benchmark in which the grader is the metric rather than the source of labels.
 Human authors writing to an explicit level target hit it 61.8\% of the time,
 and two models 2.7 points apart in aggregate differ by 48 points on a single
@@ -408,7 +408,7 @@ reviewed, edited and re-levelled by the author}; the datasheet discloses this
 fully. They are pedagogical material written to a level target, not naturally
 occurring Chinese.
 
-\section{HSKBench}
+\section{WriteToLevel}
 \label{sec:bench}
 
 \subsection{Why not level prediction}
@@ -546,6 +546,17 @@ end of the scale, precisely where the constraint binds. Our contribution is
 also narrower and more reproducible, because the target is an explicit
 character inventory rather than a learned readability model, so compliance is
 checkable exactly and without a judge.
+
+Closest to this work is \textsc{HSKBenchmark} \citep{yang2026hskbenchmark},
+which tunes and evaluates models across HSK 3--6 over 79 textbooks, scoring
+grammar coverage, error rate and syntactic complexity. It draws its grammar
+inventory from the 2021 national standard while building its corpus from
+textbook series aligned to earlier outlines, and does not state which document
+defines its levels --- the conflation this paper documents, in a contemporary
+benchmark. \textsc{WriteToLevel} differs in what it measures: compliance is an
+exact set-membership check against an explicit, versioned character inventory,
+so it requires neither a judge nor a learned model, and the benchmark records
+which document it graded against.
 
 \section{Limitations}
 

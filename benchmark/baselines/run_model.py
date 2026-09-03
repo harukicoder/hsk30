@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run a language model over the HSKBench tasks and write a submission.
+"""Run a language model over the WriteToLevel tasks and write a submission.
 
     export ANTHROPIC_API_KEY=...
     python3 benchmark/baselines/run_model.py --model claude-opus-4-5 > preds.jsonl

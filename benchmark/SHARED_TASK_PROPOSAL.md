@@ -35,7 +35,7 @@ Scoring is deterministic and needs no judge model: a passage passes if 95% of
 its characters fall within the target level of the official graded character
 inventory. This is the `hsk30` grader used as a metric, in the way a compiler
 is a metric for generated code. Reference implementation, task set and
-evaluation harness already exist as HSKBench.
+evaluation harness already exist as WriteToLevel.
 
 Established reference points:
 
