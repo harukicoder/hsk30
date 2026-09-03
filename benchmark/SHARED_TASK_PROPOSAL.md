@@ -42,7 +42,7 @@ Established reference points:
 | System | Level accuracy |
 | --- | ---: |
 | deepseek-chat (temp 0) | 66.7% |
-| Human authors writing to target | 61.8% |
+| Authored to target (LLM-drafted, human-edited) | 61.8% |
 | Corpus retrieval (no model) | 59.3% |
 
 The aggregate understates the difficulty. Per level, `deepseek-chat` scores

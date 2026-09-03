@@ -10,7 +10,7 @@ python3 ../evaluate.py deepseek-chat_predictions.jsonl --per-level
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | deepseek-chat, temp 0 | 2026-09-01 | 66.7% | 16% | 24% | 72% | 88% | 100% | 100% |
 | deepseek-reasoner, temp 0 | 2026-09-01 | 64.0% | 48% | 48% | 80% | 80% | 76% | 52% |
-| Human authors | — | 61.8% | — | — | — | — | — | — |
+| Authored to target | — | 61.8% | — | — | — | — | — | — |
 | Corpus retrieval | — | 59.3% | 12% | 56% | 84% | 60% | 64% | 80% |
 
 **The aggregate is not the result.** The two DeepSeek models sit 2.7 points
