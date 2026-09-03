@@ -37,9 +37,16 @@ compressed correspondence that assumes HSK~6~$\approx$~B2. It replicates on a
 disjoint 30-text held-out split (46.7\%, 43.3\%). The movement is not noise:
 \textbf{42 of 47} texts move \emph{upward}, and on the held-out split all 14
 do. Choosing the wrong document does not add error, it shifts the distribution.
-We argue that any Chinese entry in a CEFR corpus must record which Chinese
-standard its labels derive from, and that no correspondence table can repair
-the problem, because the ambiguity sits upstream of the mapping.
+We then test the mapping itself against a reference the field has not used.
+Taiwan's TOCFL carries an \emph{official} CEFR correspondence, so labelling the
+same texts through it rather than through HSK gives a check on the folk tables.
+They disagree on \textbf{95.1\%} of texts, and the direction is absolute: the
+HSK route places every disagreeing text higher, typically by one to two bands.
+Adopting the compressed correspondence halves the disagreement, to 50.0\% ---
+the first quantitative support we know of for the practitioner claim that HSK
+levels overstate CEFR. We argue that any Chinese entry in a CEFR corpus must
+record which Chinese standard its labels derive from, and that the standard
+should be the one that has an alignment.
 \end{abstract}
 
 \section{The gap, and why it is awkward to fill}
@@ -173,6 +180,71 @@ that is systematically mis-levelled in one direction, which is the failure mode
 least likely to be caught by inspection and most likely to bias a model trained
 on it.
 
+\section{A reference the field has not used}
+\label{sec:tw}
+
+Everything above compares two PRC documents to each other. It cannot say
+whether \emph{either} produces a defensible CEFR label, because the PRC
+standard publishes no CEFR alignment: the correspondences in §3 are folk
+tables, and there is nothing to check them against.
+
+There is something to check them against. Chinese has a second proficiency
+ecosystem. Taiwan's TOCFL was built at National Taiwan Normal University with
+the CEFR as its blueprint and carries an official level correspondence, and the
+national standard behind it, TBCL, was developed at the National Academy for
+Educational Research and designed to align to both CEFR and ACTFL. Its 7{,}517
+word list is published free by SC-TOP, banded by level. Where the PRC pair
+publishes neither a CEFR alignment nor a standard-to-exam correspondence,
+the Taiwan pair publishes both.
+
+\paragraph{Method.} We grade the same corpus a third time, against the TOCFL
+inventory, converted to simplified characters with OpenCC. Both frameworks are
+applied character-level at the same 95\% threshold with the same proper-noun
+handling, so only the framework varies. TOCFL publishes no character list at
+this tier, so its inventory is derived from its words --- a character takes the
+lowest level of any word containing it. To check what that derivation costs we
+apply it to the PRC's own words, where an official list exists: it reproduces
+the official grade on \textbf{102 of 102} texts. The gap below is therefore a
+property of the frameworks, not of the derivation.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+& \textbf{Readers} & \textbf{Held-out} \\
+& ($n$=102) & ($n$=30) \\
+\midrule
+\multicolumn{3}{l}{\emph{Taiwan vs.\ PRC, naive correspondence}} \\
+\quad label differs & 97 (95.1\%) & 25 (83.3\%) \\
+\quad PRC places higher & 97 & 25 \\
+\quad Taiwan places higher & 0 & 0 \\
+\addlinespace
+\multicolumn{3}{l}{\emph{Taiwan vs.\ PRC, compressed correspondence}} \\
+\quad label differs & 51 (50.0\%) & 20 (66.7\%) \\
+\quad PRC places higher & 45 & 18 \\
+\quad Taiwan places higher & 6 & 2 \\
+\bottomrule
+\end{tabular}
+\caption{Labelling the same texts through Taiwan's officially CEFR-aligned
+framework rather than through HSK. Under the naive table the disagreement is
+total and entirely one-directional.}
+\label{tab:tw}
+\end{table}
+
+\paragraph{Result.} Under the naive one-to-one table, 95.1\% of texts receive a
+different CEFR label depending on which country's framework produced it, and
+\emph{every one} of the 97 disagreements runs the same way: the HSK route
+places the text higher, by one band in 52 cases, two in 38 and three in 7.
+
+The compressed correspondence --- the one practitioners argue for, in which HSK
+6 lands nearer B2 than C2 --- cuts the disagreement to 50.0\%, raising exact
+agreement from 5 texts to 51. That is, to our knowledge, the first quantitative
+test of the long-standing claim that HSK levels overstate CEFR, and it supports
+it: moving the table downward moves it toward the framework that actually has
+an alignment. It does not vindicate it either, since half the corpus still
+disagrees and the residual is still 45 to 6 in the same direction.
+
 \section{What this implies for multilingual CEFR resources}
 
 \paragraph{The provenance field is not optional.} The
@@ -184,8 +256,14 @@ nearly half of them. Chinese needs the source standard, with its version,
 recorded as data. We would expect the same to apply wherever a language's CEFR
 labels are derived through a national framework rather than assigned directly.
 
-\paragraph{No correspondence table fixes it.} It is tempting to read this as an
-argument for a better HSK--CEFR mapping. It is not. Both correspondences we
+\paragraph{Prefer the framework that has an alignment.} The cleanest reading of
+\S\ref{sec:tw} is that a Chinese CEFR label should be derived through TOCFL or
+TBCL, where the correspondence is published by the body that defines the
+levels, rather than through HSK, where it is reconstructed. This also gives a
+labelling route that does not depend on resolving the PRC ambiguity at all.
+
+\paragraph{No correspondence table fixes the PRC ambiguity.} It is tempting to
+read \S4 as an argument for a better HSK--CEFR mapping. It is not. Both correspondences we
 test are applied identically to both gradings; the disagreement is generated
 before the mapping is consulted and passes through it. A third correspondence
 would behave the same way.
@@ -204,9 +282,13 @@ meet the human-authorship criterion of \citet{imperial2025universalcefr}. Its
 levels are ours, not experts'. Coverage is necessary but not sufficient for
 comprehension: grammar, register and world knowledge are unmodelled, and the
 95\% threshold is imported from word-level English research rather than
-established for L2 Chinese characters. Neither correspondence we use is
+established for L2 Chinese characters. Neither HSK correspondence we use is
 official, and we make no claim that either is correct --- only that the finding
-does not depend on which is chosen. Finally, the 2025 syllabus takes effect in
+does not depend on which is chosen. The TOCFL comparison carries its own
+limits: the inventory is derived rather than official, TBCL's 3{,}100-character
+list would be the better source and we did not have it; the word list stops at
+流利級 and so describes no C2 tier; and 338 of 7{,}517 entries collapse together
+under conversion to simplified characters. Finally, the 2025 syllabus takes effect in
 July 2026, so its practical consequences are not yet observable in learner
 outcomes.
 
@@ -214,9 +296,11 @@ outcomes.
 
 The grading implementation is MIT licensed and installable as
 \texttt{pip install hsk30}; the corpus and held-out split are CC~BY~4.0. Every
-figure in this note is regenerated by \texttt{scripts/cefr\_mapping.py} in the
-same repository, which prints the table above from the corpus and the two
-inventories.
+figure in this note is regenerated by \texttt{scripts/cefr\_mapping.py} and
+\texttt{scripts/tocfl\_compare.py} in the same repository. The TOCFL list is
+not redistributed --- SC-TOP asserts rights over it --- so the second script
+reads a copy downloaded free from the official site, and the repository ships
+only the code.
 
 \section*{Ethics and data statement}
 
