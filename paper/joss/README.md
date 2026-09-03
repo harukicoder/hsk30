@@ -3,10 +3,10 @@
 A short software paper for the [Journal of Open Source Software](https://joss.theoj.org),
 which peer-reviews research software in public and issues a Crossref DOI.
 
-**Note for submission:** this repository contains two files named `paper.md` —
-`paper/paper.md` is the research paper (the HSK 3.0 comparison), and this one is
-the software paper. JOSS asks for the paper's path in the submission form; give
-it `paper/joss/paper.md` explicitly so the bot does not pick the wrong one.
+**Note for submission:** `paper/joss/paper.md` is the only file named `paper.md`
+in this repository, deliberately. JOSS's bot searches for that filename and takes
+the first match, so the research paper's markdown mirror lives at
+`paper/whichhsk.md` to keep the search unambiguous. Do not rename it back.
 
 ## Before submitting
 

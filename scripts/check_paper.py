@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verify that every headline figure in the paper matches live computation.
 
-    python3 scripts/check_paper.py            # checks paper/paper.md and the .tex
+    python3 scripts/check_paper.py            # checks paper/whichhsk.md and the .tex
     python3 scripts/check_paper.py --list     # print the computed figures
 
 This exists because the numbers in an earlier draft came from a changelog and
@@ -29,7 +29,7 @@ import hsk30  # noqa: E402
 
 ROOT = os.path.join(HERE, "..")
 DOCS = [
-    os.path.join(ROOT, "paper", "paper.md"),
+    os.path.join(ROOT, "paper", "whichhsk.md"),
     os.path.join(ROOT, "paper", "acl", "main.tex"),
     os.path.join(ROOT, "README.md"),
 ]
