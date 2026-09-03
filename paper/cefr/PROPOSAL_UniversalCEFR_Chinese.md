@@ -45,6 +45,19 @@ This is the substantive point of the proposal: **a Chinese CEFR label derived
 through the Taiwan framework is one step from an official alignment; one derived
 through HSK is two steps, and the second step is invented.**
 
+That is now measured rather than argued. Labelling the same 102 texts through
+each framework — both character-level, same 95% threshold, so only the
+framework varies — disagrees on **95.1%** of them, and every one of the 97
+disagreements runs the same way: the HSK route places the text higher, by one
+band in 52 cases, two in 38 and three in 7. Switching to the compressed HSK
+table halves the disagreement to 50.0%, which is the first quantitative support
+I know of for the long-standing practitioner claim that HSK levels overstate
+CEFR. A control rules out the obvious artifact: TOCFL's character inventory has
+to be derived from its words, so the same derivation was applied to the PRC's
+own words, where an official list exists to check against — it reproduces the
+official grade on 102 of 102 texts. Reproducible from
+`scripts/tocfl_compare.py`; details in `doi:10.5281/zenodo.22285474`.
+
 ## 3. Meeting the three inclusion criteria
 
 **Permissive licence.** Text is drawn from sources under their own permissive
@@ -121,7 +134,10 @@ clears the gold-standard bar or falls short of it.
 - `hsk30` — MIT, dependency-free, `pip install hsk30`; grades against either PRC
   document and records which. `doi:10.5281/zenodo.22234657`
 - The comparison paper, `doi:10.5281/zenodo.22239032`
-- The CEFR note, `doi:10.5281/zenodo.22285474`
+- The CEFR note, `doi:10.5281/zenodo.22285474`, which carries the cross-framework
+  measurement above
+- A validated extraction of the TOCFL 7,517-word list, every level matching the
+  official per-level counts, with the traditional-to-simplified pipeline in place
 - A validated extraction of the 2025 PRC syllabus from a 406-page PDF, whose
   per-level counts reproduce the official cumulative totals exactly — the same
   method the TBCL and TOCFL extractions would use
