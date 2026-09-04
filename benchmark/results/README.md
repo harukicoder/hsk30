@@ -11,6 +11,27 @@ python3 ../evaluate.py deepseek-chat_predictions.jsonl --per-level
 | deepseek-chat, temp 0 | 2026-09-01 | 66.7% | 16% | 24% | 72% | 88% | 100% | 100% |
 | deepseek-reasoner, temp 0 | 2026-09-01 | 64.0% | 48% | 48% | 80% | 80% | 76% | 52% |
 | Authored to target | — | 61.8% | — | — | — | — | — | — |
+
+## September 2026 run — five systems, three laboratories
+
+| System | Overall | HSK1 | HSK2 | HSK3 | HSK4 | HSK5 | HSK6 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `deepseek-chat` | 66.7% | 16 | 24 | 72 | 88 | 100 | 100 |
+| `deepseek-reasoner` | 64.0% | 48 | 48 | 80 | 80 | 76 | 52 |
+| `qwen3-235b-a22b-2507` | 56.0% | 8 | 20 | 40 | 84 | 88 | 96 |
+| `qwen3-235b-a22b-thinking-2507` | 55.3% | 16 | 24 | 40 | 60 | 96 | 96 |
+| `gpt-4o` | 52.7% | 8 | 8 | 36 | 76 | 92 | 96 |
+
+All at temperature 0. Qwen and GPT-4o were run through OpenRouter.
+
+**Read the per-level columns, not the overall.** Every system is near-useless at
+HSK 1 and near-perfect at HSK 6, so a system answering only the top three levels
+would score 96%.
+
+**The reasoning effect does not replicate.** DeepSeek's chat-to-reasoner
+difference row is monotonic (+32 +24 +8 −8 −24 −48). Qwen's is not
+(+8 +4 0 −24 +8 0): a fifth of the magnitude, dominated by one point at HSK 4.
+Directionally consistent, practically DeepSeek's alone.
 | Corpus retrieval | — | 59.3% | 12% | 56% | 84% | 60% | 64% | 80% |
 
 **The aggregate is not the result.** The two DeepSeek models sit 2.7 points
