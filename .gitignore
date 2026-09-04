@@ -27,3 +27,12 @@ paper/acl/*.bbl
 paper/acl/*.out
 paper/acl/acl.sty
 paper/acl/acl_natbib.bst
+
+# Derived submission build — regenerate with paper/acl/build-review.sh
+paper/acl/main-review.tex
+paper/acl/main-review.pdf
+paper/acl/main-review.aux
+paper/acl/main-review.log
+paper/acl/main-review.out
+paper/acl/main-review.bbl
+paper/acl/main-review.blg
