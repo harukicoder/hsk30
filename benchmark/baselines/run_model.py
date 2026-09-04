@@ -10,6 +10,10 @@
     python3 benchmark/baselines/run_model.py --api deepseek \
         --model deepseek-chat > preds.jsonl
 
+    # OpenRouter, which reaches several labs behind one key
+    python3 benchmark/baselines/run_model.py --api openrouter \
+        --model qwen/qwen3-235b-a22b-2507 > preds.jsonl
+
     # or point at any other compatible server
     python3 benchmark/baselines/run_model.py --api openai \
         --base-url https://host/v1/chat/completions --model some-model
@@ -41,6 +45,7 @@ ENDPOINTS = {
     "anthropic": "https://api.anthropic.com/v1/messages",
     "openai": "https://api.openai.com/v1/chat/completions",
     "deepseek": "https://api.deepseek.com/v1/chat/completions",
+    "openrouter": "https://openrouter.ai/api/v1/chat/completions",
 }
 
 #: Which environment variable holds the key for each provider.
@@ -48,7 +53,29 @@ KEY_ENV = {
     "anthropic": "ANTHROPIC_API_KEY",
     "openai": "OPENAI_API_KEY",
     "deepseek": "DEEPSEEK_API_KEY",
+    "openrouter": "OPENROUTER_API_KEY",
 }
+
+#: A key may live in a file instead of the environment. This keeps it out of
+#: shell history and out of any transcript: write it once, chmod 600, forget it.
+KEY_FILES = {
+    "anthropic": "~/.config/hsk30/anthropic.key",
+    "openai": "~/.config/hsk30/openai.key",
+    "deepseek": "~/.config/hsk30/deepseek.key",
+    "openrouter": "~/.config/hsk30/openrouter.key",
+}
+
+
+def load_key(api):
+    """Environment first, then the key file. Never echo what is found."""
+    key = os.environ.get(KEY_ENV[api])
+    if key:
+        return key.strip()
+    path = os.path.expanduser(KEY_FILES[api])
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as fh:
+            return fh.read().strip()
+    return None
 
 
 def post(url, payload, headers, timeout=120):
@@ -81,7 +108,11 @@ def call(api, model, prompt, key, temperature, max_tokens, base_url=None):
         "content-type": "application/json",
         "authorization": "Bearer " + key,
     })
-    return body["choices"][0]["message"]["content"]
+    msg = body["choices"][0]["message"]
+    # Reasoning models sometimes return a null content with the answer in a
+    # separate field; treat a missing answer as empty rather than crashing the
+    # run, so one bad response costs one task and not the whole submission.
+    return msg.get("content") or msg.get("reasoning") or ""
 
 
 def main() -> int:
@@ -97,10 +128,10 @@ def main() -> int:
     ap.add_argument("--retries", type=int, default=3)
     args = ap.parse_args()
 
-    env = KEY_ENV[args.api]
-    key = os.environ.get(env)
+    key = load_key(args.api)
     if not key:
-        print("set %s" % env, file=sys.stderr)
+        print("no key: set %s, or write it to %s (chmod 600)"
+              % (KEY_ENV[args.api], KEY_FILES[args.api]), file=sys.stderr)
         return 1
 
     with open(args.tasks, encoding="utf-8") as fh:
