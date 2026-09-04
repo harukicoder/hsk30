@@ -334,7 +334,8 @@ should.}
 Of the 393 texts long enough to grade, 313 receive a level from both documents;
 the remaining 80 exceed the top band under at least one, and are excluded
 because saturation is not a level change. \textbf{63 of the 313 (20.1\%) change
-level}, 42 harder against 21 easier --- the same direction as the corpus, at
+level} (95\% CI 16.1--24.9, disjoint from the corpus interval), 42 harder
+against 21 easier --- the same direction as the corpus, at
 roughly half the rate.
 
 That gap is not a failure to replicate; it is what \S\ref{sec:cost} predicts.
@@ -697,6 +698,20 @@ place names are a grey area: excluding 欧洲 is defensible under the
 glossed-in-place principle and debatable under a vocabulary-knowledge one.
 Shelf assignments are a single annotator's, with no inter-annotator agreement.
 
+Sample sizes are small and we report point estimates from single runs at
+temperature 0, without repeated seeds. The corpus regrading rate carries a 95\%
+Wilson interval of 38.6--57.6 on $n$=102 and the held-out rate 30.2--63.9 on
+$n$=30, so those two are consistent with each other but individually imprecise;
+the external rate is tighter (16.1--24.9, $n$=313) and does not overlap the
+corpus interval, which is the basis for treating the difference between them as
+real rather than sampling noise. The vocabulary and character disagreement rates
+rest on much larger samples (40.5--42.5 and 39.0--42.5) and are correspondingly
+precise. \textbf{Benchmark cells are the weakest}: each target level has $n$=25,
+giving intervals of roughly $\pm$20 points, so no single cell of
+Table~\ref{tab:perlevel} should be read as a measurement. The difference rows
+inherit that width, which is a further reason to treat the reasoning effect of
+\S\ref{sec:reasoning} as unreplicated rather than reversed.
+
 \section{Conclusion}
 \label{sec:conclusion}
 
@@ -721,11 +736,48 @@ Software, corpus and benchmark are archived separately at
 
 \section*{Ethics and data statement}
 
-The corpus contains no personal data and describes invented characters in
-everyday situations; its LLM-assisted authorship is disclosed in the datasheet.
-Word and character lists derive from published national standards. No human
-subjects were involved. An intended application is a Chinese-learning website
-operated by the author.
+\paragraph{Artifacts and licensing.} Word and character lists are extracted from
+two published national standards, used here for research on those standards
+themselves. The released library is MIT licensed and the corpus CC~BY~4.0, with
+a datasheet giving domain, language and construction. The external validation
+sample is drawn from Chinese Wikipedia (CC~BY-SA~4.0) and Chinese Wikinews
+(CC~BY~2.5); we publish only derived measurements and a manifest of revision
+identifiers, and redistribute no article text, so no share-alike obligation is
+triggered.
+
+\paragraph{Personal and offensive content.} The released corpus contains no
+personal data and describes invented characters in everyday situations. The
+external sample is encyclopedia and news text, which does name real people; we
+neither redistribute it nor extract anything about individuals from it --- only
+per-text character coverage. No content filtering was applied, since the
+measurement is over character inventories rather than meaning.
+
+\paragraph{Computation.} No models were trained. All generation used hosted
+inference APIs at temperature 0 with a 2{,}048-token cap, one run per system
+over 150 tasks, so the total cost is roughly 750 API calls and a few US dollars
+rather than GPU hours. Grading is a set-membership check that runs in seconds on
+a laptop CPU. We report no hyperparameter search because none was performed.
+
+\paragraph{Risks.} The main foreseeable harm is misplacement: a grader that
+reports a level without naming its source document can put a learner in front of
+material a band too hard, which is the failure this paper documents in existing
+tools rather than one it introduces. Coverage grading models vocabulary only and
+should not be used as a sole placement instrument. The work is confined to
+simplified Chinese and does not generalise to other languages or scripts.
+
+\paragraph{Use of AI assistants.} Generative AI was used substantially and is
+disclosed in full. The corpus was drafted with large-language-model assistance
+and edited to level by the author, as its datasheet states and as
+\S\ref{sec:corpus} repeats; this is why it is described as pedagogical material
+rather than naturally occurring Chinese, and why the benchmark's authored
+baseline is not labelled a human one. AI assistance was also used in writing the
+software and in drafting this paper. The problem framing, the design decisions
+and every claim made here were determined and are defended by the author, who
+reviewed all AI-assisted output; that review is what identified the
+non-replication reported in \S\ref{sec:reasoning}.
+
+No human subjects were involved. An intended application is a Chinese-learning
+website built by the author.
 
 % acl.sty already issues \bibliographystyle{acl_natbib}; declaring it again
 % makes BibTeX abort with "Illegal, another \bibstyle command".
