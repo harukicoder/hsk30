@@ -291,6 +291,66 @@ content stream, which played no part in any decision reported here:
 \textbf{14 of 30 changed level (46.7\%), all of them harder}. The finding is
 not a property of the released corpus.
 
+\subsection{Text we did not write}
+\label{sec:external}
+
+The corpus is ours, and a result measured only on it cannot distinguish a
+property of the standards from a property of our authoring. We therefore
+regraded 400 texts we had no hand in: 250 Chinese Wikipedia articles and 150
+Chinese Wikinews reports, sampled at random, human-written and permissively
+licensed. Collection and regrading are scripted and reproducible; the texts are
+not redistributed, since share-alike licensing does not sit inside an MIT
+repository.
+
+Two differences from the corpus run are stated rather than hidden. These texts
+carry no pinyin, so proper nouns cannot be detected and count toward
+difficulty; this raises absolute levels but leaves the document as the only
+variable, since both gradings treat them identically. And they are encyclopedia
+and news prose rather than material written to a level target, which is the
+point of using them.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Level (2021)} & \textbf{$n$} & \textbf{Changed} & \textbf{Rate} \\
+\midrule
+HSK 3 & 1   & 1  & 100.0\% \\
+HSK 4 & 8   & 8  & 100.0\% \\
+HSK 5 & 31  & 6  & 19.4\% \\
+HSK 6 & 114 & 33 & 28.9\% \\
+HSK 7 & 159 & 15 & 9.4\% \\
+\midrule
+All   & 313 & 63 & \textbf{20.1\%} \\
+\bottomrule
+\end{tabular}
+\caption{External texts, by the level the 2021 standard assigns them.
+Disagreement concentrates where the mechanism of \S\ref{sec:cost} predicts it
+should.}
+\label{tab:external}
+\end{table}
+
+Of the 393 texts long enough to grade, 313 receive a level from both documents;
+the remaining 80 exceed the top band under at least one, and are excluded
+because saturation is not a level change. \textbf{63 of the 313 (20.1\%) change
+level}, 42 harder against 21 easier --- the same direction as the corpus, at
+roughly half the rate.
+
+That gap is not a failure to replicate; it is what \S\ref{sec:cost} predicts.
+The disagreement is driven by the syllabus grading 371 characters at levels
+1--2 where the 2021 standard grades 600, so it must concentrate at the bottom
+of the scale and fade at the top. Table~\ref{tab:external} shows exactly that:
+external texts landing at HSK 3--4 changed level 9 times out of 9, while those
+at HSK 7 changed 9.4\% of the time.
+
+The limitation this exposes is more interesting than the number. Encyclopedia
+and news prose almost never lands below HSK 5, so the region where the two
+documents disagree most is the region natural text does not occupy. Beginner
+Chinese is, almost by definition, written to a level. A pedagogical corpus is
+therefore not a convenience for measuring this effect; in the band where the
+effect is largest it is the only instrument available, and any study of that
+band inherits the same constraint.
+
 \section{Method}
 \label{sec:method}
 
