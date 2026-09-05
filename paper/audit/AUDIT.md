@@ -7,11 +7,11 @@ whether the *level* matches.
 
 | List | Stars | Words | HSK 2.0 | GF0025-2021 | 2025 syllabus | Best match |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| `krmanik/HSK-3.0 (2025)` | 356 | 10,900 | 48.9% <sub>(n=4,804)</sub> | 58.5% <sub>(n=9,677)</sub> | 100.0% <sub>(n=10,896)</sub> | **2025 syllabus** (+41.5) |
-| `krmanik/HSK-3.0 (2021)` | 356 | 10,943 | 18.2% <sub>(n=4,487)</sub> | 100.0% <sub>(n=10,909)</sub> | 58.5% <sub>(n=9,690)</sub> | **GF0025-2021** (+41.5) |
-| `drkameleon/complete-hsk-vocabulary` | 294 | 10,969 | 18.2% <sub>(n=4,490)</sub> | 100.0% <sub>(n=10,914)</sub> | 58.5% <sub>(n=9,696)</sub> | **GF0025-2021** (+41.5) |
-| `elkmovie/hsk30` | 115 | 10,946 | 18.2% <sub>(n=4,489)</sub> | 100.0% <sub>(n=10,916)</sub> | 58.5% <sub>(n=9,694)</sub> | **GF0025-2021** (+41.5) |
-| `ivankra/hsk30` | 80 | 10,946 | 18.2% <sub>(n=4,489)</sub> | 100.0% <sub>(n=10,916)</sub> | 58.5% <sub>(n=9,694)</sub> | **GF0025-2021** (+41.5) |
+| `krmanik/HSK-3.0 (2025)` | 356 | 10,900 | 48.9% <sub>(n=4,804)</sub> | 58.5% <sub>(n=9,702)</sub> | 100.0% <sub>(n=10,896)</sub> | **2025 syllabus** (+41.5) |
+| `krmanik/HSK-3.0 (2021)` | 356 | 10,943 | 18.2% <sub>(n=4,487)</sub> | 100.0% <sub>(n=10,935)</sub> | 58.5% <sub>(n=9,690)</sub> | **GF0025-2021** (+41.5) |
+| `drkameleon/complete-hsk-vocabulary` | 294 | 10,969 | 18.2% <sub>(n=4,490)</sub> | 100.0% <sub>(n=10,969)</sub> | 58.5% <sub>(n=9,696)</sub> | **GF0025-2021** (+41.5) |
+| `elkmovie/hsk30` | 115 | 10,946 | 18.2% <sub>(n=4,489)</sub> | 100.0% <sub>(n=10,940)</sub> | 58.5% <sub>(n=9,694)</sub> | **GF0025-2021** (+41.5) |
+| `ivankra/hsk30` | 80 | 10,946 | 18.2% <sub>(n=4,489)</sub> | 100.0% <sub>(n=10,940)</sub> | 58.5% <sub>(n=9,694)</sub> | **GF0025-2021** (+41.5) |
 
 `n` is the number of words the list and that document share; the percentage
 is agreement over those. A high rate on a small `n` would be weak evidence,
@@ -69,9 +69,9 @@ extraction of either document.
 | Comparison | Shared words | Differ | Rate |
 | --- | ---: | ---: | ---: |
 | `drkameleon/complete-hsk-vocabulary` vs `krmanik/HSK-3.0 (2025)` | 9,700 | 4,025 | **41.49%** |
-| Our own extractions, as published | 9,674 | 4,012 | **41.47%** |
+| Our own extractions, as published | 9,698 | 4,023 | **41.48%** |
 
-The two rates differ by **0.02 percentage points**.
+The two rates differ by **0.01 percentage points**.
 
 The 41.5% disagreement between the two documents called "HSK 3.0" was
 first reported from our extraction of the source PDFs
