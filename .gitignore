@@ -36,3 +36,7 @@ paper/acl/main-review.log
 paper/acl/main-review.out
 paper/acl/main-review.bbl
 paper/acl/main-review.blg
+
+# Fetched copies of other projects' data, used to audit them and never
+# redistributed — see paper/audit/.
+.cache/

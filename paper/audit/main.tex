@@ -1,0 +1,290 @@
+\documentclass[11pt]{article}
+\usepackage[final]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{xeCJK}
+\setCJKmainfont{Songti SC}
+
+\title{Four Repositories, One List: The Open HSK 3.0 Datasets Encode\\
+       a Document the Examination No Longer Uses}
+
+\author{Alvaro Serrano \\
+  \textit{Independent researcher} \\
+  \texttt{alvaro.serrano.gp@gmail.com} \\
+  \texttt{orcid.org/0009-0006-4701-9026}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Tools that show a learner an HSK level almost never derive it from the issuing
+body's PDF. They take it from a small number of open datasets. We audit the five
+most-starred, comparing each word by word against the three documents in
+circulation: the 2012 syllabus, the GF0025-2021 national standard, and the 2025
+examination syllabus in force since July 2026. \textbf{Four of the five encode
+GF0025-2021, and only one encodes the examination.} Worse for anyone treating
+their agreement as corroboration, the four are not independent: across every
+pair, over roughly 10{,}940 shared words, they disagree about the level of
+\textbf{not one word}. They are one list. The derivation is documented rather
+than hidden --- one repository credits another as its source, and that one links
+the March 2021 ministry PDF it was OCR'd from --- so the ecosystem is not
+careless; it is \emph{singly rooted}, which is a different and more durable
+problem. A consumer three hops downstream sees only ``HSK 3.0.'' The audit also yields
+an external replication we did not set out to obtain. Comparing a community 2021
+list to a community 2025 list --- neither ours, from different maintainers ---
+reproduces the disagreement rate reported in \citet{serrano2026whichhsk} to
+within \textbf{0.02 percentage points} (41.49\% against 41.47\%), on data with no
+dependency on our extraction. We release the audit, which re-runs against the
+live repositories in one command.
+\end{abstract}
+
+\section{Nobody reads the PDF}
+
+The 2025 examination syllabus is distributed as a 406-page PDF. The 2021
+national standard is a book. Extracting either into a machine-readable list is a
+week of careful work, and almost nobody does it: a reader, an app, or a
+levelling script takes the list from GitHub, where a handful of open datasets
+have accumulated thousands of stars between them and are reused far beyond any
+audit trail.
+
+That makes those datasets the field's actual standard, whatever the issuing
+bodies publish. If they encode one document while learners are examined against
+another, the error is not any one vendor's. It is inherited.
+
+\citet{serrano2026whichhsk} established that ``HSK 3.0'' names two official
+documents which assign different levels to 41.5\% of the vocabulary they share.
+This paper asks the obvious follow-up, which is not about the documents at all:
+\emph{which one is actually in the software?}
+
+\section{Method}
+
+We take the five most-starred open HSK 3.0 word lists (Table~\ref{tab:audit}) and
+compare each, word by word, against all three documents. Agreement is computed
+over the words a list and a document \emph{share}, so an incomplete list is not
+penalised for being incomplete; what is measured is whether it assigns the same
+level. Levels 7, 8 and 9 are one undifferentiated band in the source documents
+and are treated as one here.
+
+Two normalisations are applied identically to every source, because the official
+tables carry both and a list that reproduces them faithfully still has to be
+matched: part-of-speech annotations in full-width parentheses (白（形）) are
+stripped, and alternates written with a full-width bar (爸爸｜爸) are reduced to
+the headword.
+
+\paragraph{The control.} One repository publishes both documents, in folders
+named \texttt{New HSK (2021)} and \texttt{New HSK (2025)}. An audit that could
+not tell those apart would be worthless. Each matches its own label at 100.0\%,
+and each matches the other document at 58.5\%. The method separates them.
+
+\paragraph{What we do not redistribute.} Every list is fetched from its own
+repository under its own licence, used to compute summary statistics, and not
+republished. The audit script ships; the data does not.
+
+\section{Results}
+
+\begin{table*}[t]
+\centering\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{List} & \textbf{Stars} & \textbf{Words} & \textbf{HSK 2.0} &
+\textbf{GF0025-2021} & \textbf{2025 syllabus} \\
+\midrule
+\texttt{krmanik/HSK-3.0 (2025)}          & 356 & 10{,}900 & 48.9\% & 58.5\% & \textbf{100.0\%} \\
+\texttt{krmanik/HSK-3.0 (2021)}          & 356 & 10{,}943 & 18.2\% & \textbf{100.0\%} & 58.5\% \\
+\texttt{drkameleon/complete-hsk-vocabulary} & 294 & 10{,}969 & 18.2\% & \textbf{100.0\%} & 58.5\% \\
+\texttt{elkmovie/hsk30}                  & 115 & 10{,}946 & 18.2\% & \textbf{100.0\%} & 58.5\% \\
+\texttt{ivankra/hsk30}                   &  80 & 10{,}946 & 18.2\% & \textbf{100.0\%} & 58.5\% \\
+\bottomrule
+\end{tabular}
+\caption{Agreement with each document, over the words the list and the document
+share (between 9{,}694 and 10{,}942 in every cell above). Star counts read
+5 September 2026.}
+\label{tab:audit}
+\end{table*}
+
+\subsection{One of five encodes the examination}
+
+Table~\ref{tab:audit} is the result. Four of the five lists match GF0025-2021
+exactly. The single list that matches the 2025 examination syllabus is the one
+whose own directory name says 2025.
+
+GF0025-2021 is the national \emph{grading standard}. It is not wrong, and a
+programme teaching to the national standard is right to use it. But learners
+sitting the HSK from July 2026 are examined against the other document, and a
+tool that labels a word ``HSK 4'' from one of these lists is not making a
+statement about the examination its user is preparing for.
+
+\subsection{The four are the same list}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Pair} & \textbf{Shared} & \textbf{Differ} \\
+\midrule
+krmanik(2021) vs drkameleon & 10{,}935 & \textbf{0} \\
+krmanik(2021) vs elkmovie   & 10{,}935 & \textbf{0} \\
+krmanik(2021) vs ivankra    & 10{,}935 & \textbf{0} \\
+drkameleon vs elkmovie      & 10{,}938 & \textbf{0} \\
+drkameleon vs ivankra       & 10{,}938 & \textbf{0} \\
+elkmovie vs ivankra         & 10{,}942 & \textbf{0} \\
+\addlinespace
+any of the four vs krmanik(2025) & $\sim$9{,}700 & $\sim$4{,}025 \\
+\bottomrule
+\end{tabular}
+\caption{Pairwise level disagreements among the audited lists.}
+\label{tab:pairs}
+\end{table}
+
+Table~\ref{tab:pairs} is the finding that matters more. Across all six pairs
+among the four GF0025-2021 lists, over roughly 10{,}940 shared words each, the
+number of words assigned a different level is \textbf{zero}.
+
+Not ``low''. Zero. The only differences anywhere were four entries where one list
+writes a homograph index as a superscript (称¹) and another as a digit (称1).
+
+\textbf{This is not a discovery of hidden copying.} The chain is documented.
+\texttt{drkameleon} lists its sources in its README and credits
+\texttt{elkmovie/hsk30} for the HSK 3.0 wordlist; \texttt{elkmovie} states in its
+own header that it was OCR'd with Pleco OCR and links the March 2021 Ministry of
+Education announcement it was taken from. \texttt{ivankra} documents its row
+count as 11{,}092 --- the GF0025-2021 total --- and its ID scheme as the index
+from that PDF. Every maintainer said what they did.
+
+The finding is structural rather than editorial. The open Chinese-proficiency
+ecosystem is \emph{singly rooted}: essentially all of it descends, by a
+disclosed path, from one OCR pass over one PDF published in March 2021. That is
+efficient, and it is fragile in two specific ways.
+
+First, \textbf{corroboration is unavailable}. A practitioner who checks a word
+against three HSK lists and finds them in agreement has learned nothing about the
+standard; they have learned that one file propagated. Agreement across these
+lists cannot detect an OCR error, and the root list says it was ``not
+extensively proofread.''
+
+Second, \textbf{the root is now the wrong document}. Nothing in the chain is a
+mistake --- three of the four lists predate the 2025 syllabus entirely --- but
+the ecosystem inherits its currency from its root, and the root is the 2021
+standard. Updating one repository does not update the field; updating the field
+means each downstream consumer independently noticing that a second document now
+exists.
+
+\subsection{Nobody says which}
+
+Attribution within the chain is good. What degrades is what a \emph{consumer}
+of these lists can see.
+
+At the root, \texttt{elkmovie} links the exact ministry announcement its list
+came from, dated March 2021. That is unambiguous provenance. One hop downstream,
+\texttt{drkameleon} credits \texttt{elkmovie} but presents its own levels under
+the heading ``HSK 3.0'' --- a name that, since November 2025, denotes two
+documents. Two hops downstream, an application that imports
+\texttt{complete.min.json} and renders \texttt{n4} as ``HSK 4'' has no surviving
+reference to March 2021 at all, and neither does its user.
+
+So the information is not lost through negligence; it is lost through
+\emph{distance}. Provenance that lives in a README does not travel with the
+data. Only the repository that explicitly split its output into \texttt{New HSK
+(2021)} and \texttt{New HSK (2025)} folders carries the distinction in a form
+that survives being copied, and that is the one list of the five that a tool can
+use without inheriting the ambiguity.
+
+The remedy is correspondingly small: a version field \emph{inside} the data,
+naming the source document and its date, so that the answer travels with the
+answer.
+
+\section{An external replication}
+\label{sec:replication}
+
+This was not the point of the audit, and it is the strongest thing in it.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Lists compared} & \textbf{Shared} & \textbf{Differ} & \textbf{Rate} \\
+\midrule
+Community datasets & 9{,}700 & 4{,}025 & \textbf{41.49\%} \\
+Our own extraction & 9{,}674 & 4{,}012 & \textbf{41.47\%} \\
+\bottomrule
+\end{tabular}
+\caption{The headline finding of \citet{serrano2026whichhsk}, recomputed from
+data we did not produce. \texttt{drkameleon} supplies the 2021 side and
+\texttt{krmanik} the 2025 side; they are different maintainers.}
+\label{tab:replication}
+\end{table}
+
+Take a community list that encodes GF0025-2021 and a community list that encodes
+the 2025 syllabus, from different maintainers, and compare those two to each
+other. Neither has any dependency on our extraction of either document.
+
+The rates differ by \textbf{0.02 percentage points} (Table~\ref{tab:replication}).
+
+This is stronger evidence than the original measurement. An extraction error on
+our side could manufacture a 41.5\% disagreement; it could not manufacture the
+same figure a second time in data extracted by other people from the same two
+PDFs. The finding is a property of the documents, not of our pipeline.
+
+It also cuts the other way, and we state it as such: the community lists
+reproduce our number because they and we are reading the same two documents
+correctly. Table~\ref{tab:replication} validates our extraction as much as it
+validates the claim.
+
+\section{Limitations}
+
+We audit five lists. There are more, and the selection is by GitHub stars, which
+measures visibility rather than deployment --- we cannot observe which list any
+given product actually ships, and we make no claim about any named product.
+
+Star counts are a snapshot and will drift; the audit re-runs and reports the
+counts it read.
+
+Agreement over shared words does not test coverage. A list could match a
+document perfectly on every word it contains and still omit a third of it. We
+report list sizes so this is visible, but sizes are not a completeness audit.
+
+The zero-disagreement result establishes that the four lists are the same
+artifact, and the repositories' own READMEs establish the direction of
+derivation for the pair that documents it. We do not assert a derivation path
+where none is stated.
+
+Finally, this measures word lists. A tool's text-level output also depends on
+segmentation, a coverage threshold and proper-noun handling, none of which is
+audited here. The narrower claim --- about the list, which a published document
+is supposed to fix --- is the one we make.
+
+\section*{Availability}
+
+\texttt{scripts/audit\_wordlists.py} in the \texttt{hsk30} repository reproduces
+every figure here, fetching each list live from its own repository. No audited
+list is redistributed. A companion,
+\texttt{scripts/standard\_fingerprint.py}, emits a twelve-word probe that
+identifies which of the three documents any black-box tool implements, for the
+common case where the list is not published at all.
+
+\section*{Ethics and data statement}
+
+No personal data and no human subjects. All audited datasets are public and
+openly licensed; each is used to compute summary statistics and none is
+republished. We name repositories because the finding is about what a user of a
+public artifact can know from it, and naming is necessary for the claim to be
+checkable --- but no finding here implies error or bad faith by any maintainer.
+Three of the four lists predate the document they are measured against, every
+maintainer documented what they did, and an earlier draft of this paper
+mischaracterised two of them by not reading their READMEs before writing about
+their data.
+Generative AI was used in writing the audit code and in drafting this paper; the
+framing, the design decisions and every claim are the author's, who reviewed all
+output. That review is what caught two parser defects --- an OCR'd section header
+and a level written \texttt{7-9} --- each of which had silently produced a wrong
+result about somebody else's repository before it was corrected.
+
+\bibliography{refs}
+
+\end{document}
