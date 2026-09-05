@@ -15,7 +15,7 @@ Chinese is normally placed on the CEFR through HSK. That route is unsound, and
 measurably so: "HSK 3.0" names two official PRC documents that assign different
 levels to 41.5% of the vocabulary they share, and grading the same texts against
 one rather than the other moves 46.1% of them into a different CEFR band —
-directionally, not noisily (`doi:10.5281/zenodo.22285474`).
+directionally, not noisily (`doi:10.5281/zenodo.22285473`).
 
 The deeper problem is upstream of any correspondence table. **The PRC standard
 does not align itself to the CEFR at all.** Every HSK-to-CEFR mapping in
@@ -56,7 +56,7 @@ CEFR. A control rules out the obvious artifact: TOCFL's character inventory has
 to be derived from its words, so the same derivation was applied to the PRC's
 own words, where an official list exists to check against — it reproduces the
 official grade on 102 of 102 texts. Reproducible from
-`scripts/tocfl_compare.py`; details in `doi:10.5281/zenodo.22285474`.
+`scripts/tocfl_compare.py`; details in `doi:10.5281/zenodo.22285473`.
 
 ## 3. Meeting the three inclusion criteria
 
@@ -106,12 +106,20 @@ works.
 
 ## 5. Division of labour
 
-What I would bring: the grading implementation and its validation against
-published per-level totals (already done for the PRC syllabus, whose counts my
-extraction reproduces exactly); the extraction and validation of the TBCL and
-TOCFL inventories; the OpenCC pipeline; source acquisition and licence
-tracking; and the reproducibility harness, on the pattern already in place,
-where every published figure regenerates from a script.
+What I would bring, most of which now exists rather than being proposed: the
+grading implementation and its validation against published per-level totals;
+validated extractions of **all three** inventories — the PRC syllabus, TBCL and
+TOCFL — each reproducing the issuing body's own published counts; the OpenCC
+pipeline; source acquisition and licence tracking; and the reproducibility
+harness, where every published figure regenerates from a script.
+
+The TBCL extraction was completed on 5 September 2026 and no prior
+machine-readable version appears to exist. It is worth one sentence of warning
+to anyone else attempting it: TBCL levels 1 to 4 each appear in two forms, 第N級
+and 第N*級, while levels 5 to 7 do not. Filtering on the unstarred form silently
+discards 442 of 3,100 characters and 1,398 of 14,452 words, and produces totals
+that look plausible. Counting both makes level 1 exactly 246 characters, which
+is the figure NAER publishes.
 
 What I would need from the network: CEFR-qualified Chinese assessors for the
 validation stage, and a judgement on whether a two-stage design of this kind
@@ -134,15 +142,23 @@ clears the gold-standard bar or falls short of it.
 - `hsk30` — MIT, dependency-free, `pip install hsk30`; grades against either PRC
   document and records which. `doi:10.5281/zenodo.22234657`
 - The comparison paper, `doi:10.5281/zenodo.22239032`
-- The CEFR note, `doi:10.5281/zenodo.22285474`, which carries the cross-framework
+- The CEFR note, `doi:10.5281/zenodo.22285473`, which carries the cross-framework
   measurement above
+- The cross-strait comparison, `doi:10.5281/zenodo.22346489`, which measures the
+  two ecosystems against each other for the first time: 64.7% of the 8,318 words
+  TBCL and the 2025 PRC syllabus share sit at different tiers
 - A validated extraction of the TOCFL 7,517-word list, every level matching the
   official per-level counts, with the traditional-to-simplified pipeline in place
+- A validated extraction of **TBCL** — 3,100 characters and 14,452 words across
+  seven levels, reconciling to NAER's published totals. No prior machine-readable
+  version is known. The lists themselves are not redistributed, since NAER
+  asserts rights over them; the extraction procedure ships and the data does not
 - A validated extraction of the 2025 PRC syllabus from a 406-page PDF, whose
-  per-level counts reproduce the official cumulative totals exactly — the same
-  method the TBCL and TOCFL extractions would use
+  per-level counts reproduce the official cumulative totals exactly
 
 ---
 
-*Prepared 3 September 2026. Figures cited above are reproducible from
+*Prepared 3 September 2026; updated 5 September 2026 with the completed
+TBCL extraction and the cross-strait comparison. Figures cited above are
+reproducible from
 `github.com/harukicoder/hsk30`.*

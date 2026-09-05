@@ -163,6 +163,24 @@ of hard texts speak for all of them: it reported "HSK 3" for a beginner shelf
 on which 13 of 22 texts individually read at HSK 1–2, describing nothing
 actually on the shelf.
 
+### Checking your own shelf
+
+If you run a Chinese programme and want to know whether this ambiguity affects
+your material, there is a script for it:
+
+```bash
+python3 scripts/levelling_report.py --dir path/to/your/texts \
+    --for "Your programme" -o report.md
+```
+
+It grades every text under **both** documents and writes a dated report: which
+texts change level, what the shelf looks like under each, and what happens to
+the CEFR bands. It runs entirely on your machine — nothing is uploaded and
+nothing is retained — and it attaches no recommendation about which document you
+should follow, because that is a curricular decision and not a technical one.
+
+Accepts a directory of `.txt` files or a JSON Lines file with a `text` field.
+
 ## What's in this repository
 
 | Path | Contents |
@@ -173,6 +191,7 @@ actually on the shelf.
 | `paper/` | The accompanying paper and its figures |
 | `scripts/reproduce.py` | Recomputes every published figure |
 | `scripts/extract_syllabus_2025.py` | Parses the official syllabus PDF |
+| `scripts/levelling_report.py` | Grades a collection under both documents and reports the difference |
 | `corpus/syllabus2025/PROVENANCE.md` | Where the 2025 tables come from, and their rights position |
 
 ## WriteToLevel
@@ -291,7 +310,7 @@ Or the software and data specifically:
 ```
 
 The DOI above is the *concept* DOI: it always resolves to the latest version.
-To cite this exact release, use `10.5281/zenodo.22234658`.
+To cite this exact release (v0.2.0), use `10.5281/zenodo.22261498`.
 
 ## Licence
 

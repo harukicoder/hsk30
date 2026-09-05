@@ -644,7 +644,7 @@ measuring it — on which text authored to target scores 61.8%.
 This paper is archived at **doi:10.5281/zenodo.22239032**.
 Software, corpus and benchmark are archived separately at
 **doi:10.5281/zenodo.22234657** (concept DOI, resolving to the latest
-version; this release is doi:10.5281/zenodo.22234658). The library is on
+version; this release is doi:10.5281/zenodo.22261498). The library is on
 PyPI as `hsk30` and the source at
 <https://github.com/harukicoder/hsk30>. Code is MIT; the corpus is CC BY 4.0.
 
