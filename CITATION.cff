@@ -13,7 +13,7 @@ identifiers:
     description: Concept DOI — always resolves to the latest version
   - type: doi
     value: "10.5281/zenodo.22261498"
-    description: DOI for version 0.2.0, this release
+    description: DOI for version 0.2.0
 repository-code: "https://github.com/harukicoder/hsk30"
 url: "https://github.com/harukicoder/hsk30"
 abstract: >-
@@ -34,8 +34,8 @@ keywords:
   - second-language-acquisition
   - controlled-generation
 license: MIT
-version: 0.2.0
-date-released: "2026-09-02"
+version: 0.2.1
+date-released: "2026-09-05"
 references:
   - type: data
     title: "HSK 3.0 Graded Reader Corpus"
