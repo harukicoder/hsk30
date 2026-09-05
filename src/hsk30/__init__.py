@@ -17,7 +17,7 @@ NOTE ON VERSIONS.  The 2021 grading standard is *not* the HSK 3.0 exam
 syllabus.  A separate 406-page exam syllabus (新版HSK考试大纲) was published in
 November 2025 and takes effect in July 2026; it uses different lists —
 cumulative word counts 300/500/1,000/2,000/3,600/5,400/11,000 against this
-standard's 485/1,227/2,171/3,143/4,199/5,317/10,916, and roughly 3,079
+standard's 507/1,260/2,213/3,186/4,245/5,369/10,977, and roughly 3,079
 recognition characters against this standard's 3,000.  This package grades
 against the 2021 standard.  Do not describe its output as the exam syllabus.
 """

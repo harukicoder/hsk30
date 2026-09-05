@@ -50,9 +50,9 @@ document produced it. There are two, published four years apart:
 
 | Comparison | Shared words | Same level | Moved |
 | --- | ---: | ---: | ---: |
-| HSK 2.0 → GF0025-2021 | 4,482 | 814 | 3,668 (81.8%) |
+| HSK 2.0 → GF0025-2021 | 4,492 | 818 | 3,674 (81.8%) |
 | HSK 2.0 → 2025 syllabus | 4,802 | 2,349 | 2,453 (51.1%) |
-| **GF0025-2021 → 2025 syllabus** | **9,674** | **5,662** | **4,012 (41.5%)** |
+| **GF0025-2021 → 2025 syllabus** | **9,698** | **5,675** | **4,023 (41.5%)** |
 
 Judged against the 2021 standard, HSK 2.0 looks almost entirely regraded.
 Judged against the examination syllabus, barely half moved. The syllabus is
@@ -87,9 +87,10 @@ is what gates reading.
 
 **The official character list, not a derived one.** Deriving character levels
 from the lowest-level word containing each character agrees with the 2021
-official list on 2,962 of 2,969 characters — and gets the family terms wrong. 哥, 妈,
-妹, 弟 are level-1 characters whose only listed words (哥哥, 妈妈) sit at
-level 4. Also wrong: 王, 第, 零. This package ships the official list.
+official list on all 2,971 characters it can reach. The reason to ship the
+official list is the 29 it cannot: 29 of the standard's 3,000 characters appear
+in no listed word at all, every one in the 7–9 band and every one a surname or
+place-name element (冯 刘 吕 吴 唐 孔 孟 宋 州 …).
 
 **Proper nouns are excluded when identifiable.** A reader does not need the
 puppy's name in their vocabulary; it is glossed in place. Counting names as
@@ -210,7 +211,7 @@ They are different, and it matters which one a tool grades against.
 | `standard=` | Document | Date | Words | Characters |
 | --- | --- | --- | ---: | ---: |
 | `"2.0"` | HSK 2.0 exam lists | 2009–10 | 4,991 | — |
-| `"2021"` | 《国际中文教育中文水平等级标准》 (GF0025-2021) | in force 1 Jul 2021 | 10,916 | 3,000 |
+| `"2021"` | 《国际中文教育中文水平等级标准》 (GF0025-2021) | in force 1 Jul 2021 | 10,977 | 3,000 |
 | `"2025"` *(default)* | 新版HSK考试大纲 | pub. Nov 2025, in force Jul 2026 | 10,896 | 3,088 |
 
 The 2021 document is a national language standard (语言文字规范) from the

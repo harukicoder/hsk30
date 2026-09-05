@@ -7,7 +7,7 @@ routinely conflated as "HSK 3.0":
     hsk2025_writing_chars.tsv  1,200 writing hanzi     ) EXAM syllabus, in
     hsk2025_words.tsv         10,896 graded words      ) force since Jul 2026
     hsk30_chars.tsv    3,000 graded hanzi      ) GF0025-2021, the national
-    hsk30_words.tsv   10,916 graded words      ) grading standard (Jul 2021)
+    hsk30_words.tsv   10,977 graded words      ) grading standard (Jul 2021)
     hsk20_words.tsv    4,991 graded words        the superseded HSK 2.0 lists
 
 **Two character dimensions.**  HSK 3.0 grades 认读字 (recognition — what a

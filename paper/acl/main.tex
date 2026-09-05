@@ -188,9 +188,9 @@ that figure to be incorrect.
 \toprule
 \textbf{Comparison} & \textbf{Shared} & \textbf{Same} & \textbf{Moved} \\
 \midrule
-2.0 $\rightarrow$ 2021    & 4{,}482 & 814     & 81.8\% \\
+2.0 $\rightarrow$ 2021    & 4{,}492 & 818     & 81.8\% \\
 2.0 $\rightarrow$ 2025    & 4{,}802 & 2{,}349 & 51.1\% \\
-2021 $\rightarrow$ 2025   & 9{,}674 & 5{,}662 & \textbf{41.5\%} \\
+2021 $\rightarrow$ 2025   & 9{,}698 & 5{,}675 & \textbf{41.5\%} \\
 \bottomrule
 \end{tabular}
 \caption{Pairwise level agreement.}
@@ -370,13 +370,31 @@ gates reading.
 \subsection{The official character list, not a derived one}
 
 Deriving a character's level from the lowest-level word containing it agrees
-with the 2021 official list on 2{,}962 of 2{,}969 derivable characters --- and
-misgrades seven: 哥, 妈, 妹, 弟, 王, 第, 零. The failure is systematic: 哥, 妈,
-妹 and 弟 are level-1 characters whose only listed words are the reduplicated
-哥哥 and 妈妈, graded at level 4. Derivation misgrades precisely the vocabulary
-a beginner meets first.
+with the 2021 official list on \textbf{all 2{,}971 characters it can reach}.
+The reason to ship the official list anyway is what it cannot reach:
+\textbf{29 of the standard's 3{,}000 characters appear in no listed word}, so
+derivation assigns them nothing at all. All 29 sit in the 7--9 band and all are
+surname or place-name elements --- 冯, 刘, 吕, 吴, 唐, 孔, 孟, 宋, 州, 曹, 杭,
+欧, 沪, 洲, 浙, 浦, 淮, 渝, 潘, 澳, 秦, 粤, 蜀, 袁, 赵, 邓, 郭, 韩, 魏 --- which
+is to say the standard grades a character inventory that its own word list does
+not span, and the gap is exactly the proper-noun vocabulary
+\S\ref{sec:propernouns} excludes on other grounds.
+
+\paragraph{A correction.} An earlier version of this paper reported that
+derivation misgraded seven characters --- 哥, 妈, 妹, 弟, 王, 第, 零 --- and
+attributed it to the reduplicated forms 哥哥 and 妈妈 being ``graded at level
+4.'' That was wrong, and the error was ours. Our extraction of the 2021 word
+list filtered rows to pure hanzi \emph{before} normalising the standard's
+variant notation, which silently discarded all 61 entries written 爸爸｜爸,
+第（第二）, …极了 or 称1 --- including 爸爸, 妈妈, 哥哥, 姐姐, 弟弟 and 妹妹,
+every one of them level 1. The characters were not misgraded by derivation;
+their words were missing from our list. With the extraction corrected the
+seven misgradings disappear and the count rises from 10{,}916 words to
+10{,}977. The defect was found by auditing other people's word lists against
+ours and noticing that ours was the short one.
 
 \subsection{Proper nouns}
+\label{sec:propernouns}
 
 Names should not count towards difficulty: a reader does not need a character's
 name in productive vocabulary, because it is glossed in place. In our corpus a

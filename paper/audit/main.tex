@@ -39,7 +39,7 @@ problem. A consumer three hops downstream sees only ``HSK 3.0.'' The audit also 
 an external replication we did not set out to obtain. Comparing a community 2021
 list to a community 2025 list --- neither ours, from different maintainers ---
 reproduces the disagreement rate reported in \citet{serrano2026whichhsk} to
-within \textbf{0.02 percentage points} (41.49\% against 41.47\%), on data with no
+within \textbf{0.01 percentage points} (41.49\% against 41.48\%), on data with no
 dependency on our extraction. We release the audit, which re-runs against the
 live repositories in one command.
 \end{abstract}
@@ -211,7 +211,7 @@ This was not the point of the audit, and it is the strongest thing in it.
 \textbf{Lists compared} & \textbf{Shared} & \textbf{Differ} & \textbf{Rate} \\
 \midrule
 Community datasets & 9{,}700 & 4{,}025 & \textbf{41.49\%} \\
-Our own extraction & 9{,}674 & 4{,}012 & \textbf{41.47\%} \\
+Our own extraction & 9{,}698 & 4{,}023 & \textbf{41.48\%} \\
 \bottomrule
 \end{tabular}
 \caption{The headline finding of \citet{serrano2026whichhsk}, recomputed from
@@ -224,7 +224,7 @@ Take a community list that encodes GF0025-2021 and a community list that encodes
 the 2025 syllabus, from different maintainers, and compare those two to each
 other. Neither has any dependency on our extraction of either document.
 
-The rates differ by \textbf{0.02 percentage points} (Table~\ref{tab:replication}).
+The rates differ by \textbf{0.01 percentage points} (Table~\ref{tab:replication}).
 
 This is stronger evidence than the original measurement. An extraction error on
 our side could manufacture a 41.5\% disagreement; it could not manufacture the

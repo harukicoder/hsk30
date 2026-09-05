@@ -27,7 +27,14 @@ import os
 import sys
 import urllib.request
 
-SRC_WORDS_30 = "https://raw.githubusercontent.com/ivankra/hsk30/master/hsk30.csv"
+# The *expanded* list, not hsk30.csv. Upstream publishes both: the plain file
+# keeps the standard's own notation for variants and affixes — 爸爸|爸,
+# 第（第二）, …极了, 称1 — while the expanded file resolves them onto separate
+# rows of clean hanzi. Reading the plain file and then filtering to pure-Han
+# entries silently discards all 61 of them, including 爸爸, 妈妈, 哥哥, 姐姐,
+# 弟弟 and 妹妹, which are HSK 1. Upstream already did this normalisation
+# correctly; re-deriving it here would only be a second chance to get it wrong.
+SRC_WORDS_30 = "https://raw.githubusercontent.com/ivankra/hsk30/master/hsk30-expanded.csv"
 SRC_CHARS_30 = "https://raw.githubusercontent.com/ivankra/hsk30/master/hsk30-chars.csv"
 SRC_VOCAB = ("https://raw.githubusercontent.com/drkameleon/"
              "complete-hsk-vocabulary/main/complete.min.json")
@@ -43,8 +50,18 @@ def fetch(url: str) -> str:
 
 
 def is_han(text: str) -> bool:
-    # The word list carries a few latin-letter entries (CD, T恤) that could
-    # never match a character-level lookup anyway.
+    """Every character a CJK ideograph.
+
+    This drops the list's latin-letter entries (CD, T恤), which could never
+    match a character-level lookup anyway, and 〇 (U+3007), which is a numeral
+    rather than an ideograph and sits outside the range by design.
+
+    It must be applied to *normalised* headwords. Applied to raw rows carrying
+    the standard's variant notation it also rejects every entry containing a
+    bar, a full-width parenthesis, an ellipsis or a homograph digit — which is
+    how 爸爸 went missing from a list of the 11,092 words a learner is expected
+    to know.
+    """
     return bool(text) and all("一" <= ch <= "鿿" for ch in text)
 
 
@@ -103,7 +120,9 @@ def main() -> int:
 
     outputs = {
         "hsk30_chars.tsv": (render(hsk30_chars(), "character"), 3000),
-        "hsk30_words.tsv": (render(hsk30_words(), "word"), 10916),
+        # 10,977 of the standard's 11,092 entries. The rest are variant rows that
+        # collapse onto a headword already counted, plus 〇 and the latin forms.
+        "hsk30_words.tsv": (render(hsk30_words(), "word"), 10977),
         "hsk20_words.tsv": (render(hsk20_words(), "word"), 4991),
     }
 

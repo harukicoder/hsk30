@@ -20,7 +20,7 @@
 force since July 2026. They are widely conflated — by learners, by commercial
 learning platforms, and by the tooling both rely on. We show the conflation is
 consequential. The two documents assign different levels to **41.5% of the
-10,916 and 10,896 words they respectively grade**, and to **40.7% of the 2,945
+10,977 and 10,896 words they respectively grade**, and to **40.7% of the 2,945
 characters they share**. Grading a corpus of 102 authentic graded readers
 against one rather than the other changes the assigned level of **48% of
 texts**, almost always upward, and shifts five of six shelf medians by a full
@@ -80,7 +80,7 @@ Contributions:
 | Document | Date | Nature | Words |
 | --- | --- | --- | ---: |
 | HSK 2.0 examination lists | 2009–10 | Exam vocabulary, six levels | 4,991 |
-| 《国际中文教育中文水平等级标准》 (GF0025-2021) | in force 1 Jul 2021 | National language standard | 10,916 |
+| 《国际中文教育中文水平等级标准》 (GF0025-2021) | in force 1 Jul 2021 | National language standard | 10,977 |
 | 新版HSK考试大纲 (HSK 3.0 exam syllabus) | pub. Nov 2025, in force Jul 2026 | The examination, 406 pp | 10,896 |
 
 **Table 1: What "HSK 3.0" can mean.**
@@ -145,9 +145,9 @@ report 3,079; we believe that figure to be incorrect.
 
 | Comparison | Shared words | Same level | Moved |
 | --- | ---: | ---: | ---: |
-| HSK 2.0 → GF0025-2021 | 4,482 | 814 | **3,668 (81.8%)** |
+| HSK 2.0 → GF0025-2021 | 4,492 | 818 | **3,674 (81.8%)** |
 | HSK 2.0 → 2025 syllabus | 4,802 | 2,349 | **2,453 (51.1%)** |
-| GF0025-2021 → 2025 syllabus | 9,674 | 5,662 | **4,012 (41.5%)** |
+| GF0025-2021 → 2025 syllabus | 9,698 | 5,675 | **4,023 (41.5%)** |
 
 **Table 2: Pairwise level agreement.**
 
@@ -290,11 +290,20 @@ gates reading.
 ### 6.2 The official character list, not a derived one
 
 Deriving a character's level from the lowest-level word containing it agrees
-with the 2021 standard's official list on 2,962 of 2,969 derivable characters —
-and misgrades seven: 哥, 妈, 妹, 弟, 王, 第, 零. The failure is systematic. 哥,
-妈, 妹 and 弟 are level-1 characters whose only listed words are the
-reduplicated 哥哥 and 妈妈, graded at level 4. Derivation therefore misgrades
-precisely the vocabulary a beginner meets first. We ship the official lists.
+with the 2021 standard's official list on **all 2,971 characters it can reach**.
+The reason to ship the official list anyway is what derivation cannot reach:
+**29 of the standard's 3,000 characters appear in no listed word.** All 29 are
+in the 7–9 band and all are surname or place-name elements — 冯 刘 吕 吴 唐 孔
+孟 宋 州 曹 杭 欧 沪 洲 浙 浦 淮 渝 潘 澳 秦 粤 蜀 袁 赵 邓 郭 韩 魏 — so the
+standard grades a character inventory its own word list does not span.
+
+**A correction.** An earlier version reported that derivation misgraded seven
+characters and blamed the reduplicated 哥哥 and 妈妈 being "graded at level 4."
+That was our bug, not the standard's. Our extraction filtered rows to pure hanzi
+*before* normalising the variant notation the standard uses — 爸爸｜爸,
+第（第二）, …极了, 称1 — discarding all 61 such entries, among them 爸爸, 妈妈,
+哥哥, 姐姐, 弟弟 and 妹妹, every one level 1. Corrected, the word count rises
+from 10,916 to 10,977 and the seven misgradings vanish.
 
 ### 6.3 Proper nouns
 

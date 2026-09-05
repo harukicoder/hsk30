@@ -87,8 +87,25 @@ def test_the_two_hsk30_documents_genuinely_disagree():
 
 
 def test_word_lists_load():
-    assert len(hsk30.words("2021")) == 10916
+    assert len(hsk30.words("2021")) == 10977
     assert len(hsk30.words("2.0")) == 4991
+
+
+def test_variant_and_affix_entries_survive_extraction():
+    """The standard writes some entries with notation, and they are still words.
+
+    爸爸｜爸, 第（第二）, …极了 and 称1 all carry characters outside the CJK
+    ideograph range. An extraction that filters raw rows to pure hanzi drops
+    every one of them — 61 words, including six kinship terms that are HSK 1 —
+    and the loss is invisible to a count assertion, because the count simply
+    becomes whatever survived. This test names them instead.
+    """
+    words = hsk30.words("2021")
+    for w in ("爸爸", "妈妈", "哥哥", "姐姐", "弟弟", "妹妹"):
+        assert words.get(w) == 1, "%s missing from the 2021 list" % w
+    # single-character variants of the same entries
+    for w in ("爸", "妈", "哥", "姐"):
+        assert w in words, "%s missing from the 2021 list" % w
 
 
 def test_band_is_never_split():
