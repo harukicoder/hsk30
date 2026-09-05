@@ -1,0 +1,244 @@
+\documentclass[11pt]{article}
+\usepackage[final]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{xeCJK}
+\setCJKmainfont{Songti SC}
+
+\title{Which Chinese Standard? Mainland and Taiwan Grade 65\% of\\
+       Shared Vocabulary Differently, and No Alignment Fixes It}
+
+\author{Alvaro Serrano \\
+  \textit{Independent researcher} \\
+  \texttt{alvaro.serrano.gp@gmail.com} \\
+  \texttt{orcid.org/0009-0006-4701-9026}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Chinese has two national proficiency ecosystems. The mainland publishes a
+grading standard and an examination syllabus; Taiwan publishes TBCL and TOCFL.
+Learners, publishers and researchers move between them constantly, but the
+published comparisons are exam-choice guidance --- level equivalency tables and
+headline vocabulary counts --- and no word-by-word comparison of the
+inventories appears to exist. We provide one. Of the 8{,}318 words TBCL and the
+2025 mainland syllabus share, \textbf{64.7\% sit at different tiers}; across the
+character inventories the figure is 55.2\%. Both far exceed the 41.5\%
+disagreement between the mainland's \emph{own} two documents
+\citep{serrano2026whichhsk}, which our pipeline reproduces exactly as a control.
+We also report a claim we cannot make. The obvious next question --- which side
+grades harder --- appears to have an emphatic answer, 4{,}783 words against 598.
+It does not survive: TBCL levels 1 and 2 sit below CEFR A1 while the mainland
+scale has no sub-A1 tier, and shifting TBCL by a single level reverses the
+direction to 1{,}234 against 2{,}421. The disagreement rate holds under every
+alignment tested, between 43.9\% and 96.2\%; the direction is an artifact of a
+correspondence no issuing body has published. We release the extraction and
+comparison code, and a validated machine-readable extraction procedure for
+TBCL, for which none appears to have existed.
+\end{abstract}
+
+\section{Two ecosystems, never compared}
+
+A learner who studies for HSK and then sits TOCFL, a publisher levelling a
+series for both markets, or a researcher assembling a Chinese resource, all face
+the same question: do the two standards mean the same thing by a level? The
+literature does not answer it. What exists is comparison for the purpose of
+choosing an examination --- equivalency tables asserting that HSK 4 is
+``about'' TOCFL 3, and totals for how many words each requires. Those are
+statements about scales, not about vocabulary.
+
+The question matters more than it did. The mainland's 2025 examination syllabus
+took effect in July 2026, and its arrival prompted a widely repeated claim that
+mainland word counts have now overtaken Taiwan's. That claim turns out to be
+true and false at once, depending on a distinction nobody making it draws
+(\S\ref{sec:counts}).
+
+We compare the inventories directly, in the manner of
+\citet{serrano2026whichhsk}, which measured the same disagreement between the
+mainland's two documents.
+
+\section{The four documents}
+\label{sec:counts}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+& \textbf{Document} & \textbf{Words} & \textbf{Chars} \\
+\midrule
+\multirow{2}{*}{PRC}
+ & GF0025-2021 standard  & 10{,}916 & 3{,}000 \\
+ & 2025 exam syllabus    & 10{,}896 & 3{,}088 \\
+\addlinespace
+\multirow{2}{*}{TW}
+ & TBCL standard         & 14{,}452 & 3{,}100 \\
+ & TOCFL 8000 exam list  &  7{,}517 & --- \\
+\bottomrule
+\end{tabular}
+\caption{The four inventories. Taiwan figures are as published; TBCL's word
+list carried 14{,}425 entries before the April 2025 revision.}
+\label{tab:docs}
+\end{table}
+
+Table~\ref{tab:docs} settles the overtaking claim, and shows why it was
+ambiguous. Compared exam to exam, the mainland syllabus is 45\% larger than
+TOCFL's list and the claim holds. Compared standard to standard, TBCL is 32\%
+larger than the mainland standard and the claim fails. The two comparisons give
+opposite answers, and the sources making the claim do not say which pair they
+mean --- the same failure of document identity that
+\citet{serrano2026whichhsk} documents within the mainland, now on the
+cross-strait axis.
+
+\paragraph{Extracting TBCL.} No machine-readable extraction of TBCL appears to
+exist. NAER publishes the lists as spreadsheets and asserts rights over them, so
+we release the extraction procedure and not the data. One detail defeats the
+obvious approach. Levels 1 to 4 each appear in two forms, 第N級 and 第N*級,
+while levels 5 to 7 do not; filtering on the unstarred form --- which is what a
+reader who has not noticed the asterisk will write --- silently discards 442 of
+3{,}100 characters and 1{,}398 of 14{,}452 words, and produces totals that look
+plausible. Counting both forms makes level 1 exactly 246 characters, the figure
+NAER publishes, which is how we established that starred entries belong to
+their numbered level. \textbf{What the asterisk denotes we do not determine.} It
+does not track the word list's own 核心詞 core-word marking: both forms contain
+core and non-core entries. Our extraction records the flag and leaves the
+question open.
+
+\section{Method}
+
+Each Taiwan inventory is converted to simplified characters with OpenCC before
+matching. Conversion is many-to-one, and 23 traditional entries collapse onto a
+simplified form already present; we report this rather than absorb it. TBCL
+writes alternates with a slash --- 爸爸/爸, 姊姊/姐姐/姊/姐 --- in 365 entries,
+and we match each variant separately while counting the entry once.
+
+\paragraph{Aligning the scales.} TBCL has seven levels. The mainland standards
+have nine but grade 7, 8 and 9 as one undifferentiated band, so they have seven
+distinct tiers. We align tier~7 to tier~7 as ``the top band'' and levels 1--6
+one to one. \textbf{This is an assumption, not a finding.} No issuing body
+publishes a TBCL-to-HSK correspondence, and \S\ref{sec:direction} shows how much
+rests on it.
+
+\paragraph{Control.} Before comparing across the strait we ran the same pipeline
+over the two mainland documents, where the answer is published. It reproduces
+\citet{serrano2026whichhsk} exactly: 9{,}674 shared words with 41.5\% at
+different tiers, and 2{,}945 shared characters with 40.7\%. The cross-strait
+figures below come from the same code path.
+
+\section{Results}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Comparison} & \textbf{Shared} & \textbf{Differ} & \textbf{Rate} \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Words}} \\
+\quad PRC 2021 vs 2025   & 9{,}674 & 4{,}012 & 41.5\% \\
+\quad TBCL vs PRC 2025   & 8{,}318 & 5{,}381 & \textbf{64.7\%} \\
+\quad TBCL vs PRC 2021   & 7{,}885 & 5{,}607 & \textbf{71.1\%} \\
+\addlinespace
+\multicolumn{4}{@{}l}{\emph{Characters}} \\
+\quad PRC 2021 vs 2025   & 2{,}945 & 1{,}200 & 40.7\% \\
+\quad TBCL vs PRC 2025   & 2{,}785 & 1{,}538 & 55.2\% \\
+\quad TBCL vs PRC 2021   & 2{,}737 & 1{,}601 & 58.5\% \\
+\bottomrule
+\end{tabular}
+\caption{Shared items graded at different tiers.}
+\label{tab:main}
+\end{table}
+
+The two ecosystems disagree with each other substantially more than the
+mainland's own two documents do: 64.7\% of shared vocabulary against 41.5\%,
+and 55.2\% of shared characters against 40.7\%. The gap is not explained by
+inventory size, since TBCL and the 2025 syllabus share 8{,}318 words --- a
+comparable base to the mainland pair's 9{,}674.
+
+A practical reading: a text levelled under one ecosystem carries almost no
+information about its level under the other. Two thirds of the vocabulary that
+determines the answer is graded differently.
+
+\section{The direction does not survive}
+\label{sec:direction}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Alignment} & \textbf{Differ} & \textbf{PRC} & \textbf{TBCL} \\
+ & & \textbf{harder} & \textbf{harder} \\
+\midrule
+1:1 (as reported) & 64.7\% & 4{,}783 & 598 \\
+TBCL $-1$ level   & 91.2\% & 7{,}497 & 85 \\
+TBCL $-2$ levels  & 96.2\% & 7{,}982 & 19 \\
+TBCL $+1$ level   & \textbf{43.9\%} & 1{,}234 & \textbf{2{,}421} \\
+\bottomrule
+\end{tabular}
+\caption{Shifting one scale against the other. The rate never falls below the
+mainland's internal 41.5\%; the direction reverses.}
+\label{tab:sensitivity}
+\end{table}
+
+Under the 1:1 alignment the mainland syllabus appears to grade shared
+vocabulary harder by 4{,}783 words to 598 --- a margin that invites a
+conclusion about pedagogical conservatism. We do not draw it.
+
+TBCL levels 1 and 2 sit below CEFR A1 in listening, reading and writing, while
+the mainland scale describes no sub-A1 tier. If the scales are offset by a
+level, a 1:1 alignment manufactures a direction. Table~\ref{tab:sensitivity}
+shows that shifting TBCL by one level in the other direction reverses it
+entirely, to 1{,}234 against 2{,}421.
+
+What survives is the rate. Under every alignment tested it stays between 43.9\%
+and 96.2\%, and its minimum still exceeds the 41.5\% disagreement inside the
+mainland pair. \textbf{The finding is that the two ecosystems disagree; which
+one is harder is not determinable without a correspondence that does not
+exist.}
+
+That absence is itself the result worth carrying. TOCFL score reports have
+carried a TBCL column since August 2021, so Taiwan publishes an
+exam-to-standard correspondence internally. Nothing comparable exists across
+the strait, and the equivalency tables in circulation are reconstructions.
+
+\section{Limitations}
+
+The level alignment is the largest, and \S\ref{sec:direction} is the response to
+it rather than a defence. Simplification is many-to-one and 23 entries collapse;
+a comparison in the traditional direction would lose more, since the mainland
+lists are published simplified. Matching is by orthographic form, so a word
+shared in writing but differing in sense or register counts as shared --- the
+figures are therefore a lower bound on disagreement, not an upper one. TOCFL is
+not compared item by item here; we use it only for the count in
+\S\ref{sec:counts}. TBCL's starred levels are counted at their numbered level on
+the evidence of one published total, and a different reading of the asterisk
+would change the per-level figures though not the totals. Finally, both Taiwan
+inventories were extracted by us and validated against published totals, but not
+against an official machine-readable release, because none exists.
+
+\section*{Availability}
+
+\texttt{scripts/tbcl\_extract.py} and \texttt{scripts/crossstrait.py} in the
+\texttt{hsk30} repository reproduce every figure here from spreadsheets
+downloaded free from the issuing bodies. Neither Taiwan inventory is
+redistributed: NAER and SC-TOP assert rights over them, so the code ships and
+the data does not. The mainland lists, the grading library and the corpus are
+released as described in \citet{serrano2026whichhsk}.
+
+\section*{Ethics and data statement}
+
+No personal data and no human subjects. All four inventories are published
+national reference documents, used here to compare those documents with each
+other. Generative AI was used in writing the extraction and comparison code and
+in drafting this paper; the problem framing, the design decisions and every
+claim are the author's, who reviewed all output. That review is what identified
+the alignment artifact reported in \S\ref{sec:direction}.
+
+\bibliography{refs}
+
+\end{document}
