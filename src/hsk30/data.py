@@ -59,7 +59,13 @@ LEVELS = (1, 2, 3, 4, 5, 6, BAND)
 
 def _load(filename: str) -> Dict[str, int]:
     with open(os.path.join(_DATA_DIR, filename), encoding="utf-8") as fh:
-        reader = csv.reader(fh, delimiter="\t")
+        # Each table opens with `# standard: <identifier>` naming the document
+        # it encodes -- see spec/README.md. The declaration has to live in the
+        # file rather than the README, because a README does not survive being
+        # copied, and "HSK 3.0" names two documents that disagree about 41.5%
+        # of shared vocabulary.
+        body = (line for line in fh if not line.lstrip().startswith("#"))
+        reader = csv.reader(body, delimiter="\t")
         next(reader, None)  # header
         return {row[0]: int(row[1]) for row in reader if len(row) >= 2}
 

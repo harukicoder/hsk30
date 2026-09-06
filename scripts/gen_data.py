@@ -107,9 +107,23 @@ def hsk20_words():
     return levels
 
 
-def render(table, key_header: str) -> str:
+#: Which registry identifier each generated table encodes -- see spec/README.md.
+#: Regeneration must not strip this: the declaration is the only thing that
+#: travels with a copied file.
+DECLARES = {
+    "hsk30_chars.tsv": "gf0025-2021",
+    "hsk30_words.tsv": "gf0025-2021",
+    "hsk20_words.tsv": "hsk-2012",
+}
+REGISTRY_URL = "https://github.com/harukicoder/hsk30/blob/main/spec/standards.json"
+
+
+def render(table, key_header: str, declares: str = "") -> str:
     rows = "\n".join("%s\t%d" % (k, table[k]) for k in sorted(table))
-    return "%s\tlevel\n%s\n" % (key_header, rows)
+    head = ""
+    if declares:
+        head = "# standard: %s\n# registry: %s\n" % (declares, REGISTRY_URL)
+    return "%s%s\tlevel\n%s\n" % (head, key_header, rows)
 
 
 def main() -> int:
@@ -119,11 +133,11 @@ def main() -> int:
     args = ap.parse_args()
 
     outputs = {
-        "hsk30_chars.tsv": (render(hsk30_chars(), "character"), 3000),
+        "hsk30_chars.tsv": (render(hsk30_chars(), "character", DECLARES["hsk30_chars.tsv"]), 3000),
         # 10,977 of the standard's 11,092 entries. The rest are variant rows that
         # collapse onto a headword already counted, plus 〇 and the latin forms.
-        "hsk30_words.tsv": (render(hsk30_words(), "word"), 10977),
-        "hsk20_words.tsv": (render(hsk20_words(), "word"), 4991),
+        "hsk30_words.tsv": (render(hsk30_words(), "word", DECLARES["hsk30_words.tsv"]), 10977),
+        "hsk20_words.tsv": (render(hsk20_words(), "word", DECLARES["hsk20_words.tsv"]), 4991),
     }
 
     failed = False

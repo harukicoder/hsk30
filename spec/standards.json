@@ -1,0 +1,96 @@
+{
+  "$comment": "Canonical identifiers for the published Chinese proficiency standards. See spec/README.md. Registry version is the date it last changed.",
+  "registry_version": "2026-09-06",
+  "registry_url": "https://github.com/harukicoder/hsk30/blob/main/spec/standards.json",
+  "standards": {
+    "hsk-2012": {
+      "name_zh": "汉语水平考试大纲",
+      "name_en": "HSK Test Syllabus",
+      "also_called": ["HSK 2.0", "old HSK"],
+      "issuer": "Hanban / Confucius Institute Headquarters",
+      "published": "2012",
+      "in_force_from": "2012",
+      "superseded_by": "gf0025-2021",
+      "levels": 6,
+      "band_7_9": false,
+      "inventories": {
+        "words": 5000
+      },
+      "$note": "Level 1-6. Superseded for grading purposes but still the basis of a great deal of published material."
+    },
+
+    "gf0025-2021": {
+      "name_zh": "国际中文教育中文水平等级标准",
+      "name_en": "Chinese Proficiency Grading Standards for International Chinese Language Education",
+      "also_called": ["HSK 3.0", "the 2021 standard", "GF0025-2021"],
+      "issuer": "Ministry of Education of the PRC and State Language Commission",
+      "standard_number": "GF0025-2021",
+      "published": "2021-03-24",
+      "in_force_from": "2021-07-01",
+      "levels": 9,
+      "band_7_9": true,
+      "inventories": {
+        "words": 11092,
+        "characters": 3000
+      },
+      "$note": "A national GRADING STANDARD, not an examination syllabus. Levels 7, 8 and 9 are one undifferentiated band. This is the document almost every open dataset encodes."
+    },
+
+    "hsk-syllabus-2025": {
+      "name_zh": "中文水平考试HSK考试大纲",
+      "name_en": "Syllabus for the Chinese Proficiency Test",
+      "also_called": ["HSK 3.0", "新版HSK考试大纲", "the 2025 syllabus"],
+      "issuer": "Center for Language Education and Cooperation (中外语言交流合作中心)",
+      "published": "2025-11",
+      "in_force_from": "2026-07",
+      "levels": 9,
+      "band_7_9": true,
+      "inventories": {
+        "words": 11000,
+        "characters": 3088,
+        "writing_characters": 1200
+      },
+      "$note": "The EXAMINATION SYLLABUS. Shares the name 'HSK 3.0' with gf0025-2021 and assigns a different level to 41.5% of the vocabulary the two share. Distributed as a 406-page PDF. Published word count counts entries; homographs graded at two levels appear more than once."
+    },
+
+    "tbcl-2025": {
+      "name_zh": "臺灣華語文能力基準",
+      "name_en": "Taiwan Benchmarks for the Chinese Language",
+      "also_called": ["TBCL"],
+      "issuer": "National Academy for Educational Research (國家教育研究院)",
+      "published": "2022",
+      "revised": "2025-04",
+      "in_force_from": "2022",
+      "levels": 7,
+      "band_7_9": false,
+      "script": "traditional",
+      "inventories": {
+        "words": 14452,
+        "characters": 3100,
+        "grammar_points": 496
+      },
+      "$note": "Levels 1 to 4 each appear in two forms, 第N級 and 第N*級; both belong to their numbered level. Filtering on the unstarred form discards 442 of 3,100 characters and 1,398 of 14,452 words. Levels 1 and 2 sit below CEFR A1 in listening, reading and writing. NAER asserts rights over the lists."
+    },
+
+    "tocfl-8000-2024": {
+      "name_zh": "華語八千詞",
+      "name_en": "TOCFL 8,000-word vocabulary list",
+      "also_called": ["TOCFL"],
+      "issuer": "Steering Committee for the Test of Proficiency-Huayu (國家華語測驗推動工作委員會)",
+      "revised": "2024-09",
+      "levels": 7,
+      "band_7_9": false,
+      "script": "traditional",
+      "cefr_aligned": true,
+      "inventories": {
+        "words": 7517
+      },
+      "$note": "The one Chinese framework carrying an official CEFR correspondence. Novice 1 and 2 sit below A1 by design. SC-TOP asserts rights over the list."
+    }
+  },
+
+  "$ambiguous_names": {
+    "HSK 3.0": ["gf0025-2021", "hsk-syllabus-2025"],
+    "$note": "The reason this registry exists. A dataset labelled 'HSK 3.0' names one of two documents that disagree about 41.5% of shared vocabulary, and the label does not say which."
+  }
+}

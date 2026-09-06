@@ -182,6 +182,33 @@ should follow, because that is a curricular decision and not a technical one.
 
 Accepts a directory of `.txt` files or a JSON Lines file with a `text` field.
 
+### Say which document your data encodes
+
+Every table shipped here opens with a line naming the document it came from:
+
+```
+# standard: gf0025-2021
+```
+
+`spec/README.md` is a one-field convention for doing this in any Chinese
+proficiency dataset, with a registry of canonical identifiers for the five
+published standards. It exists because an audit of the five most-used open HSK
+datasets found four encode the 2021 grading standard, one encodes the 2025
+examination syllabus, and only one says which — in a directory name, which does
+not survive being imported (`doi:10.5281/zenodo.22540154`).
+
+The declaration is checkable, not just stated:
+
+```bash
+python3 scripts/check_declaration.py path/to/any/dataset.json
+```
+
+It finds the declaration, then tests the data against the document it claims —
+the three documents grade 531 short words at three different levels, so a
+mislabelled file cannot hide. Undeclared data is fingerprinted and told which
+identifier it should use. The repository's own tables are checked this way by
+the test suite.
+
 ## What's in this repository
 
 | Path | Contents |
@@ -193,6 +220,8 @@ Accepts a directory of `.txt` files or a JSON Lines file with a `text` field.
 | `scripts/reproduce.py` | Recomputes every published figure |
 | `scripts/extract_syllabus_2025.py` | Parses the official syllabus PDF |
 | `scripts/levelling_report.py` | Grades a collection under both documents and reports the difference |
+| `spec/` | The standard-declaration convention and the registry of identifiers |
+| `scripts/check_declaration.py` | Finds a dataset's declaration and verifies it against the data |
 | `corpus/syllabus2025/PROVENANCE.md` | Where the 2025 tables come from, and their rights position |
 
 ## WriteToLevel

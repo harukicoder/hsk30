@@ -91,6 +91,23 @@ def test_word_lists_load():
     assert len(hsk30.words("2.0")) == 4991
 
 
+def test_every_shipped_table_declares_the_document_it_encodes():
+    """A level is uninterpretable without the document that assigned it.
+
+    Each table carries `# standard: <identifier>` naming a registry entry, and
+    the checker verifies the claim against the data rather than trusting it —
+    the three documents grade 531 short words at three different levels, so a
+    mislabelled table cannot hide. This test is what stops the repository
+    shipping a table whose declaration is wrong.
+    """
+    import subprocess
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    rc = subprocess.call(
+        [sys.executable, os.path.join(root, "scripts", "check_declaration.py"), "--all"],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    assert rc == 0, "a shipped table is undeclared, mislabelled or unverified"
+
+
 def test_variant_and_affix_entries_survive_extraction():
     """The standard writes some entries with notation, and they are still words.
 
