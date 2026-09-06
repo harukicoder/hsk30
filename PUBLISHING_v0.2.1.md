@@ -3,6 +3,11 @@
 Written 5 September 2026. Everything is staged and committed; nothing below
 needs a code change. Total time about 25 minutes.
 
+**Every command here begins with `cd` into the repository, and the quotes around
+the path are load-bearing — it contains spaces.** `gh` works out which
+repository you mean from the directory you are standing in, so running it from
+`~` fails with *"failed to determine base repo"* and a missing notes file.
+
 The order matters. The **software** goes first because it is the only one with
 users who currently have wrong data. The paper follows because it should cite
 the fixed release. The audit goes last because it cites both.
@@ -23,7 +28,7 @@ Version is already bumped to `0.2.1` in `pyproject.toml` and `CITATION.cff`, and
 pushed.
 
 ```bash
-gh release create v0.2.1 --title "v0.2.1 — the 2021 word list was missing 爸爸" --notes-file RELEASE_NOTES_v0.2.1.md
+cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30" && gh release create v0.2.1 --title "v0.2.1 — the 2021 word list was missing 爸爸" --notes-file RELEASE_NOTES_v0.2.1.md
 ```
 
 That single command triggers `.github/workflows/publish.yml`, which runs the
@@ -33,7 +38,7 @@ Publishing. No token, nothing to paste.
 **Watch it:**
 
 ```bash
-gh run watch
+cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30" && gh run watch
 ```
 
 **Confirm it landed** (allow a minute for the index):
@@ -49,7 +54,7 @@ Should print `0.2.1`.
 **The GitHub–Zenodo webhook is not installed.** I checked:
 
 ```bash
-gh api repos/harukicoder/hsk30/hooks
+cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30" && gh api repos/harukicoder/hsk30/hooks
 ```
 
 returns `[]`. So cutting the release above will **not** create a Zenodo record
@@ -69,9 +74,7 @@ by itself. You did v0.2.0 by hand and you will do this one the same way.
    To rebuild it from scratch if you ever need to:
 
    ```bash
-   cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30"
-   python3 -m pip install --user build
-   python3 -m build
+   cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30" && python3 -m pip install --user build && python3 -m build
    ```
 5. **Version** field: `0.2.1`
 6. **Publication date**: today.
@@ -107,8 +110,7 @@ of shared words and 40.7% of shared characters still differ.
 The PDF is built and current: `paper/acl/main.pdf`.
 
 ```bash
-cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30/paper/acl"
-cp main.pdf ~/Desktop/Serrano_2026_Which_HSK_3.0.pdf
+cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30/paper/acl" && cp main.pdf ~/Desktop/Serrano_2026_Which_HSK_3.0.pdf
 ```
 
 Keep the filename identical to v2's — Zenodo shows the file name, and a reader
@@ -168,8 +170,7 @@ This is a first upload, not a version. Full copy-paste metadata is in
 `paper/audit/ZENODO.md`; the short form:
 
 ```bash
-cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30/paper/audit"
-cp main.pdf ~/Desktop/Serrano_2026_Four_Repositories_One_List.pdf
+cd "/Users/alvaroserrano/Documents Mac/Career/2026_CODER/new_projects/hsk30/paper/audit" && cp main.pdf ~/Desktop/Serrano_2026_Four_Repositories_One_List.pdf
 ```
 
 1. Zenodo → **New upload.**
@@ -194,8 +195,7 @@ cp main.pdf ~/Desktop/Serrano_2026_Four_Repositories_One_List.pdf
 # 4. After all three
 
 ```bash
-cd "/Users/alvaroserrano/Documents Mac/Career/2026_FULL_TIME/CV NIW Application"
-python3 build_evidence_report.py
+cd "/Users/alvaroserrano/Documents Mac/Career/2026_FULL_TIME/CV NIW Application" && python3 build_evidence_report.py
 ```
 
 Picks up the new DOIs and the new PyPI version, and appends a dated snapshot.
