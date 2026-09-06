@@ -69,7 +69,7 @@
         "characters": 3100,
         "grammar_points": 496
       },
-      "$note": "Levels 1 to 4 each appear in two forms, 第N級 and 第N*級; both belong to their numbered level. Filtering on the unstarred form discards 442 of 3,100 characters and 1,398 of 14,452 words. Levels 1 and 2 sit below CEFR A1 in listening, reading and writing. NAER asserts rights over the lists."
+      "$note": "Levels 1 to 4 each appear in two forms, 第N級 and 第N*級; both belong to their numbered level. Filtering on the unstarred form discards 442 of 3,100 characters, 1,398 of 14,452 words, and 212 of 496 grammar points -- 43% of the grammar inventory. The three inventories are NOT parallel: characters and words run to level 7, grammar stops at level 5. Levels 1 and 2 sit below CEFR A1 in listening, reading and writing. NAER asserts rights over the lists."
     },
 
     "tocfl-8000-2024": {

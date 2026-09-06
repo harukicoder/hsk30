@@ -266,6 +266,7 @@ the test suite.
 | `scripts/extract_syllabus_2025.py` | Parses the official syllabus PDF |
 | `scripts/levelling_report.py` | Grades a collection under both documents and reports the difference |
 | `scripts/gen_t2s.py` | Regenerates the minimal traditional-to-simplified table |
+| `scripts/tbcl_grammar_extract.py` | Extracts Taiwan's 496 TBCL grammar points |
 | `spec/` | The standard-declaration convention and the registry of identifiers |
 | `scripts/check_declaration.py` | Finds a dataset's declaration and verifies it against the data |
 | `corpus/syllabus2025/PROVENANCE.md` | Where the 2025 tables come from, and their rights position |
