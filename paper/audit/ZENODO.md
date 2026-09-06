@@ -35,40 +35,26 @@ Affiliation: Independent researcher
 
 ## Description
 
-Paste as-is. Zenodo accepts basic HTML in this field.
+**Zenodo's description field is a rich-text editor, not a raw HTML box.** Pasting
+HTML into it shows the tags as literal text. Paste the plain prose below instead;
+paragraph breaks survive the paste, and any bold can be applied afterwards with
+the toolbar.
 
-```html
-<p>Tools that show a learner an HSK level almost never derive it from the issuing
-body's PDF. They take it from a small number of open datasets. We audit the five
-most-starred, comparing each word by word against the three documents in
-circulation: the 2012 syllabus, the GF0025-2021 national grading standard, and
-the 2025 examination syllabus in force since July 2026.</p>
-
-<p><strong>Four of the five encode GF0025-2021, and only one encodes the
-examination.</strong> Worse for anyone treating their agreement as
-corroboration, the four are not independent: across every pair, over roughly
-10,940 shared words, they disagree about the level of <strong>not one
-word</strong>. They are one list. The derivation is documented rather than
-hidden — one repository credits another as its source, and that one links the
-March 2021 ministry PDF it was OCR'd from — so the ecosystem is not careless; it
-is <em>singly rooted</em>, which is a different and more durable problem. A
-consumer three hops downstream sees only "HSK 3.0".</p>
-
-<p>The audit also yields an external replication we did not set out to obtain.
-Comparing a community 2021 list to a community 2025 list — neither ours, from
-different maintainers — reproduces the disagreement rate reported in
-doi:10.5281/zenodo.22239032 to within <strong>0.01 percentage points</strong>
-(41.49% against 41.48%), on data with no dependency on our extraction.</p>
-
-<p>Auditing other people's lists also surfaced a defect in our own: our
-extraction of the 2021 standard had filtered rows to pure hanzi before
-normalising the standard's variant notation, silently dropping 61 entries
-including 爸爸, 妈妈, 哥哥, 姐姐, 弟弟 and 妹妹, all of them HSK 1. The
-correction is described in the paper and has been applied upstream.</p>
-
-<p>The audit re-runs against the live repositories in one command. No audited
-list is redistributed.</p>
 ```
+Tools that show a learner an HSK level almost never derive it from the issuing body's PDF. They take it from a small number of open datasets. We audit the five most-starred, comparing each word by word against the three documents in circulation: the 2012 syllabus, the GF0025-2021 national grading standard, and the 2025 examination syllabus in force since July 2026.
+
+Four of the five encode GF0025-2021, and only one encodes the examination. Worse for anyone treating their agreement as corroboration, the four are not independent: across every pair, over roughly 10,940 shared words, they disagree about the level of not one word. They are one list. The derivation is documented rather than hidden — one repository credits another as its source, and that one links the March 2021 ministry PDF it was OCR'd from — so the ecosystem is not careless; it is singly rooted, which is a different and more durable problem. A consumer three hops downstream sees only "HSK 3.0".
+
+The audit also yields an external replication we did not set out to obtain. Comparing a community 2021 list to a community 2025 list — neither ours, from different maintainers — reproduces the disagreement rate reported in doi:10.5281/zenodo.22239032 to within 0.01 percentage points (41.49% against 41.48%), on data with no dependency on our extraction.
+
+Auditing other people's lists also surfaced a defect in our own: our extraction of the 2021 standard had filtered rows to pure hanzi before normalising the standard's variant notation, silently dropping 61 entries including 爸爸, 妈妈, 哥哥, 姐姐, 弟弟 and 妹妹, all of them HSK 1. The correction is described in the paper and has been applied upstream.
+
+The audit re-runs against the live repositories in one command. No audited list is redistributed.
+```
+
+Optional bold, applied with the toolbar after pasting: *Four of the five encode
+GF0025-2021, and only one encodes the examination*; *not one word*; *0.01
+percentage points*. Cosmetic only.
 
 ---
 
