@@ -91,6 +91,50 @@ def test_word_lists_load():
     assert len(hsk30.words("2.0")) == 4991
 
 
+def test_traditional_text_grades_the_same_as_its_simplified_twin():
+    """Both documents are published simplified, so traditional needs converting.
+
+    The pair below is the same sentence in each script. Without conversion the
+    traditional version is ungradeable — every character falls outside the
+    inventory and it reads as beyond HSK 9, which is the failure this exists to
+    stop.
+    """
+    simp = "我是中国人。我每天早上七点起床，然后吃早饭。"
+    trad = "我是中國人。我每天早上七點起床，然後吃早飯。"
+
+    a, b = hsk30.grade(simp), hsk30.grade(trad)
+    assert a.level == b.level
+    assert a.chars == b.chars
+    assert a.script == "simplified" and b.script == "traditional"
+
+    # detection is one-sided: a traditional-only character proves the script,
+    # its absence proves nothing
+    assert hsk30.looks_traditional(trad)
+    assert not hsk30.looks_traditional(simp)
+
+    # opting out grades the text as written, which for traditional means
+    # off-scale rather than a quietly wrong level
+    assert hsk30.grade(trad, script="simplified").level is None
+
+
+def test_conversion_is_declared_many_to_one():
+    """The lossiness is documented in the data, not just in prose."""
+    table = hsk30.convert_traditional
+    assert table("乾") == table("幹") == "干"
+    assert hsk30.convert_traditional("學習") == "学习"
+    # characters shared by both scripts pass through untouched
+    assert hsk30.convert_traditional("我是人") == "我是人"
+
+
+def test_script_argument_is_validated():
+    try:
+        hsk30.grade("我是中国人。", script="tradtional")   # typo
+    except ValueError as exc:
+        assert "script must be" in str(exc)
+    else:
+        raise AssertionError("a misspelled script should not silently pass")
+
+
 def test_every_shipped_table_declares_the_document_it_encodes():
     """A level is uninterpretable without the document that assigned it.
 

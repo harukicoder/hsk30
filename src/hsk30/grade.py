@@ -31,9 +31,10 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Callable, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
+from . import data
 from .data import BAND, DEFAULT_STANDARD, LEVELS, characters, label, resolve
 
 #: The comprehensible-input threshold.  Below this a reader is decoding rather
@@ -108,6 +109,13 @@ class Profile:
     standard: str = DEFAULT_STANDARD
     """Which document graded this: ``"2025"`` (exam) or ``"2021"`` (standard)."""
 
+    script: str = "simplified"
+    """Script of the input: ``"simplified"``, or ``"traditional"`` when
+    characters were converted before grading.  Both shipped documents are
+    published in simplified characters, so traditional text is converted first
+    and this field records that it happened.  A traditional grade is an upper
+    bound -- see :func:`convert_traditional`."""
+
 
     @property
     def label(self) -> str:
@@ -169,11 +177,50 @@ def _profile_from_chars(
     )
 
 
+def convert_traditional(text: str) -> str:
+    """Map traditional characters to their simplified forms, for grading only.
+
+    Both mainland documents are published in simplified characters, so
+    traditional text cannot be graded against them directly.  This substitutes
+    character by character using the table in ``data/t2s.tsv``.
+
+    **The result is an upper bound on coverage, not an equivalent text.**
+    Conversion is many-to-one: 106 simplified characters in the shipped
+    inventories have more than one traditional preimage, absorbing 122 extra
+    forms between them.  A reader who distinguishes 乾, 幹 and 榦 is credited
+    with the single character 干.  Grading traditional text therefore
+    over-credits by at most those 122 forms, and the direction of the error is
+    always the same: it makes a text look easier than it is for a traditional
+    reader.
+
+    This is not a general converter.  There is no phrase table, so the cases
+    where correct conversion depends on context are not resolved, and anything
+    outside the graded inventories is left alone.  Use OpenCC for real
+    conversion.
+    """
+    table = data.t2s()
+    return "".join(table.get(ch, ch) for ch in str(text or ""))
+
+
+def looks_traditional(text: str) -> bool:
+    """Does this text contain characters only the traditional script uses?
+
+    The test is one-sided on purpose.  A traditional-only character proves the
+    script; the absence of one proves nothing, because most characters are
+    shared and a short traditional sentence may contain none.  So detection
+    errs towards "simplified", which is the safe default: it grades the text as
+    written rather than silently transforming it.
+    """
+    table = data.t2s()
+    return any(ch in table for ch in str(text or ""))
+
+
 def grade(
     text: str,
     threshold: float = DEFAULT_THRESHOLD,
     exclude: Optional[Iterable[str]] = None,
     standard: str = DEFAULT_STANDARD,
+    script: str = "auto",
 ) -> Profile:
     """Grade a raw string.
 
@@ -185,17 +232,37 @@ def grade(
     the default) or ``"2021"`` (the national grading standard).  Roughly half of
     real texts grade differently under the two, so state which you used.
 
+    ``script`` handles traditional input.  ``"auto"`` (the default) converts
+    when it sees a traditional-only character; ``"traditional"`` forces
+    conversion; ``"simplified"`` disables it.  Both documents are published in
+    simplified characters, so traditional text must be converted to be graded at
+    all, and the resulting level is an upper bound — see
+    :func:`convert_traditional`.  The profile records which script it saw.
+
     For handwriting, use :func:`writing_profile` instead — a coverage threshold
     is the wrong instrument there, for the reason documented on that function.
 
     >>> grade("我是中国人。").label
     '1'
+    >>> grade("我是中國人。").script
+    'traditional'
     """
     body = str(text or "")
     for term in exclude or ():
         if term:
             body = body.replace(str(term), "")
-    return _profile_from_chars(hanzi(body), threshold, standard)
+
+    if script not in ("auto", "simplified", "traditional"):
+        raise ValueError("script must be 'auto', 'simplified' or 'traditional', "
+                         "not %r" % (script,))
+    seen = script
+    if script == "auto":
+        seen = "traditional" if looks_traditional(body) else "simplified"
+    if seen == "traditional":
+        body = convert_traditional(body)
+
+    profile = _profile_from_chars(hanzi(body), threshold, standard)
+    return replace(profile, script=seen)
 
 
 def grade_tokens(

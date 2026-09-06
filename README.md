@@ -151,6 +151,35 @@ share, offenders = hsk30.budget_violations(text, target=3)
 This is how a short passage silently regresses when an otherwise harmless edit
 repeats one hard character a fourth time.
 
+### Traditional characters
+
+Both mainland documents are published in simplified characters, so traditional
+text cannot be graded against them directly — ungraded, it reads as beyond
+HSK 9. Traditional input is detected and converted, and the profile records that
+it happened:
+
+```python
+>>> hsk30.grade("我是中國人。").script
+'traditional'
+```
+
+`script="simplified"` disables conversion; `script="traditional"` forces it.
+
+**A traditional grade is an upper bound.** Conversion is many-to-one: 106
+simplified characters in the shipped inventories have more than one traditional
+preimage, absorbing 122 extra forms between them. A reader who distinguishes 乾,
+幹 and 榦 is credited with the single character 干, so the error always runs the
+same way — traditional text looks easier than it is. The count is in the header
+of `data/t2s.tsv`, where anyone opening the data will see it.
+
+This matters beyond tidiness. GAO-24-105981 records that of the U.S. schools
+that closed a Confucius Institute, **12 turned to Taiwanese entities** for
+Chinese-language support; those programmes teach traditional characters.
+
+The shipped table is not a general converter — no phrase table, no context
+resolution, and anything outside the graded inventories is left alone. Use
+OpenCC, from which it derives, for real conversion.
+
 ### Grading collections
 
 ```python
@@ -220,6 +249,7 @@ the test suite.
 | `scripts/reproduce.py` | Recomputes every published figure |
 | `scripts/extract_syllabus_2025.py` | Parses the official syllabus PDF |
 | `scripts/levelling_report.py` | Grades a collection under both documents and reports the difference |
+| `scripts/gen_t2s.py` | Regenerates the minimal traditional-to-simplified table |
 | `spec/` | The standard-declaration convention and the registry of identifiers |
 | `scripts/check_declaration.py` | Finds a dataset's declaration and verifies it against the data |
 | `corpus/syllabus2025/PROVENANCE.md` | Where the 2025 tables come from, and their rights position |

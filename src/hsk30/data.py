@@ -70,6 +70,25 @@ def _load(filename: str) -> Dict[str, int]:
         return {row[0]: int(row[1]) for row in reader if len(row) >= 2}
 
 
+@lru_cache(maxsize=1)
+def t2s() -> Dict[str, str]:
+    """Traditional-to-Simplified pairs, restricted to gradeable characters.
+
+    Deliberately not a general converter: no phrase table, no context
+    resolution, and anything outside the shipped inventories is left alone.
+    See ``scripts/gen_t2s.py`` for what it does and does not cover.
+    """
+    out: Dict[str, str] = {}
+    with open(os.path.join(_DATA_DIR, "t2s.tsv"), encoding="utf-8") as fh:
+        body = (line for line in fh if not line.lstrip().startswith("#"))
+        reader = csv.reader(body, delimiter="\t")
+        next(reader, None)  # header
+        for row in reader:
+            if len(row) >= 2:
+                out[row[0]] = row[1]
+    return out
+
+
 #: Accepted spellings for each document.
 _STANDARDS = {
     "2025": "2025", "syllabus": "2025", "exam": "2025",
