@@ -19,6 +19,37 @@ from different maintainers, reproduces the 41.5% disagreement first reported in
 `doi:10.5281/zenodo.22239032` to within **0.02 percentage points** — on data
 with no dependency on our own extraction.
 
+## A finding that emerged after publication
+
+**The root of a singly-rooted ecosystem can be unreachable.**
+
+On 6 September 2026 we tried to contribute the one-line fix this audit
+recommends — a README note naming the source document — to each audited
+repository. Three accepted issues:
+
+- `krmanik/HSK-3.0` — <https://github.com/krmanik/HSK-3.0/issues/13>
+- `elkmovie/hsk30` — <https://github.com/elkmovie/hsk30/issues/10>
+- `ivankra/hsk30` — <https://github.com/ivankra/hsk30/issues/4>
+
+`drkameleon/complete-hsk-vocabulary` (294 stars) accepts none. Issues,
+discussions, wiki and pull requests are all disabled, and the repository's own
+README still links to an issue tracker that no longer accepts issues. A prepared
+branch exists at
+<https://github.com/harukicoder/complete-hsk-vocabulary/tree/document-which-hsk-3.0>
+and cannot be offered.
+
+This sharpens §3.3 rather than contradicting it. The argument there was that
+provenance does not survive being copied, so the fix belongs inside the data.
+The corollary is stronger: **where a widely-used dataset has closed every
+inbound channel, no external party can correct it at all**, and everything
+downstream inherits whatever it says for as long as it says it. A convention
+that travels inside the file is not merely more durable than a README — for a
+repository in this state it is the only mechanism available, because there is
+nobody to ask.
+
+We have not emailed the maintainer. Four channels closed is a decision, and
+routing around it would be a poor way to open a conversation about care.
+
 ## Reproducing
 
 ```bash
