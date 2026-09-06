@@ -1,5 +1,7 @@
 # Four Repositories, One List
 
+`doi:10.5281/zenodo.22540154` — published 6 September 2026.
+
 An audit of the open HSK 3.0 word lists the field actually builds on.
 
 **The finding.** Of the five most-starred open HSK 3.0 datasets, four encode
