@@ -211,6 +211,22 @@ should follow, because that is a curricular decision and not a technical one.
 
 Accepts a directory of `.txt` files or a JSON Lines file with a `text` field.
 
+For a programme teaching against Taiwan's standard, add `--tbcl`:
+
+```bash
+python3 scripts/levelling_report.py --dir texts/ --tbcl tbcl.json -o report.md
+```
+
+TBCL is published in traditional characters, so traditional text is graded
+against it **exactly** — no conversion, no upper bound. Extract the inventory
+yourself with `scripts/tbcl_extract.py` from the official NAER spreadsheets;
+NAER asserts rights over the lists, so nothing of theirs ships here.
+
+If the texts turn out to be simplified, the report says TBCL is the wrong
+instrument and prints no TBCL column. A simplified text scores about 79%
+coverage against TBCL even at level 7, which would read as "harder than TBCL 7"
+when the truth is that the wrong framework was applied.
+
 ### Say which document your data encodes
 
 Every table shipped here opens with a line naming the document it came from:

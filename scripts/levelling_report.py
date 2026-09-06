@@ -6,6 +6,9 @@
 
     python3 scripts/levelling_report.py --jsonl shelf.jsonl --for "Ole Miss" -o report.md
 
+    # a Taiwan-aligned programme: grade against TBCL as well, natively
+    python3 scripts/levelling_report.py --dir texts/ --tbcl tbcl.json -o report.md
+
 Input is either a directory of UTF-8 ``.txt`` files, one text per file, or a
 JSON Lines file whose objects carry ``text`` and optionally ``id`` and
 ``shelf``. Nothing is uploaded and nothing is retained: this runs entirely on
@@ -18,6 +21,14 @@ vocabulary they share, so a levelling decision is not reproducible unless the
 standard is named. That is an abstract claim until somebody sees it on their own
 shelf. This turns it into a concrete one: here are your texts, here is what each
 document says, and here are the ones where the two disagree.
+
+``--tbcl`` takes the JSON that ``scripts/tbcl_extract.py --out`` writes from the
+official NAER spreadsheets. NAER asserts rights over the lists, so nothing of
+theirs ships here; you extract them yourself and pass the result. It is worth
+doing for a programme teaching against Taiwan's standard, because TBCL is
+published in traditional characters: grading traditional text against it needs
+no conversion at all, while grading it against the mainland documents does, and
+conversion only ever makes a text look easier.
 
 The report is deliberately not persuasive. It states what changed, gives the
 count of texts where nothing changed, and says plainly when the answer is that
@@ -75,6 +86,53 @@ def read_jsonl(path):
                    "shelf": row.get("shelf")}
 
 
+def load_tbcl(path):
+    """Cumulative character inventories per TBCL level, from tbcl_extract.py.
+
+    Starred and unstarred entries are both counted at their numbered level --
+    that is what makes level 1 exactly 246 characters, the figure NAER
+    publishes, and filtering the starred form out silently loses 442 of 3,100.
+    """
+    with open(path, encoding="utf-8") as fh:
+        d = json.load(fh)
+    chars = {}
+    for row in d.get("characters", []):
+        item, level = row.get("item"), row.get("level")
+        if item and level and level < chars.get(item, 99):
+            chars[item] = level
+    if not chars:
+        raise SystemExit("%s holds no characters -- expected the JSON written by "
+                         "scripts/tbcl_extract.py --out" % path)
+    return ({l: {c for c, v in chars.items() if v <= l} for l in range(1, 8)},
+            len(chars))
+
+
+def tbcl_level(text, cumulative, threshold):
+    """Lowest TBCL level whose cumulative inventory covers `threshold` of text.
+
+    No conversion happens here and none should: TBCL is published in traditional
+    characters, so traditional text is graded against it exactly. This is the
+    one path in this script where the answer is not an upper bound.
+
+    Returns ``(level, ok)``. ``ok`` is False when the text is simplified, which
+    TBCL cannot grade at all -- and the failure is silent rather than loud,
+    which is why it needs catching here. A simplified sentence run against TBCL
+    reaches about 79% coverage even at level 7, so it falls off the scale and
+    reads as "harder than TBCL 7" when the truth is "wrong instrument". Emitting
+    that number would be exactly the defect this whole project documents.
+    """
+    chars = hsk30.hanzi(hsk30.strip_punct(text))
+    if not chars:
+        return None, False
+    if not hsk30.looks_traditional(text):
+        return None, False
+    for level in range(1, 8):
+        inv = cumulative[level]
+        if sum(1 for c in chars if c in inv) / len(chars) >= threshold:
+            return level, True
+    return None, True
+
+
 def lvl(p):
     """A level, or None when no level in range reaches the threshold."""
     return p.level if p and p.level else None
@@ -84,7 +142,7 @@ def fmt_level(n):
     return "HSK %d" % n if n else "above HSK 9"
 
 
-def build(items, threshold):
+def build(items, threshold, tbcl=None):
     rows = []
     for it in items:
         a = hsk30.grade(it["text"], standard="2021", threshold=threshold)
@@ -96,13 +154,14 @@ def build(items, threshold):
             "l2021": lvl(a),
             "l2025": lvl(b),
             "script": b.script,
+            "tbcl": (tbcl_level(it["text"], tbcl, threshold) if tbcl else (None, False)),
             "profile_2021": a,
             "profile_2025": b,
         })
     return rows
 
 
-def report(rows, recipient, threshold, source_desc):
+def report(rows, recipient, threshold, source_desc, tbcl_requested=False):
     L = []
     add = L.append
     n = len(rows)
@@ -238,6 +297,63 @@ def report(rows, recipient, threshold, source_desc):
         add("levels (`doi:10.5281/zenodo.22346489`).")
         add("")
 
+    gradeable = [r for r in rows if r["tbcl"][1]]
+    skipped = [r for r in rows if tbcl_requested and not r["tbcl"][1]]
+
+    if tbcl_requested and not gradeable:
+        add("## TBCL was requested, and cannot grade these texts")
+        add("")
+        add("TBCL is published in **traditional** characters. None of your %d texts"
+            % n)
+        add("is written in traditional characters, so there is nothing for it to")
+        add("grade — a simplified text scores around 79% coverage against TBCL even")
+        add("at level 7, which would come out as \"harder than TBCL 7\" when the")
+        add("truth is that the wrong instrument was used.")
+        add("")
+        add("No TBCL column is shown rather than a wrong one. If your programme")
+        add("teaches simplified characters, the mainland documents above are the")
+        add("right frameworks and TBCL is not.")
+        add("")
+    elif gradeable:
+        add("## Against Taiwan's TBCL, natively")
+        add("")
+        add("TBCL (臺灣華語文能力基準) is published in traditional characters, so your")
+        add("texts are graded against it **exactly** — no conversion, no upper bound.")
+        add("Where the two columns disagree, the disagreement is real rather than an")
+        add("artifact of converting scripts.")
+        add("")
+        if skipped:
+            add("%d of your %d texts are in simplified characters and are omitted"
+                % (len(skipped), n))
+            add("from this table: TBCL cannot grade them, and a number for them would")
+            add("be meaningless rather than merely imprecise.")
+            add("")
+        add("| Text | TBCL (1-7) | 2025 syllabus | Agree? |")
+        add("| --- | --- | --- | --- |")
+        dis = 0
+        for r in gradeable:
+            t, m = r["tbcl"][0], r["l2025"]
+            same = (t is not None and m is not None and t == m)
+            dis += 0 if same else 1
+            add("| %s | %s | %s | %s |" % (
+                r["id"],
+                ("TBCL %d" % t) if t else "above TBCL 7",
+                fmt_level(m), "yes" if same else "**no**"))
+        add("")
+        add("%d of %d graded texts receive a different number from the two"
+            % (dis, len(gradeable)))
+        add("frameworks.")
+        add("")
+        add("**Do not read that as a conversion table.** No issuing body publishes a")
+        add("TBCL-to-HSK correspondence, so the two numbering systems are not")
+        add("commensurable and lining them up in one table is a convenience, not a")
+        add("mapping. Across the full inventories the two grade **64.7%** of their")
+        add("8,318 shared words at different tiers, and which side is *harder*")
+        add("reverses entirely if the scales are offset by a single level")
+        add("(`doi:10.5281/zenodo.22346489`). The useful reading is narrow: these are")
+        add("two independent answers about your material, and they differ.")
+        add("")
+
     add("## Method, and what it does not tell you")
     add("")
     add("Grading is character-level: proper nouns are dropped by pinyin")
@@ -295,6 +411,9 @@ def main():
     src.add_argument("--jsonl", help="JSON Lines with a 'text' field per object")
     ap.add_argument("--for", dest="recipient", default="",
                     help="name of the programme or institution, for the heading")
+    ap.add_argument("--tbcl", metavar="JSON",
+                    help="TBCL inventory from scripts/tbcl_extract.py --out; "
+                         "grades traditional text natively, without conversion")
     ap.add_argument("--threshold", type=float, default=0.95,
                     help="coverage threshold (default 0.95)")
     ap.add_argument("-o", "--out", default="-", help="output file, or - for stdout")
@@ -310,8 +429,12 @@ def main():
     if not items:
         raise SystemExit("no texts found — expected .txt files or a 'text' field")
 
-    rows = build(items, args.threshold)
-    out = report(rows, args.recipient, args.threshold, desc)
+    tbcl = size = None
+    if args.tbcl:
+        tbcl, size = load_tbcl(args.tbcl)
+        print("TBCL loaded: %d characters across 7 levels" % size, file=sys.stderr)
+    rows = build(items, args.threshold, tbcl)
+    out = report(rows, args.recipient, args.threshold, desc, bool(args.tbcl))
 
     if args.out == "-":
         sys.stdout.write(out)
