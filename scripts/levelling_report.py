@@ -95,6 +95,7 @@ def build(items, threshold):
             "chars": b.chars,
             "l2021": lvl(a),
             "l2025": lvl(b),
+            "script": b.script,
             "profile_2021": a,
             "profile_2025": b,
         })
@@ -212,6 +213,31 @@ def report(rows, recipient, threshold, source_desc):
     add("")
 
     # ---------------------------------------------------------------- method
+    trad = [r for r in rows if r.get("script") == "traditional"]
+    if trad:
+        add("## Your texts are in traditional characters")
+        add("")
+        add("%d of %d were written in traditional characters and were converted to"
+            % (len(trad), n))
+        add("simplified before grading. Both mainland documents are published in")
+        add("simplified characters, so this conversion is unavoidable — ungraded,")
+        add("traditional text reads as beyond HSK 9 because every character falls")
+        add("outside the inventory.")
+        add("")
+        add("**The levels above are therefore an upper bound for your readers.**")
+        add("Conversion is many-to-one: 106 characters in the graded inventories have")
+        add("more than one traditional form behind them, absorbing 122 extra forms.")
+        add("A student who has to distinguish 乾, 幹 and 榦 is credited here with the")
+        add("single character 干. The error always runs the same way — your texts")
+        add("look slightly easier than they are.")
+        add("")
+        add("If your programme teaches against Taiwan's TBCL or TOCFL rather than")
+        add("the mainland documents, this report is the wrong instrument and a")
+        add("cross-strait comparison is the right one: those frameworks and the")
+        add("mainland syllabus grade 64.7% of their shared vocabulary at different")
+        add("levels (`doi:10.5281/zenodo.22346489`).")
+        add("")
+
     add("## Method, and what it does not tell you")
     add("")
     add("Grading is character-level: proper nouns are dropped by pinyin")
