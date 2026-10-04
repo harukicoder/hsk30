@@ -8,7 +8,9 @@
 Implements `spec/README.md`. Two jobs, and the second is the one that matters:
 
 1. **Find the declaration.** A ``standard`` key in a JSON object, a sibling
-   ``standard.json``, a ``# standard: ...`` comment, or a ``standard`` column.
+   ``standard.json`` (one declaration, or a list of them for a folder whose
+   files follow different documents), a ``# standard: ...`` comment, or a
+   ``standard`` column.
 2. **Test it.** The three mainland documents grade 531 short words at three
    different levels, so the data reveals which one it encodes regardless of what
    it says. A file declaring ``gf0025-2021`` and matching it on 58.5% of shared
@@ -57,15 +59,24 @@ def registry():
 # ------------------------------------------------------------------ finding it
 
 def find_declaration(path):
-    """Return (identifier, where_it_was_found) or (None, reason)."""
+    """Return (identifier, where_it_was_found) or (None, reason).
+
+    A sibling standard.json holds one declaration or a list of them. An entry
+    with "applies_to" covers only the files it names, so a file sharing a
+    folder with differently graded data does not inherit their standard.
+    """
     sibling = os.path.join(os.path.dirname(os.path.abspath(path)), "standard.json")
     if os.path.exists(sibling):
         try:
             d = json.load(open(sibling, encoding="utf-8"))
-            if d.get("standard"):
-                return d["standard"], "sibling standard.json"
         except (ValueError, OSError):
-            pass
+            d = None
+        name = os.path.basename(path)
+        for entry in d if isinstance(d, list) else [d]:
+            if isinstance(entry, dict) and entry.get("standard"):
+                scope = entry.get("applies_to")
+                if not scope or name in scope:
+                    return entry["standard"], "sibling standard.json"
 
     if path.lower().endswith(".json"):
         try:

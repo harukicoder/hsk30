@@ -95,6 +95,17 @@ word	level
 
 **Anything else** — the sibling `standard.json` file always works. Use it.
 
+**Files in one folder that follow different documents** — make `standard.json`
+a list, one entry per group of files. `applies_to` is honoured: a file that no
+entry names is undeclared, rather than inheriting its neighbour's standard.
+
+```json
+[
+  { "standard": "hsk-syllabus-2025", "applies_to": ["new_hsk.csv"] },
+  { "standard": "hsk-2012", "applies_to": ["hsk_cedict.csv"] }
+]
+```
+
 ### Optional, if you want them
 
 | Field | Meaning |
@@ -160,8 +171,8 @@ have, which is more than most of these files currently say.
 
 ## Reference implementation
 
-`hsk30` implements this. `src/hsk30/data/standard.json` declares the shipped
-tables; `hsk30.grade()` returns the standard it used on every result, so no
+`hsk30` implements this. Each shipped table names its document in a
+`# standard:` header line; `hsk30.grade()` returns the standard it used on every result, so no
 caller can obtain a level without also obtaining what it means.
 
 ```python

@@ -169,6 +169,34 @@ def test_every_shipped_table_declares_the_document_it_encodes():
     assert rc == 0, "a shipped table is undeclared, mislabelled or unverified"
 
 
+def test_one_folder_can_declare_a_different_standard_per_file():
+    """A folder can hold lists graded by different documents.
+
+    Chinese Zero to Hero keeps a 2025-syllabus list beside a dictionary graded
+    by the 2012 lists. One folder-wide declaration would mislabel one of them, so
+    standard.json may be a list whose entries each name their files, and a file
+    that no entry names is undeclared instead of inheriting a neighbour's claim.
+    """
+    import importlib.util
+    import tempfile
+    path = os.path.join(HERE, "..", "scripts", "check_declaration.py")
+    spec = importlib.util.spec_from_file_location("check_declaration", path)
+    cd = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cd)
+    with tempfile.TemporaryDirectory() as d:
+        with open(os.path.join(d, "standard.json"), "w", encoding="utf-8") as fh:
+            json.dump([{"standard": "hsk-syllabus-2025", "applies_to": ["new.csv"]},
+                       {"standard": "hsk-2012", "applies_to": ["dict.csv"]}], fh)
+        for name in ("new.csv", "dict.csv", "chars.csv"):
+            open(os.path.join(d, name), "w", encoding="utf-8").write("word,level\n")
+        assert cd.find_declaration(os.path.join(d, "new.csv"))[0] == "hsk-syllabus-2025"
+        assert cd.find_declaration(os.path.join(d, "dict.csv"))[0] == "hsk-2012"
+        assert cd.find_declaration(os.path.join(d, "chars.csv"))[0] is None
+        with open(os.path.join(d, "standard.json"), "w", encoding="utf-8") as fh:
+            json.dump({"standard": "gf0025-2021"}, fh)
+        assert cd.find_declaration(os.path.join(d, "chars.csv"))[0] == "gf0025-2021"
+
+
 def test_variant_and_affix_entries_survive_extraction():
     """The standard writes some entries with notation, and they are still words.
 
