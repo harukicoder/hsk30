@@ -42,7 +42,8 @@ REGISTRY = os.path.join(HERE, "..", "spec", "standards.json")
 #: documents are gradeable here; the Taiwan inventories are not redistributed,
 #: so a declaration naming them is resolved but cannot be verified.
 GRADEABLE = {
-    "hsk-2012": "2.0",
+    "hsk-2010": "2.0",
+    "hsk-2012": "2012",
     "gf0025-2021": "2021",
     "hsk-syllabus-2025": "2025",
 }

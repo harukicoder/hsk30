@@ -43,7 +43,8 @@ That is the whole requirement. Everything below is about where to put it.
 
 | Identifier | Document | In force |
 | --- | --- | --- |
-| `hsk-2012` | 汉语水平考试大纲 — the 2012 syllabus | 2012, superseded |
+| `hsk-2010` | 新汉语水平考试大纲 vocabulary — the original 2009–10 lists | 2010, revised late 2012 |
+| `hsk-2012` | 汉语水平考试大纲 — the late-2012 revision | late 2012, superseded Jul 2026 |
 | `gf0025-2021` | 国际中文教育中文水平等级标准 — the national grading standard | 1 Jul 2021 |
 | `hsk-syllabus-2025` | 中文水平考试HSK考试大纲 — the examination syllabus | Jul 2026 |
 | `tbcl-2025` | 臺灣華語文能力基準 — Taiwan's standard | 2022, rev. Apr 2025 |
@@ -170,7 +171,13 @@ caller can obtain a level without also obtaining what it means.
 (1, '2021')
 ```
 
-The tables themselves declare `gf0025-2021`, `hsk-syllabus-2025` and
-`hsk-2012` respectively, and `check_declaration.py` verifies each against its
-own claim as part of the test suite — so this repository cannot ship a
-mislabelled table without a test failing.
+The tables themselves declare `gf0025-2021`, `hsk-syllabus-2025`, `hsk-2010`
+and `hsk-2012`, and `check_declaration.py` verifies each against its own claim
+as part of the test suite.
+
+**Correction, 4 October 2026.** Until that date the original 2009–10 lists were
+declared `hsk-2012`. The checker could not catch it, because the 2012 revision
+was not shipped as a reference, so a mislabel between the two editions had
+nothing to fail against. The 2012 revision now ships as its own table
+(transcribed by hskhsk.com, MIT). The two editions agree on 93.4% of shared
+words, so each label can now be tested against the other.

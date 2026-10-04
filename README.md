@@ -306,9 +306,16 @@ They are different, and it matters which one a tool grades against.
 
 | `standard=` | Document | Date | Words | Characters |
 | --- | --- | --- | ---: | ---: |
-| `"2.0"` | HSK 2.0 exam lists | 2009–10 | 4,991 | — |
+| `"2.0"` | HSK 2.0 lists, original edition | 2009–10 | 4,991 | — |
+| `"2012"` | HSK 2.0 lists, late-2012 revision | late 2012 | 4,995 | — |
 | `"2021"` | 《国际中文教育中文水平等级标准》 (GF0025-2021) | in force 1 Jul 2021 | 10,977 | 3,000 |
 | `"2025"` *(default)* | 新版HSK考试大纲 | pub. Nov 2025, in force Jul 2026 | 10,896 | 3,088 |
+
+The two HSK 2.0 editions are different documents too. Hanban revised the lists
+in late 2012 and moved roughly one word in ten; they agree on 93.4% of shared
+words. Many open datasets carry the 2009–10 edition and label it simply "HSK
+2.0", while the examination used the 2012 revision until July 2026. The 2012
+lists here are hskhsk.com's transcription (glxxyz/hskhsk.com, MIT).
 
 The 2021 document is a national language standard (语言文字规范) from the
 Ministry of Education and the State Language Commission. The 2025 document is

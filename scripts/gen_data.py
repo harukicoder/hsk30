@@ -107,22 +107,46 @@ def hsk20_words():
     return levels
 
 
+#: The late-2012 revision of the HSK 2.0 lists, transcribed by hskhsk.com
+#: (glxxyz/hskhsk.com, MIT, (c) 2020 Alan Davies). Hanban revised the 2009-10
+#: lists in late 2012 and moved roughly one word in ten to another level, so the
+#: two editions are different documents and need different identifiers.
+SRC_2012 = ("https://raw.githubusercontent.com/glxxyz/hskhsk.com/main/data/lists/"
+            "HSK%20Official%202012%20L{n}.txt")
+
+
+def hsk2012_words():
+    levels = {}
+    for n in range(1, 7):
+        for line in fetch(SRC_2012.format(n=n)).splitlines():
+            word = line.strip().lstrip("\ufeff").split("\t")[0]
+            if is_han(word) and n < levels.get(word, 99):
+                levels[word] = n   # homographs listed twice keep the lower level
+    return levels
+
+
 #: Which registry identifier each generated table encodes -- see spec/README.md.
 #: Regeneration must not strip this: the declaration is the only thing that
 #: travels with a copied file.
 DECLARES = {
     "hsk30_chars.tsv": "gf0025-2021",
     "hsk30_words.tsv": "gf0025-2021",
-    "hsk20_words.tsv": "hsk-2012",
+    "hsk20_words.tsv": "hsk-2010",
+    "hsk2012_words.tsv": "hsk-2012",
+}
+SOURCES = {
+    "hsk2012_words.tsv": "glxxyz/hskhsk.com data/lists/HSK Official 2012 L1-L6.txt (MIT, (c) 2020 Alan Davies)",
 }
 REGISTRY_URL = "https://github.com/harukicoder/hsk30/blob/main/spec/standards.json"
 
 
-def render(table, key_header: str, declares: str = "") -> str:
+def render(table, key_header: str, declares: str = "", source: str = "") -> str:
     rows = "\n".join("%s\t%d" % (k, table[k]) for k in sorted(table))
     head = ""
     if declares:
         head = "# standard: %s\n# registry: %s\n" % (declares, REGISTRY_URL)
+    if source:
+        head += "# source: %s\n" % source
     return "%s%s\tlevel\n%s\n" % (head, key_header, rows)
 
 
@@ -138,12 +162,14 @@ def main() -> int:
         # collapse onto a headword already counted, plus 〇 and the latin forms.
         "hsk30_words.tsv": (render(hsk30_words(), "word", DECLARES["hsk30_words.tsv"]), 10977),
         "hsk20_words.tsv": (render(hsk20_words(), "word", DECLARES["hsk20_words.tsv"]), 4991),
+        "hsk2012_words.tsv": (render(hsk2012_words(), "word", DECLARES["hsk2012_words.tsv"],
+                                     SOURCES["hsk2012_words.tsv"]), 4995),
     }
 
     failed = False
     for name, (content, expected) in outputs.items():
         path = os.path.join(DATA, name)
-        count = content.count("\n") - 1
+        count = sum(1 for l in content.splitlines() if l and not l.startswith("#")) - 1
         if count != expected:
             print("warning: %s has %d rows, expected %d" % (name, count, expected))
         if args.check:

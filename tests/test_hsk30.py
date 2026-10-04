@@ -60,6 +60,8 @@ def test_standard_names_resolve():
     assert hsk30.resolve("3.0") == "2021"
     assert hsk30.resolve("exam") == "2025"
     assert hsk30.resolve("2.0") == "2.0"
+    assert hsk30.resolve("2010") == "2.0"
+    assert hsk30.resolve("2012") == "2012"
     try:
         hsk30.resolve("4.0")
     except ValueError:
@@ -69,12 +71,13 @@ def test_standard_names_resolve():
 
 
 def test_hsk20_has_no_character_grading():
-    try:
-        hsk30.characters("2.0")
-    except ValueError:
-        pass
-    else:
-        raise AssertionError("HSK 2.0 grades no characters")
+    for edition in ("2.0", "2012"):
+        try:
+            hsk30.characters(edition)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("HSK 2.0 grades no characters (%s)" % edition)
 
 
 def test_the_two_hsk30_documents_genuinely_disagree():
@@ -89,6 +92,20 @@ def test_the_two_hsk30_documents_genuinely_disagree():
 def test_word_lists_load():
     assert len(hsk30.words("2021")) == 10977
     assert len(hsk30.words("2.0")) == 4991
+    assert len(hsk30.words("2012")) == 4995
+
+
+def test_the_two_hsk20_editions_are_different_documents():
+    """Hanban revised the 2009-10 lists in late 2012; one word in ten moved.
+
+    Until 4 Oct 2026 the 2009-10 table was declared hsk-2012. Pinning the gap
+    stops the two editions being conflated again under one identifier.
+    """
+    a, b = hsk30.words("2.0"), hsk30.words("2012")
+    shared = [w for w in a if w in b]
+    same = sum(1 for w in shared if a[w] == b[w])
+    agree = 100.0 * same / len(shared)
+    assert 92 < agree < 95, agree      # 93.4%
 
 
 def test_traditional_text_grades_the_same_as_its_simplified_twin():

@@ -8,7 +8,12 @@ routinely conflated as "HSK 3.0":
     hsk2025_words.tsv         10,896 graded words      ) force since Jul 2026
     hsk30_chars.tsv    3,000 graded hanzi      ) GF0025-2021, the national
     hsk30_words.tsv   10,977 graded words      ) grading standard (Jul 2021)
-    hsk20_words.tsv    4,991 graded words        the superseded HSK 2.0 lists
+    hsk20_words.tsv    4,991 graded words        HSK 2.0, the original 2009-10 lists
+    hsk2012_words.tsv  4,995 graded words        HSK 2.0, the late-2012 revision
+
+The two HSK 2.0 editions differ too: Hanban revised the lists in late 2012 and
+moved roughly one word in ten, so ``"2.0"`` (the 2009-10 lists) and ``"2012"``
+are separate documents with separate identifiers.
 
 **Two character dimensions.**  HSK 3.0 grades 认读字 (recognition — what a
 learner must read) separately from 书写字 (what they must write by hand), and
@@ -93,7 +98,8 @@ def t2s() -> Dict[str, str]:
 _STANDARDS = {
     "2025": "2025", "syllabus": "2025", "exam": "2025",
     "2021": "2021", "3.0": "2021", "3": "2021", "standard": "2021",
-    "2.0": "2.0", "2": "2.0",
+    "2.0": "2.0", "2": "2.0", "2010": "2.0",
+    "2012": "2012",
 }
 
 
@@ -103,7 +109,8 @@ def resolve(standard) -> str:
     if key is None:
         raise ValueError(
             "unknown standard %r; expected one of: 2025 (the exam syllabus), "
-            "2021 (the grading standard), 2.0 (superseded)" % (standard,))
+            "2021 (the grading standard), 2012 (HSK 2.0, 2012 revision), "
+            "2.0 (HSK 2.0, original 2009-10 lists)" % (standard,))
     return key
 
 
@@ -124,7 +131,7 @@ def characters(standard: str = DEFAULT_STANDARD,
     key = resolve(standard)
     if kind not in ("recognition", "writing"):
         raise ValueError("kind must be 'recognition' or 'writing'")
-    if key == "2.0":
+    if key in ("2.0", "2012"):
         raise ValueError("HSK 2.0 has no separate character grading; "
                          "use standard='2025' or '2021'")
     if kind == "writing":
@@ -138,10 +145,12 @@ def characters(standard: str = DEFAULT_STANDARD,
 
 @lru_cache(maxsize=None)
 def words(standard: str = DEFAULT_STANDARD) -> Dict[str, int]:
-    """Graded word list for ``standard``: ``"2025"``, ``"2021"`` or ``"2.0"``."""
+    """Graded word list for ``standard``: ``"2025"``, ``"2021"``, ``"2012"`` or
+    ``"2.0"`` (the original 2009-10 lists; ``"2010"`` is accepted too)."""
     return _load({
         "2025": "hsk2025_words.tsv",
         "2021": "hsk30_words.tsv",
+        "2012": "hsk2012_words.tsv",
         "2.0": "hsk20_words.tsv",
     }[resolve(standard)])
 

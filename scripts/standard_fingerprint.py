@@ -40,7 +40,7 @@ import hsk30  # noqa: E402
 
 STANDARDS = ("2.0", "2021", "2025")
 NAMES = {
-    "2.0": "HSK 2.0 (2012 syllabus, superseded)",
+    "2.0": "HSK 2.0 (original 2009-10 lists; revised 2012, superseded)",
     "2021": "GF0025-2021 (national grading standard)",
     "2025": "2025 examination syllabus (in force since July 2026)",
 }
