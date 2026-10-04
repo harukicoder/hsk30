@@ -57,6 +57,31 @@ NAIVE = {1: "A1", 2: "A2", 3: "B1", 4: "B2", 5: "C1", 6: "C2",
 COMPRESSED = {1: "A1", 2: "A1", 3: "A2", 4: "B1", 5: "B2", 6: "B2",
               7: "C1", 8: "C1", 9: "C2"}
 
+#: Labels for TBCL levels, used only with --actfl. Unlike the HSK tables above,
+#: both links come from a published source, and both are reporting alignments
+#: for test-takers, not text-difficulty scales:
+#:
+#: * TBCL -> CEFR: the reading panel of the correspondence figure published by
+#:   SC-TOP with NAER in July 2021, when TOCFL score reports gained a TBCL column
+#:   (tocfl.edu.tw/assets/files/announcement/TOCFLandTBCL.pdf, Q3). The figure
+#:   gives cut points: A1 = TBCL 2+, A2 = 3+, B1 = 4, B2 between 5 and 6,
+#:   C1 = just below 6, C2 = 7. A text graded at an integer TBCL level therefore
+#:   spans the bands between its own cut and the next level's.
+#: * CEFR -> ACTFL: SC-TOP's 2014 standard-setting study linking TOCFL to both
+#:   frameworks (tocfl.edu.tw/assets/files/CEFR_ACTFL.pdf, Figure 3). It reports
+#:   listening; no reading-specific TBCL-ACTFL table has been published. ACTFL's
+#:   own CEFR correspondences run one way only, from ACTFL ratings to CEFR, so
+#:   they cannot be used in this direction.
+TBCL_ALIGNMENT = {
+    1: ("pre-A1 (TOCFL Novice 1)", "Novice, below the study's range"),
+    2: ("pre-A1 to A1", "Novice, up to Novice Mid-High"),
+    3: ("A1 to A2", "Novice Mid-High to Intermediate Mid"),
+    4: ("B1", "Intermediate High"),
+    5: ("B1 to B2", "Intermediate High to Advanced Mid-High"),
+    6: ("C1", "Advanced High to Superior"),
+    7: ("C2", "Superior and above"),
+}
+
 
 def read_dir(path):
     for name in sorted(os.listdir(path)):
@@ -161,7 +186,8 @@ def build(items, threshold, tbcl=None):
     return rows
 
 
-def report(rows, recipient, threshold, source_desc, tbcl_requested=False):
+def report(rows, recipient, threshold, source_desc, tbcl_requested=False,
+           actfl=False):
     L = []
     add = L.append
     n = len(rows)
@@ -328,17 +354,24 @@ def report(rows, recipient, threshold, source_desc, tbcl_requested=False):
             add("from this table: TBCL cannot grade them, and a number for them would")
             add("be meaningless rather than merely imprecise.")
             add("")
-        add("| Text | TBCL (1-7) | 2025 syllabus | Agree? |")
-        add("| --- | --- | --- | --- |")
+        if actfl:
+            add("| Text | TBCL (1-7) | CEFR, via TBCL | ACTFL, indicative "
+                "| 2025 syllabus | Agree? |")
+            add("| --- | --- | --- | --- | --- | --- |")
+        else:
+            add("| Text | TBCL (1-7) | 2025 syllabus | Agree? |")
+            add("| --- | --- | --- | --- |")
         dis = 0
         for r in gradeable:
             t, m = r["tbcl"][0], r["l2025"]
             same = (t is not None and m is not None and t == m)
             dis += 0 if same else 1
-            add("| %s | %s | %s | %s |" % (
-                r["id"],
-                ("TBCL %d" % t) if t else "above TBCL 7",
-                fmt_level(m), "yes" if same else "**no**"))
+            cells = [r["id"], ("TBCL %d" % t) if t else "above TBCL 7"]
+            if actfl:
+                cefr, act = TBCL_ALIGNMENT.get(t, ("above C2", "above the scale"))
+                cells += [cefr, act]
+            cells += [fmt_level(m), "yes" if same else "**no**"]
+            add("| " + " | ".join(cells) + " |")
         add("")
         add("%d of %d graded texts receive a different number from the two"
             % (dis, len(gradeable)))
@@ -353,6 +386,30 @@ def report(rows, recipient, threshold, source_desc, tbcl_requested=False):
         add("(`doi:10.5281/zenodo.22346489`). The useful reading is narrow: these are")
         add("two independent answers about your material, and they differ.")
         add("")
+        if actfl:
+            add("### Where the CEFR and ACTFL columns come from")
+            add("")
+            add("Unlike any HSK-to-CEFR table, both links here are published by the")
+            add("bodies that run the tests, and both are **reporting alignments for")
+            add("test-takers**, not scales of text difficulty:")
+            add("")
+            add("- **TBCL to CEFR**: the reading panel of the correspondence figure that")
+            add("  SC-TOP published with NAER in July 2021, when TOCFL score reports")
+            add("  gained a TBCL column. It gives cut points (A1 at TBCL 2+, A2 at 3+,")
+            add("  B1 at 4, B2 between 5 and 6, C1 just below 6, C2 at 7), so a text at")
+            add("  an integer TBCL level spans a range of CEFR bands.")
+            add("- **CEFR to ACTFL**: SC-TOP's 2014 standard-setting study, which linked")
+            add("  TOCFL to both frameworks. It reports **listening**; no reading-specific")
+            add("  TBCL-to-ACTFL table has been published. ACTFL's own CEFR")
+            add("  correspondences run one way only, from ACTFL ratings to CEFR, so they")
+            add("  cannot be used in this direction.")
+            add("")
+            add("ACTFL rates people, not texts. Read the ACTFL column as the proficiency")
+            add("range of a reader for whom the text's characters sit at their level:")
+            add("an indication for planning, not a rating of the text. Sources:")
+            add("tocfl.edu.tw/assets/files/announcement/TOCFLandTBCL.pdf (Q3) and")
+            add("tocfl.edu.tw/assets/files/CEFR_ACTFL.pdf (Figure 3).")
+            add("")
 
     add("## Method, and what it does not tell you")
     add("")
@@ -414,6 +471,9 @@ def main():
     ap.add_argument("--tbcl", metavar="JSON",
                     help="TBCL inventory from scripts/tbcl_extract.py --out; "
                          "grades traditional text natively, without conversion")
+    ap.add_argument("--actfl", action="store_true",
+                    help="with --tbcl: add CEFR and indicative ACTFL columns from "
+                         "SC-TOP's published alignments (see the report's notes)")
     ap.add_argument("--threshold", type=float, default=0.95,
                     help="coverage threshold (default 0.95)")
     ap.add_argument("-o", "--out", default="-", help="output file, or - for stdout")
@@ -429,12 +489,15 @@ def main():
     if not items:
         raise SystemExit("no texts found — expected .txt files or a 'text' field")
 
+    if args.actfl and not args.tbcl:
+        ap.error("--actfl needs --tbcl: the ACTFL labels come from TBCL levels")
     tbcl = size = None
     if args.tbcl:
         tbcl, size = load_tbcl(args.tbcl)
         print("TBCL loaded: %d characters across 7 levels" % size, file=sys.stderr)
     rows = build(items, args.threshold, tbcl)
-    out = report(rows, args.recipient, args.threshold, desc, bool(args.tbcl))
+    out = report(rows, args.recipient, args.threshold, desc, bool(args.tbcl),
+                 actfl=args.actfl)
 
     if args.out == "-":
         sys.stdout.write(out)

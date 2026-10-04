@@ -488,6 +488,43 @@ def test_level_two_adds_almost_no_writing_requirement():
     assert sum(1 for c in lvl2 if c in wri) == 5
 
 
+# ---- ACTFL labels for TBCL levels (scripts/levelling_report.py --actfl) ----
+
+def _levelling_report():
+    import importlib.util
+    path = os.path.join(HERE, "..", "scripts", "levelling_report.py")
+    spec = importlib.util.spec_from_file_location("levelling_report", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_tbcl_alignment_covers_every_level_and_cites_its_sources():
+    lr = _levelling_report()
+    assert sorted(lr.TBCL_ALIGNMENT) == list(range(1, 8))
+    assert lr.TBCL_ALIGNMENT[4] == ("B1", "Intermediate High")
+    assert lr.TBCL_ALIGNMENT[7][0] == "C2"
+    import inspect
+    src = inspect.getsource(lr)
+    assert "TOCFLandTBCL.pdf" in src and "CEFR_ACTFL.pdf" in src
+
+
+def test_actfl_columns_appear_only_when_asked_for():
+    lr = _levelling_report()
+    text = "\u6211\u5011\u5728\u5b78\u6821\u5b78\u7fd2\u4e2d\u6587\u3002"  # 我們在學校學習中文。
+    assert hsk30.looks_traditional(text)
+    # Stand-in inventory: every character of the text first appears at TBCL 4.
+    chars = set(hsk30.hanzi(hsk30.strip_punct(text)))
+    cumulative = {l: (chars if l >= 4 else set()) for l in range(1, 8)}
+    rows = lr.build([{"id": "t1", "text": text, "shelf": None}], 0.95, cumulative)
+    assert rows[0]["tbcl"] == (4, True)
+    plain = lr.report(rows, "", 0.95, "test", tbcl_requested=True)
+    with_actfl = lr.report(rows, "", 0.95, "test", tbcl_requested=True, actfl=True)
+    assert "ACTFL" not in plain
+    assert "| TBCL 4 | B1 | Intermediate High |" in with_actfl
+    assert "listening" in with_actfl and "CEFR_ACTFL.pdf" in with_actfl
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items())
              if n.startswith("test_") and callable(f)]

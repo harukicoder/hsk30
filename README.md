@@ -227,6 +227,26 @@ instrument and prints no TBCL column. A simplified text scores about 79%
 coverage against TBCL even at level 7, which would read as "harder than TBCL 7"
 when the truth is that the wrong framework was applied.
 
+For a US programme that plans in ACTFL terms, add `--actfl` as well:
+
+```bash
+python3 scripts/levelling_report.py --dir texts/ --tbcl tbcl.json --actfl -o report.md
+```
+
+The TBCL table then gains two columns, a CEFR range and an **indicative** ACTFL
+range, and the report says where each comes from:
+
+- **TBCL to CEFR:** the correspondence figure Taiwan's SC-TOP published with NAER
+  in July 2021 (reading panel).
+- **CEFR to ACTFL:** SC-TOP's 2014 standard-setting study, which reports listening.
+
+Both are alignments published for test-takers, not text-difficulty scales, and
+ACTFL rates people rather than texts. So the column gives a planning range, not
+a rating.
+
+The mainland HSK documents get no ACTFL column. Neither of them publishes any
+CEFR or ACTFL correspondence.
+
 ### Say which document your data encodes
 
 Every table shipped here opens with a line naming the document it came from:
