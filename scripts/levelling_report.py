@@ -215,7 +215,7 @@ def report(rows, recipient, threshold, source_desc, tbcl_requested=False,
     add("- 《国际中文教育中文水平等级标准》 **GF0025-2021** — the national grading")
     add("  standard, in force since 1 July 2021.")
     add("- 新版HSK考试大纲 — the **2025 examination syllabus**, published November")
-    add("  2025, in force since July 2026.")
+    add("  2025; the HSK 3.0 exam based on it launches on 13 December 2026.")
     add("")
     add("They assign different levels to 41.5% of the vocabulary and 40.7% of the")
     add("characters they share. Most tools do not say which one they used.")

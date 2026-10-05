@@ -13,8 +13,8 @@ Spanish, German and Mandarin — and drawing 23 teams. The direction was
 
 Meanwhile Chinese has just undergone a standards migration with no analogue in
 English. Two official documents are both called "HSK 3.0": the GF0025-2021
-national grading standard and the examination syllabus in force since July
-2026. They assign different levels to 41.5% of the words and 40.7% of the
+national grading standard and the examination syllabus behind the HSK 3.0 exam
+that launches on 13 December 2026. They assign different levels to 41.5% of the words and 40.7% of the
 characters they share, and grading real texts against one rather than the other
 changes the level of roughly half of them. Chinese language education is
 currently calibrated to a moving and widely misidentified target, and that is a

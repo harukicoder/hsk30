@@ -228,7 +228,7 @@ def grade(
     nouns here when you have them, since a bare string carries no pinyin and
     they cannot be detected automatically.
 
-    ``standard`` selects the document: ``"2025"`` (the exam syllabus in force,
+    ``standard`` selects the document: ``"2025"`` (the HSK 3.0 exam syllabus,
     the default) or ``"2021"`` (the national grading standard).  Roughly half of
     real texts grade differently under the two, so state which you used.
 

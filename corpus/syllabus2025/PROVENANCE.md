@@ -10,8 +10,9 @@ These two tables are a **factual extraction**, not an authored work:
 ## Source
 
 新版HSK考试大纲 (HSK Examination Syllabus), published November 2025 by the
-Center for Language Education and Cooperation (中外语言交流合作中心), in force
-from July 2026. A 406-page PDF with a text layer; vocabulary occupies
+Center for Language Education and Cooperation (中外语言交流合作中心). The HSK 3.0
+exam based on it launches worldwide on 13 December 2026, after trial sittings in
+January and September 2026. A 406-page PDF with a text layer; vocabulary occupies
 pp. 79–354 and recognition characters pp. 356–376.
 
 Regenerate from the official PDF:

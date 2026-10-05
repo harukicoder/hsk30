@@ -1,6 +1,6 @@
 {
   "$comment": "Canonical identifiers for the published Chinese proficiency standards. See spec/README.md. Registry version is the date it last changed.",
-  "registry_version": "2026-10-04",
+  "registry_version": "2026-10-05",
   "registry_url": "https://github.com/harukicoder/hsk30/blob/main/spec/standards.json",
   "standards": {
     "hsk-2010": {
@@ -20,7 +20,7 @@
       "inventories": {
         "words": 5000
       },
-      "$note": "The original six-level lists. Hanban revised them in late 2012, moving roughly one word in ten to another level. Many open datasets still carry this edition, often labelled simply HSK 2.0. Added 2026-10-04: until then this registry described these lists as hsk-2012."
+      "$note": "The original six-level lists. Hanban revised them in late 2012, moving 316 of the 4,796 words the two editions share (6.6%) to another level and swapping about 200. Many open datasets still carry this edition, often labelled simply HSK 2.0. Added 2026-10-04: until then this registry described these lists as hsk-2012."
     },
     "hsk-2012": {
       "name_zh": "汉语水平考试大纲",
@@ -39,7 +39,7 @@
       "inventories": {
         "words": 5000
       },
-      "$note": "The late-2012 revision of the six-level lists, used by the examination until the 2025 syllabus took effect in July 2026. Differs from hsk-2010 at roughly one word in ten."
+      "$note": "The late-2012 revision of the six-level lists, used by the examination until HSK 3.0, based on the 2025 syllabus, launches on 13 December 2026. Of the 4,796 words it shares with hsk-2010, 316 (6.6%) sit at a different level."
     },
     "gf0025-2021": {
       "name_zh": "国际中文教育中文水平等级标准",
@@ -71,7 +71,7 @@
       ],
       "issuer": "Center for Language Education and Cooperation (中外语言交流合作中心)",
       "published": "2025-11",
-      "in_force_from": "2026-07",
+      "in_force_from": "2026-12-13",
       "levels": 9,
       "band_7_9": true,
       "inventories": {

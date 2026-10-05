@@ -24,7 +24,7 @@ def main(argv=None) -> int:
                     help="coverage threshold (default: 0.95)")
     ap.add_argument("-s", "--standard", default=DEFAULT_STANDARD,
                     choices=["2025", "2021"],
-                    help="2025 = the exam syllabus in force (default); "
+                    help="2025 = the HSK 3.0 exam syllabus (default); "
                          "2021 = the national grading standard")
     ap.add_argument("--curve", action="store_true",
                     help="show cumulative coverage at every level")

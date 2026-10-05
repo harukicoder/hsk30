@@ -22,7 +22,7 @@ url: "https://github.com/harukicoder/hsk30"
 abstract: >-
   "HSK 3.0" names two official documents: the GF0025-2021 national grading
   standard, in force since July 2021, and the examination syllabus published in
-  November 2025 and in force since July 2026. They assign different levels to
+  November 2025, the basis of the HSK 3.0 exam from 13 December 2026. They assign different levels to
   41.5% of the words and 40.7% of the characters they share, and grading real
   texts against one rather than the other changes the level of 48% of them.
   This package grades Chinese text against either document, records which, and
@@ -75,7 +75,7 @@ references:
     year: 2025
     institution:
       name: "Center for Language Education and Cooperation (中外语言交流合作中心)"
-    notes: "Published November 2025, in force July 2026."
+    notes: "Published November 2025; the HSK 3.0 exam based on it launches on 13 December 2026."
 preferred-citation:
   type: article
   title: "Which HSK 3.0? Two Official Documents, and Half of All Grading Decisions Change"

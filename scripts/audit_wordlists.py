@@ -437,8 +437,8 @@ def main():
     add("method — an audit that could not tell them apart would be worthless. It can.")
     add("")
     if len(on_2025) < len(results):
-        add("The rest encode an earlier document. Learners sitting the HSK from July")
-        add("2026 are examined against the 2025 syllabus, which assigns a different")
+        add("The rest encode an earlier document. Learners sitting HSK 3.0 from 13")
+        add("December 2026 are examined against the 2025 syllabus, which assigns a different")
         add("level to 41.5% of the vocabulary it shares with the 2021 standard. A tool")
         add("built on one of these lists will therefore disagree with the examination")
         add("about a large share of the words it labels, without saying so and without")

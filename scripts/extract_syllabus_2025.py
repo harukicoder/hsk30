@@ -3,8 +3,8 @@
 
     python3 scripts/extract_syllabus_2025.py path/to/syllabus.pdf
 
-The syllabus (新版HSK考试大纲, 中外语言交流合作中心, published 2025-11, in force
-2026-07) is distributed only as a 406-page PDF.  It has a real text layer, so
+The syllabus (新版HSK考试大纲, 中外语言交流合作中心, published 2025-11; the HSK 3.0
+exam based on it launches 2026-12-13) is distributed only as a 406-page PDF.  It has a real text layer, so
 this is parsing rather than OCR.
 
 Two tables are extracted:

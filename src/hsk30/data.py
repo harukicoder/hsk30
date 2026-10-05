@@ -4,15 +4,15 @@ Five tables ship with the package, covering three different documents that are
 routinely conflated as "HSK 3.0":
 
     hsk2025_chars.tsv          3,088 recognition hanzi ) 新版HSK考试大纲, the
-    hsk2025_writing_chars.tsv  1,200 writing hanzi     ) EXAM syllabus, in
-    hsk2025_words.tsv         10,896 graded words      ) force since Jul 2026
+    hsk2025_writing_chars.tsv  1,200 writing hanzi     ) HSK 3.0 EXAM syllabus
+    hsk2025_words.tsv         10,896 graded words      ) (exam from 13 Dec 2026)
     hsk30_chars.tsv    3,000 graded hanzi      ) GF0025-2021, the national
     hsk30_words.tsv   10,977 graded words      ) grading standard (Jul 2021)
     hsk20_words.tsv    4,991 graded words        HSK 2.0, the original 2009-10 lists
     hsk2012_words.tsv  4,995 graded words        HSK 2.0, the late-2012 revision
 
 The two HSK 2.0 editions differ too: Hanban revised the lists in late 2012 and
-moved roughly one word in ten, so ``"2.0"`` (the 2009-10 lists) and ``"2012"``
+moved 316 of the 4,796 words they share (6.6%), so ``"2.0"`` (the 2009-10 lists) and ``"2012"``
 are separate documents with separate identifiers.
 
 **Two character dimensions.**  HSK 3.0 grades 认读字 (recognition — what a
@@ -49,7 +49,7 @@ from typing import Dict
 
 _DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 
-#: The document used when none is named: the examination syllabus in force.
+#: The document used when none is named: the HSK 3.0 examination syllabus.
 DEFAULT_STANDARD = "2025"
 
 #: Levels 7, 8 and 9 are a single undifferentiated list in the standard.  We

@@ -109,7 +109,8 @@ def hsk20_words():
 
 #: The late-2012 revision of the HSK 2.0 lists, transcribed by hskhsk.com
 #: (glxxyz/hskhsk.com, MIT, (c) 2020 Alan Davies). Hanban revised the 2009-10
-#: lists in late 2012 and moved roughly one word in ten to another level, so the
+#: lists in late 2012, moving 316 of the 4,796 words they share (6.6%) to another
+#: level and swapping about 200, so the
 #: two editions are different documents and need different identifiers.
 SRC_2012 = ("https://raw.githubusercontent.com/glxxyz/hskhsk.com/main/data/lists/"
             "HSK%20Official%202012%20L{n}.txt")

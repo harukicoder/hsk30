@@ -13,8 +13,8 @@ convention.
 
 "HSK 3.0" names two different official documents. 《国际中文教育中文水平等级标准》
 (GF0025-2021) is a national grading standard in force since July 2021;
-新版HSK考试大纲 is the examination syllabus published in November 2025 and in
-force since July 2026. **They assign different levels to 41.5% of the vocabulary
+新版HSK考试大纲 is the examination syllabus published in November 2025, the basis
+of the HSK 3.0 exam that launches on 13 December 2026. **They assign different levels to 41.5% of the vocabulary
 they share.** An audit of the five most-used open HSK datasets found four of
 them encode the 2021 standard, one encodes the 2025 syllabus, and only one says
 which — in a directory name, which does not survive being imported
@@ -44,9 +44,9 @@ That is the whole requirement. Everything below is about where to put it.
 | Identifier | Document | In force |
 | --- | --- | --- |
 | `hsk-2010` | 新汉语水平考试大纲 vocabulary — the original 2009–10 lists | 2010, revised late 2012 |
-| `hsk-2012` | 汉语水平考试大纲 — the late-2012 revision | late 2012, superseded Jul 2026 |
+| `hsk-2012` | 汉语水平考试大纲 — the late-2012 revision | late 2012; the exam's lists until HSK 3.0 launches, 13 Dec 2026 |
 | `gf0025-2021` | 国际中文教育中文水平等级标准 — the national grading standard | 1 Jul 2021 |
-| `hsk-syllabus-2025` | 中文水平考试HSK考试大纲 — the examination syllabus | Jul 2026 |
+| `hsk-syllabus-2025` | 中文水平考试HSK考试大纲 — the examination syllabus | pub. Nov 2025; HSK 3.0 exam from 13 Dec 2026 |
 | `tbcl-2025` | 臺灣華語文能力基準 — Taiwan's standard | 2022, rev. Apr 2025 |
 | `tocfl-8000-2024` | 華語八千詞 — the TOCFL word list | rev. Sep 2024 |
 

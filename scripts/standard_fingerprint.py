@@ -7,9 +7,9 @@
 
 Three documents are in circulation and tools rarely say which they use:
 
-  HSK 2.0     the 2012 examination syllabus, 4,991 words, superseded
+  HSK 2.0     the original 2009-10 lists, 4,991 words, revised in 2012
   GF0025-2021 the national grading standard, in force since July 2021
-  2025        the examination syllabus, in force since July 2026
+  2025        the HSK 3.0 examination syllabus; the exam launches 13 Dec 2026
 
 A learner reading a tool's "HSK 4" cannot tell which of the three produced it,
 and the answer changes real decisions. This script builds the smallest set of
@@ -42,7 +42,7 @@ STANDARDS = ("2.0", "2021", "2025")
 NAMES = {
     "2.0": "HSK 2.0 (original 2009-10 lists; revised 2012, superseded)",
     "2021": "GF0025-2021 (national grading standard)",
-    "2025": "2025 examination syllabus (in force since July 2026)",
+    "2025": "2025 examination syllabus (HSK 3.0 exam from 13 December 2026)",
 }
 
 
@@ -166,8 +166,8 @@ def identify(probe, observed):
         print("list is grading against a syllabus no current examination uses.")
     elif best == "2021":
         print("Note: GF0025-2021 is the national *grading standard*, not the")
-        print("examination syllabus. Learners sitting the HSK from July 2026 are")
-        print("examined against the 2025 document, which assigns a different level to")
+        print("examination syllabus. Learners sitting HSK 3.0 from 13 December 2026")
+        print("are examined against the 2025 document, which assigns a different level to")
         print("41.5% of the vocabulary the two share.")
     else:
         print("Note: this is the current examination syllabus. It differs from the")

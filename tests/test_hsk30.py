@@ -96,7 +96,7 @@ def test_word_lists_load():
 
 
 def test_the_two_hsk20_editions_are_different_documents():
-    """Hanban revised the 2009-10 lists in late 2012; one word in ten moved.
+    """Hanban revised the 2009-10 lists in late 2012; 6.6% of shared words moved.
 
     Until 4 Oct 2026 the 2009-10 table was declared hsk-2012. Pinning the gap
     stops the two editions being conflated again under one identifier.
