@@ -137,7 +137,7 @@ word	level	also	pinyin	pos
 上面	2		shàngmiàn	名
 下	1		xià	名、动、量
 下令	7		xiàlìng	动
-下功夫	6		xià	gōngfu
+下功夫	6		xià gōngfu	
 下午	1		xiàwǔ	名
 下半场	7		xiàbànchǎng	名
 下单	6		xiàdān	动
@@ -163,14 +163,14 @@ word	level	also	pinyin	pos
 下载	5		xiàzài	动
 下达	7		xiàdá	动
 下降	4		xiàjiàng	动
-下雨	1		xià	yǔ
+下雨	1		xià yǔ	
 下面	2		xiàmiàn	名
 不	1		bù	副
 不下	7		búxià	动
 不久	3		bùjiǔ	形
 不乏	7		bùfá	动
 不了了之	7		bùliǎo-liǎozhī	
-不予	7		bù	yǔ
+不予	7		bù yǔ	
 不亚于	7		búyàyú	动
 不亦乐乎	7		búyìlèhū	
 不仅	4		bùjǐn	连
@@ -181,7 +181,7 @@ word	level	also	pinyin	pos
 不像话	7		búxiànghuà	形
 不光	4		bùguāng	副、连
 不免	7		bùmiǎn	副
-不准	7		bù	zhǔn
+不准	7		bù zhǔn	
 不利	5		búlì	形
 不力	7		búlì	形
 不动产	7		búdòngchǎn	名
@@ -189,17 +189,17 @@ word	level	also	pinyin	pos
 不及	7		bùjí	动
 不可思议	7		bùkě-sīyì	
 不可或缺	7		bùkě-huòquē	
-不同	3		bù	tóng
+不同	3		bù tóng	
 不堪	7		bùkān	动、形
 不够	4		búgòu	动、副
-不好意思	2		bù	hǎoyìsi
+不好意思	2		bù hǎoyìsi	
 不如	4		bùrú	动
 不妙	7		búmiào	形
 不妨	7		bùfáng	副
 不安	6		bù’ān	形
 不定	7		búdìng	形、副
 不宜	6		bùyí	动
-不客气	1		bú	kèqi
+不客气	1		bú kèqi	
 不容	7		bùróng	动
 不屑	7		búxiè	动
 不已	6		bùyǐ	动
@@ -238,12 +238,12 @@ word	level	also	pinyin	pos
 不知所措	7		bùzhī-suǒcuò	
 不禁	6		bùjīn	副
 不符	5		bùfú	动
-不算	7		bú	suàn
+不算	7		bú suàn	
 不管	4		bùguǎn	连
 不约而同	7		bùyuē’értóng	
-不经意	7		bù	jīngyì
+不经意	7		bù jīngyì	
 不翼而飞	7		búyì’érfēi	
-不耐烦	6		bú	nàifán
+不耐烦	6		bú nàifán	
 不耻下问	7		bùchǐ-xiàwèn	
 不肖	7		búxiào	形
 不至于	6		búzhìyú	动
@@ -266,7 +266,7 @@ word	level	also	pinyin	pos
 与	4		yǔ	介、连
 与众不同	7		yǔzhòng-bùtóng	
 与其	6		yǔqí	连
-与否	7		yǔ	fǒu
+与否	7		yǔ fǒu	
 与日俱增	7		yǔrì-jùzēng	
 与时俱进	7		yǔshí-jùjìn	
 丑	5		chǒu	形
@@ -360,7 +360,7 @@ word	level	also	pinyin	pos
 中医	5		zhōngyī	名
 中午	1		zhōngwǔ	名
 中华	5		Zhōnghuá	名
-中华民族	5		Zhōnghuá	Mínzú
+中华民族	5		Zhōnghuá Mínzú	
 中叶	7		zhōngyè	名
 中国	1		Zhōngguó	名
 中外	5		zhōngwài	名
@@ -405,7 +405,7 @@ word	level	also	pinyin	pos
 为	3		wèi	介
 为了	3		wèile	介
 为人	7		wéirén	动、名
-为什么	2		wèi	shénme
+为什么	2		wèi shénme	
 为何	6		wèihé	副
 为期	6		wéiqī	动
 为止	6		wéizhǐ	动
@@ -655,7 +655,7 @@ word	level	also	pinyin	pos
 人家	6		rénjia	代
 人山人海	6		rénshān-rénhǎi	
 人工	5		réngōng	形、名
-人工智能	6		réngōng	zhìnéng
+人工智能	6		réngōng zhìnéng	
 人性	7		rénxìng	名
 人情	7		rénqíng	名
 人手	7		rénshǒu	名
@@ -702,7 +702,7 @@ word	level	also	pinyin	pos
 仍旧	6		réngjiù	副
 仍然	4		réngrán	副
 从	2	4	cóng	介、（副）
-从不	5		cóng	bù
+从不	5		cóng bù	
 从业	6		cóngyè	动
 从中	4		cóngzhōng	副
 从事	5		cóngshì	动
@@ -767,7 +767,7 @@ word	level	also	pinyin	pos
 任何	4		rènhé	代
 任务	4		rènwu	名
 任命	7		rènmìng	动
-任性	7		rénxìng	形
+任性	7		rènxìng	形
 任意	7		rènyì	副、形
 任期	7		rènqī	名
 任职	7		rènzhí	动
@@ -849,7 +849,7 @@ word	level	also	pinyin	pos
 伤感	7		shānggǎn	形
 伤残	7		shāngcán	动
 伤痕	7		shānghén	名
-伤脑筋	7		shāng	nǎojīn
+伤脑筋	7		shāng nǎojīn	
 伦理	7		lúnlǐ	名
 伪装	7		wěizhuāng	动、名
 伪造	7		wěizào	动
@@ -949,7 +949,7 @@ word	level	also	pinyin	pos
 作风	7		zuòfēng	名
 你	1		nǐ	代
 你们	1		nǐmen	代
-你好	1		nǐ	hǎo
+你好	1		nǐ hǎo	
 佩戴	7		pèidài	动
 佩服	6		pèifú	动
 佳肴	7		jiāyáo	名
@@ -1135,7 +1135,7 @@ word	level	also	pinyin	pos
 做梦	4		zuòmèng	动
 做法	4		zuòfǎ	名
 做证	7		zuòzhèng	动
-做饭	1		zuò	fàn
+做饭	1		zuò fàn	
 停	4		tíng	动
 停业	7		tíngyè	动
 停放	7		tíngfàng	动
@@ -1931,7 +1931,7 @@ word	level	also	pinyin	pos
 匿名	7		nìmíng	动
 十	1		shí	数
 十分	4		shífēn	副
-十字路口	4		shízì	lùkǒu
+十字路口	4		shízì lùkǒu	
 十足	6		shízú	形
 千	1		qiān	数
 千万	4		qiānwàn	副
@@ -2085,7 +2085,7 @@ word	level	also	pinyin	pos
 原型	7		yuánxíng	名
 原始	6		yuánshǐ	形
 原料	6		yuánliào	名
-原有	5		yuán	yǒu
+原有	5		yuán yǒu	
 原本	6		yuánběn	副
 原材料	6		yuáncáiliào	名
 原来	4		yuánlái	名、形、副
@@ -2289,7 +2289,7 @@ word	level	also	pinyin	pos
 只是	3		zhǐshì	副、连
 只有	3		zhǐyǒu	连
 只管	7		zhǐguǎn	副
-只能	3		zhǐ	néng
+只能	3		zhǐ néng	
 只要	3		zhǐyào	连
 只顾	6		zhǐgù	副
 叫	1	4	jiào	动、（介）
@@ -2555,7 +2555,7 @@ word	level	also	pinyin	pos
 和好	7		héhǎo	形、动
 和尚	7		héshang	名
 和平	6		hépíng	名
-和平共处	7		hépíng	gòngchǔ
+和平共处	7		hépíng gòngchǔ	
 和气	7		héqi	形、名
 和睦	7		hémù	形
 和蔼	7		hé’ǎi	形
@@ -3057,7 +3057,7 @@ word	level	also	pinyin	pos
 多半	7		duōbàn	数、副
 多媒体	6		duōméitǐ	名
 多少	1		duōshao	代
-多年来	7		duō	nián lái
+多年来	7		duō nián lái	
 多心	7		duōxīn	动
 多才多艺	6		duōcái-duōyì	
 多数	4		duōshù	名
@@ -3108,7 +3108,7 @@ word	level	also	pinyin	pos
 大师	6		dàshī	名
 大幅	6		dàfú	副
 大惊小怪	7		dàjīng-xiǎoguài	
-大意	7		dàyì	名
+大意	7		dàyi	形
 大批	5		dàpī	形
 大数据	7		dàshùjù	名
 大方	6		dàfang	形
@@ -3798,7 +3798,7 @@ word	level	also	pinyin	pos
 居安思危	7		jū’ān-sīwēi	
 居民	5		jūmín	名
 居然	5		jūrán	副
-居高不下	7		jūgāo	bú xià
+居高不下	7		jūgāo bú xià	
 屈服	7		qūfú	动
 届	5		jiè	量
 届时	7		jièshí	副
@@ -3912,7 +3912,7 @@ word	level	also	pinyin	pos
 市值	7		shìzhí	名
 市区	4		shìqū	名
 市场	4		shìchǎng	名
-市场经济	7		shìchǎng	jīngjì
+市场经济	7		shìchǎng jīngjì	
 市民	5		shìmín	名
 布	6		bù	名
 布局	7		bùjú	动、名
@@ -3950,8 +3950,8 @@ word	level	also	pinyin	pos
 常态	7		chángtài	名
 常温	6		chángwēn	名
 常理	7		chánglǐ	名
-常用	3		cháng	yòng
-常见	3		cháng	jiàn
+常用	3		cháng yòng	
+常见	3		cháng jiàn	
 常规	6		chángguī	名、形
 常识	5		chángshí	名
 帽子	4		màozi	名
@@ -4150,7 +4150,7 @@ word	level	also	pinyin	pos
 开朗	7		kāilǎng	形
 开机	3		kāijī	动
 开水	5		kāishuǐ	名
-开玩笑	4		kāi	wánxiào
+开玩笑	4		kāi wánxiào	
 开花	3		kāihuā	动
 开设	6		kāishè	动
 开车	1		kāichē	动
@@ -4432,7 +4432,7 @@ word	level	also	pinyin	pos
 态度	4		tàidù	名
 怂恿	7		sǒngyǒng	动
 怎么	1		zěnme	代
-怎么办	3		zěnme	bàn
+怎么办	3		zěnme bàn	
 怎么样	1		zěnmeyàng	代
 怎样	3		zěnyàng	代
 怕	3	4	pà	动、（副）
@@ -4629,14 +4629,14 @@ word	level	also	pinyin	pos
 愚蠢	7		yúchǔn	形
 感	4		gǎn	后缀
 感人	4		gǎnrén	形
-感兴趣	3		gǎn	xìngqù
+感兴趣	3		gǎn xìngqù	
 感冒	3		gǎnmào	名、动
 感到	3		gǎndào	动
 感动	4		gǎndòng	形、动
 感受	4		gǎnshòu	动、名
 感叹	7		gǎntàn	动
 感性	7		gǎnxìng	形
-感恩	7		gǎnēn	动
+感恩	7		gǎn’ēn	动
 感悟	7		gǎnwù	动
 感情	4		gǎnqíng	名
 感想	6		gǎnxiǎng	名
@@ -4782,8 +4782,8 @@ word	level	also	pinyin	pos
 扑面而来	7		pūmiàn’érlái	
 扒	7		bā	动
 打	2		dǎ	动
-打下手	7		dǎ	xiàshǒu
-打交道	6		dǎ	jiāodao
+打下手	7		dǎ xiàshǒu	
+打交道	6		dǎ jiāodao	
 打仗	6		dǎzhàng	动
 打倒	7		dǎdǎo	动
 打击	6		dǎjī	动
@@ -4794,7 +4794,7 @@ word	level	also	pinyin	pos
 打印机	4		dǎyìnjī	名
 打发	7		dǎfa	动
 打听	5		dǎting	动
-打喷嚏	7		dǎ	pēntì
+打喷嚏	7		dǎ pēntì	
 打岔	7		dǎchà	动
 打工	4		dǎgōng	动
 打开	2		dǎkāi	动
@@ -4802,14 +4802,14 @@ word	level	also	pinyin	pos
 打扮	5		dǎban	动
 打扰	4		dǎrǎo	动
 打折	4		dǎzhé	动
-打招呼	4		dǎ	zhāohu
+打招呼	4		dǎ zhāohu	
 打捞	7		dǎlāo	动
 打搅	7		dǎjiǎo	动
 打断	5		dǎduàn	动
 打架	6		dǎjià	动
 打消	7		dǎxiāo	动
 打猎	7		dǎliè	动
-打电话	1		dǎ	diànhuà
+打电话	1		dǎ diànhuà	
 打盹儿	7		dǎdǔnr	动
 打破	5		dǎpò	动
 打磨	7		dǎmó	动
@@ -5185,7 +5185,7 @@ word	level	also	pinyin	pos
 掌管	7		zhǎngguǎn	动
 掌舵	7		zhǎngduò	动、名
 掏	6		tāo	动
-掏腰包	7		tāo	yāobāo
+掏腰包	7		tāo yāobāo	
 掐	7		qiā	动
 排	4		pái	动、名、量
 排列	5		páiliè	动
@@ -5747,7 +5747,7 @@ word	level	also	pinyin	pos
 时速	6		shísù	名
 时间	1		shíjiān	名
 时间表	4		shíjiānbiǎo	名
-时隔	7		shí	gé
+时隔	7		shí gé	
 时髦	7		shímáo	形
 旷课	7		kuàngkè	动
 旺	7		wàng	形
@@ -5896,12 +5896,12 @@ word	level	also	pinyin	pos
 有劲	6		yǒujìn	动、形
 有名	3		yǒumíng	形
 有声有色	7		yǒushēng-yǒusè	
-有害	5		yǒu	hài
+有害	5		yǒu hài	
 有幸	7		yǒuxìng	形
 有序	6		yǒuxù	形
 有待	7		yǒudài	动
 有意	7		yǒuyì	动、副
-有意思	2		yǒu	yìsi
+有意思	2		yǒu yìsi	
 有效	4		yǒuxiào	动
 有时	2		yǒushí	副
 有望	7		yǒuwàng	动
@@ -6297,7 +6297,7 @@ word	level	also	pinyin	pos
 此后	5		cǐhòu	名
 此外	4		cǐwài	连
 此时	5		cǐshí	名
-此次	4		cǐ	cì
+此次	4		cǐ cì	
 此致	7		cǐzhì	动
 此起彼伏	7		cǐqǐ-bǐfú	
 步	4		bù	名
@@ -6362,9 +6362,9 @@ word	level	also	pinyin	pos
 毛病	5		máobìng	名
 毛笔	5		máobǐ	名
 毛衣	4		máoyī	名
-毫不	6		háo	bù
+毫不	6		háo bù	
 毫升	6		háoshēng	量
-毫无	6		háo	wú
+毫无	6		háo wú	
 毫米	6		háomǐ	量
 毯子	7		tǎnzi	名
 民主	6		mínzhǔ	名、形
@@ -6487,11 +6487,11 @@ word	level	also	pinyin	pos
 沟	6		gōu	名
 沟通	5		gōutōng	动
 没事	1		méishì	动
-没关系	1		méi	guānxi
+没关系	1		méi guānxi	
 没准儿	7		méizhǔnr	动
 没劲	7		méijìn	动、形
 没完没了	7		méiwán-méiliǎo	
-没意思	2		méi	yìsi
+没意思	2		méi yìsi	
 没收	7		mòshōu	动
 没有	1		méiyǒu	动、副
 没法儿	5		méifǎr	动
@@ -6566,7 +6566,7 @@ word	level	also	pinyin	pos
 泰斗	7		tàidǒu	名
 泻	7		xiè	动
 泼	6		pō	动
-泼冷水	7		pō	lěngshuǐ
+泼冷水	7		pō lěngshuǐ	
 洁净	7		jiéjìng	形
 洁白	7		jiébái	形
 洋溢	7		yángyì	动
@@ -6647,7 +6647,7 @@ word	level	also	pinyin	pos
 浴室	6		yùshì	名
 海	3		hǎi	名
 海关	5		hǎiguān	名
-海内外	6		hǎi	nèiwài
+海内外	6		hǎi nèiwài	
 海军	7		hǎijūn	名
 海啸	7		hǎixiào	名
 海域	6		hǎiyù	名
@@ -7330,7 +7330,7 @@ word	level	also	pinyin	pos
 由	4		yóu	介
 由于	4		yóuyú	介、连
 由来	6		yóulái	名
-由此	5		yóu	cǐ
+由此	5		yóu cǐ	
 由衷	7		yóuzhōng	动
 甲	5		jiǎ	名
 申办	7		shēnbàn	动
@@ -7461,7 +7461,7 @@ word	level	also	pinyin	pos
 登记	5		dēngjì	动
 登陆	7		dēnglù	动
 登顶	7		dēngdǐng	动
-白	5		bái	形、副
+白	5		bái	副
 白天	1		báitiān	名
 白白	6		báibái	副
 白色	2		báisè	名
@@ -7471,7 +7471,7 @@ word	level	also	pinyin	pos
 百分比	7		bǎifēnbǐ	名
 百分点	6		bǎifēndiǎn	名
 百合	7		bǎihé	名
-百科全书	7		bǎikē	quánshū
+百科全书	7		bǎikē quánshū	
 百般	7		bǎibān	副、数量
 百货	6		bǎihuò	名
 的	1		de	助
@@ -7666,7 +7666,7 @@ word	level	also	pinyin	pos
 知己	7		zhījǐ	形、名
 知觉	7		zhījué	名
 知识	4		zhīshi	名
-知识分子	7		zhīshi	fènzǐ
+知识分子	7		zhīshi fènzǐ	
 知足	7		zhīzú	形
 知足常乐	7		zhīzú-chánglè	
 知道	1		zhīdào	动
@@ -7733,7 +7733,7 @@ word	level	also	pinyin	pos
 碰巧	7		pèngqiǎo	副
 碰撞	6		pèngzhuàng	动
 碰见	5		pèngjiàn	动
-碰钉子	7		pèng	dīngzi
+碰钉子	7		pèng dīngzi	
 磁带	7		cídài	名
 磁铁	7		cítiě	名
 磅	7		bàng	量、名
@@ -7759,7 +7759,7 @@ word	level	also	pinyin	pos
 社	6		shè	名
 社交	7		shèjiāo	名
 社会	4		shèhuì	名
-社会主义	7		shèhuì	zhǔyì
+社会主义	7		shèhuì zhǔyì	
 社区	5		shèqū	名
 社团	7		shètuán	名
 祈祷	7		qídǎo	动
@@ -8597,7 +8597,7 @@ word	level	also	pinyin	pos
 能	1		néng	动
 能人	7		néngrén	名
 能力	4		nénglì	名
-能否	4		néng	fǒu
+能否	4		néng fǒu	
 能够	4		nénggòu	动
 能干	5		nénggàn	形
 能源	6		néngyuán	名
@@ -8618,7 +8618,7 @@ word	level	also	pinyin	pos
 脚	3		jiǎo	名
 脚印	6		jiǎoyìn	名
 脚步	5		jiǎobù	名
-脚踏实地	7		jiǎotāshídì	
+脚踏实地	7		jiǎotàshídì	
 脱	4		tuō	动
 脱口而出	7		tuōkǒu’érchū	
 脱离	7		tuōlí	动
@@ -8703,7 +8703,7 @@ word	level	also	pinyin	pos
 至此	7		zhìcǐ	动
 致	7		zhì	动
 致使	7		zhìshǐ	动、连
-致力于	7		zhìlìyú	动
+致力于	7		zhìlì yú	
 致命	7		zhìmìng	动
 致富	7		zhìfù	动
 致敬	7		zhìjìng	动
@@ -9466,7 +9466,7 @@ word	level	also	pinyin	pos
 资历	7		zīlì	名
 资料	4		zīliào	名
 资本	6		zīběn	名
-资本主义	7		zīběn	zhǔyì
+资本主义	7		zīběn zhǔyì	
 资格	5		zīgé	名
 资深	7		zīshēn	形
 资源	5		zīyuán	名
@@ -9513,12 +9513,12 @@ word	level	also	pinyin	pos
 走势	7		zǒushì	名
 走向	7		zǒuxiàng	名
 走廊	6		zǒuláng	名
-走弯路	7		zǒu	wānlù
+走弯路	7		zǒu wānlù	
 走投无路	7		zǒutóu-wúlù	
 走漏	7		zǒulòu	动
 走私	7		zǒusī	动
 走路	2		zǒulù	动
-走过场	7		zǒu	guòchǎng
+走过场	7		zǒu guòchǎng	
 赴	7		fù	动
 赶	4		gǎn	动
 赶上	4		gǎnshàng	动
@@ -9575,7 +9575,7 @@ word	level	also	pinyin	pos
 跑	2		pǎo	动
 跑步	2		pǎobù	动
 跑道	5		pǎodào	名
-跑龙套	7		pǎo	lóngtào
+跑龙套	7		pǎo lóngtào	
 距	5		jù	动
 距离	4		jùlí	动、名
 跟	2	5	gēn	介、连、（名、动）
@@ -9767,7 +9767,7 @@ word	level	also	pinyin	pos
 过年	2		guònián	动
 过度	5		guòdù	形
 过往	7		guòwǎng	动、名
-过意不去	7		guò	yì bú qù
+过意不去	7		guò yì bú qù	
 过敏	5		guòmǐn	动
 过时	6		guòshí	动、形
 过期	5		guòqī	动
@@ -9805,7 +9805,7 @@ word	level	also	pinyin	pos
 运送	6		yùnsòng	动
 近	2		jìn	形
 近代	5		jìndài	名
-近年来	5		jìnnián	lái
+近年来	5		jìnnián lái	
 近日	5		jìnrì	名
 近期	5		jìnqī	名
 近来	6		jìnlái	名
@@ -9970,7 +9970,7 @@ word	level	also	pinyin	pos
 通行	5		tōngxíng	动
 通讯	6		tōngxùn	名
 通话	6		tōnghuà	动
-通货膨胀	7		tōnghuò	péngzhàng
+通货膨胀	7		tōnghuò péngzhàng	
 通车	7		tōngchē	动
 通过	4		tōngguò	动、介
 通通	7		tōngtōng	副
@@ -10194,7 +10194,7 @@ word	level	also	pinyin	pos
 钻	6		zuān	动
 钻石	7		zuànshí	名
 钻研	7		zuānyán	动
-钻空子	7		zuān	kòngzi
+钻空子	7		zuān kòngzi	
 铁	7		tiě	名、形
 铁路	5		tiělù	名
 铃	5		líng	名
@@ -10252,7 +10252,7 @@ word	level	also	pinyin	pos
 长征	7		chángzhēng	动、名
 长效	7		chángxiào	名、形
 长期	5		chángqī	名、形
-长期以来	7		chángqī	yǐlái
+长期以来	7		chángqī yǐlái	
 长相	7		zhǎngxiàng	名
 长短	6		chángduǎn	名
 长足	7		chángzú	形
@@ -10401,7 +10401,7 @@ word	level	also	pinyin	pos
 随便	4		suíbiàn	动、形、连
 随即	7		suíjí	副
 随后	5		suíhòu	副
-随处可见	7		suíchù	kě jiàn
+随处可见	7		suíchù kě jiàn	
 随心所欲	7		suíxīnsuǒyù	
 随意	5		suíyì	形
 随手	5		suíshǒu	副
@@ -10438,7 +10438,7 @@ word	level	also	pinyin	pos
 难处	7		nánchù	名
 难度	5		nándù	名
 难得	5		nándé	形
-难得一见	7		nándé	yí jiàn
+难得一见	7		nándé yí jiàn	
 难忘	4		nánwàng	动
 难怪	7		nánguài	动、副
 难点	6		nándiǎn	名
@@ -10477,7 +10477,7 @@ word	level	also	pinyin	pos
 雪山	7		xuěshān	名
 雪糕	5		xuěgāo	名
 零	1		líng	数
-零下	4		líng	xià
+零下	4		líng xià	
 零件	7		língjiàn	名
 零售	7		língshòu	动
 零星	7		língxīng	形
@@ -10821,7 +10821,7 @@ word	level	also	pinyin	pos
 高铁	3		gāotiě	名
 高雅	7		gāoyǎ	形
 高额	7		gāo’é	形
-高龄	7		gāolíng	名、 形
+高龄	7		gāolíng	名、形
 鬼	7		guǐ	名、形
 魄力	7		pòlì	名
 魅力	5		mèilì	名

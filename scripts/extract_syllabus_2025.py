@@ -43,7 +43,11 @@ CHAR_PAGES = (355, 376)   # 认读字 — recognition
 WRITING_PAGES = (377, 384)  # 书写字 — writing
 
 # 序号 等级 词语 拼音 词性  →  41 1 都 dōu 副
-ROW = re.compile(r"^\s*(\d+)\s+(\d+(?:-9)?(?:（[^）]*）)*)\s+(\S+)\s+(\S+)\s*(.*)$")
+# Pinyin may contain spaces (致力于 "zhìlì yú" in the revision of 30 Oct 2026),
+# so it runs up to the part of speech, which is always Han characters and
+# punctuation, and is sometimes absent.
+ROW = re.compile(r"^\s*(\d+)\s+(\d+(?:-9)?(?:（[^）]*）)*)\s+(\S+)\s+"
+                 r"([^\u4e00-\u9fff（(]+?)\s*([\u4e00-\u9fff（）()、，, ]*?)\s*$")
 LEVEL_HEAD = re.compile(r"HSK（(.+?)）认读字")
 WRITING_HEAD = re.compile(r"HSK（(.+?)）书写字")
 CHAR_ITEM = re.compile(r"(\d+)\.\s*([一-鿿])")
@@ -100,7 +104,7 @@ def main() -> int:
     # entries, because that is what the published totals count, and separately
     # reduce to distinct words at their lowest level, which is what grading a
     # text needs.
-    words, seen_index, dupes, entries = {}, set(), [], []
+    words, seen_index, dupes, entries, full = {}, set(), [], [], []
     for page in range(VOCAB_PAGES[0], VOCAB_PAGES[1] + 1):
         for line in page_text(reader, page - 1).split("\n"):
             m = ROW.match(line)
@@ -115,12 +119,18 @@ def main() -> int:
                 continue
             seen_index.add(index)
             entries.append(level)
+            full.append((int(index), level, extra, raw_word.strip(), word,
+                         m.group(4).strip(), m.group(5).strip()))
+            # A homograph has a row per reading.  The distinct-word table keeps
+            # the lowest level; at the same level the later row's reading is
+            # kept, as before.  Every reading is in syllabus2025_entries.tsv.
             if word in words and words[word]["level"] != level:
                 dupes.append((word, words[word]["level"], level))
                 if level >= words[word]["level"]:
                     continue
             words[word] = {"level": level, "also": extra,
-                           "pinyin": m.group(4), "pos": m.group(5).strip()}
+                           "pinyin": m.group(4).strip(),
+                           "pos": re.sub(r"\s+", "", m.group(5))}
 
     # ---- recognition characters ----
     chars, current = {}, None
@@ -159,6 +169,16 @@ def main() -> int:
             fh.write("%s\t%d\t%s\t%s\t%s\n" % (
                 w, d["level"], ",".join(str(x) for x in d["also"]),
                 d["pinyin"], d["pos"]))
+    # Every row of the syllabus, homographs included (11,000 entries), for
+    # anyone building flashcards: 还 hái (1) and 还 huán (3) are two cards.
+    with open(os.path.join(args.out, "syllabus2025_entries.tsv"), "w",
+              encoding="utf-8") as fh:
+        fh.write("index\tlevel\talso\tentry\tword\tpinyin\tpos\n")
+        for idx, lvl, extra, raw, w, py, pos in sorted(full):
+            fh.write("%d\t%s\t%s\t%s\t%s\t%s\t%s\n" % (
+                idx, "7-9" if lvl == BAND else lvl,
+                ",".join("7-9" if x == BAND else str(x) for x in extra),
+                raw, w, py, re.sub(r"\s+", "", pos)))
     with open(os.path.join(args.out, "syllabus2025_chars.tsv"), "w",
               encoding="utf-8") as fh:
         fh.write("character\tlevel\n")
