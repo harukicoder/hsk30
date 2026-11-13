@@ -1,0 +1,39 @@
+# WriteToLevel for EleutherAI lm-evaluation-harness.
+#
+#   pip install lm-eval hsk30
+#   lm_eval --include_path benchmark/lm_eval --tasks writetolevel --model ...
+#
+# Can a model write Chinese at the HSK level it was asked for? 150 tasks (six
+# levels x 25 topics). Scored by hsk30 against the 2025 HSK examination
+# syllabus: no judge model, exactly reproducible. Same scores as
+# benchmark/evaluate.py (test_writetolevel.py checks this).
+task: writetolevel
+dataset_path: json
+dataset_kwargs:
+  data_files:
+    test: https://raw.githubusercontent.com/harukicoder/hsk30/main/benchmark/tasks.jsonl
+test_split: test
+output_type: generate_until
+doc_to_text: "{{prompt}}"
+doc_to_target: "{{target_level}}"
+generation_kwargs:
+  until: []
+  max_gen_toks: 1024
+  do_sample: false
+  temperature: 0.0
+process_results: !function utils.process_results
+metric_list:
+  - metric: level_accuracy
+    aggregation: mean
+    higher_is_better: true
+  - metric: signed_error
+    aggregation: mean
+    higher_is_better: false
+  - metric: length_compliance
+    aggregation: mean
+    higher_is_better: true
+  - metric: budget_violation
+    aggregation: mean
+    higher_is_better: false
+metadata:
+  version: 1.0

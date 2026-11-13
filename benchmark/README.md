@@ -32,6 +32,28 @@ must produce text that survives an objective check, the way generated code must
 survive a compiler. Scoring involves no model, no judge and no API key, so any
 result is exactly reproducible.
 
+## Run it in an evaluation framework
+
+The same 150 tasks and the same scoring, packaged for the two harnesses most
+used to evaluate language models:
+
+```bash
+# UK AI Security Institute's Inspect
+pip install inspect_ai hsk30
+inspect eval benchmark/inspect/writetolevel.py --model openai/gpt-4o
+inspect eval benchmark/inspect/writetolevel.py -T level=1 --model ...   # one level
+
+# EleutherAI lm-evaluation-harness
+pip install lm-eval hsk30
+lm_eval --include_path benchmark/lm_eval --tasks writetolevel --model ...
+```
+
+Both report level accuracy, mean signed error, length compliance and budget
+violations. `benchmark/inspect/test_writetolevel.py` and
+`benchmark/lm_eval/writetolevel/test_writetolevel.py` replay the published
+outputs of deepseek-chat, gpt-4o and qwen3-235b through each harness and
+check that every metric equals what `evaluate.py` gives.
+
 ## Scoring
 
 ```bash
