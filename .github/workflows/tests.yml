@@ -8,7 +8,9 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # ubuntu-latest moved to 26.04, which has no Python 3.9 build; 24.04 still
+    # does, and pyproject.toml supports 3.9.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:

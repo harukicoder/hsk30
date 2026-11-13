@@ -6,7 +6,7 @@
 # Can a model write Chinese at the HSK level it was asked for? 150 tasks (six
 # levels x 25 topics). Scored by hsk30 against the 2025 HSK examination
 # syllabus: no judge model, exactly reproducible. Same scores as
-# benchmark/evaluate.py (test_writetolevel.py checks this).
+# benchmark/evaluate.py (check_writetolevel.py checks this).
 task: writetolevel
 dataset_path: json
 dataset_kwargs:

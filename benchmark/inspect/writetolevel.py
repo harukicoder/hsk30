@@ -14,7 +14,7 @@ least 95% of its characters come from the target level or below, measured by
 hsk30 against the 2025 examination syllabus. Scoring uses no model, no judge
 and no API key, so any result is exactly reproducible, and the score is the
 same as benchmark/evaluate.py gives for the same outputs (checked by
-benchmark/inspect/test_writetolevel.py).
+benchmark/inspect/check_writetolevel.py).
 
 Metrics, as in the benchmark README:
   hit          level accuracy: measured level <= target (the headline)

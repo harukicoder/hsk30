@@ -1,6 +1,6 @@
 """utils.process_results must score exactly as benchmark/evaluate.py does.
 
-    python benchmark/lm_eval/writetolevel/test_writetolevel.py
+    python benchmark/lm_eval/writetolevel/check_writetolevel.py
 """
 import json
 import os

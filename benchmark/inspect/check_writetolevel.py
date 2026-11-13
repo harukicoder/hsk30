@@ -1,7 +1,7 @@
 """The Inspect task must score exactly as benchmark/evaluate.py does.
 
     pip install inspect_ai
-    python benchmark/inspect/test_writetolevel.py
+    python benchmark/inspect/check_writetolevel.py
 
 Replays a published baseline's outputs through Inspect's mock model and
 compares level accuracy, mean signed error and length compliance with what

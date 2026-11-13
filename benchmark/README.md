@@ -49,8 +49,8 @@ lm_eval --include_path benchmark/lm_eval --tasks writetolevel --model ...
 ```
 
 Both report level accuracy, mean signed error, length compliance and budget
-violations. `benchmark/inspect/test_writetolevel.py` and
-`benchmark/lm_eval/writetolevel/test_writetolevel.py` replay the published
+violations. `benchmark/inspect/check_writetolevel.py` and
+`benchmark/lm_eval/writetolevel/check_writetolevel.py` replay the published
 outputs of deepseek-chat, gpt-4o and qwen3-235b through each harness and
 check that every metric equals what `evaluate.py` gives.
 
