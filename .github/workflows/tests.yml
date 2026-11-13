@@ -42,3 +42,22 @@ jobs:
         run: python -m pip install --upgrade pip && python -m pip install .
       - name: Verify 2021 tables against upstream
         run: python scripts/gen_data.py --check
+
+  javascript:
+    # The npm package (js/) must give the same grades as the Python package.
+    # It reads tables generated from src/hsk30/data, so a stale js/data fails
+    # here too.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ["18", "20", "22"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Data is current
+        run: node js/scripts/build-data.mjs && git diff --exit-code js/data
+      - name: Test
+        run: cd js && npm test

@@ -10,7 +10,8 @@ Grade Chinese text against HSK — against **either** document that gets called
 "HSK 3.0", and it will tell you which one it used.
 
 ```bash
-pip install hsk30
+pip install hsk30      # Python
+npm install hsk30      # JavaScript: same tables, same grades (see js/)
 ```
 
 ```python
@@ -339,7 +340,7 @@ widely reported.
 
 | | |
 | --- | --- |
-| Package | [`pip install hsk30`](https://pypi.org/project/hsk30/) |
+| Package | [`pip install hsk30`](https://pypi.org/project/hsk30/) · `npm install hsk30` ([js/](js/)) |
 | Paper | [doi:10.5281/zenodo.22239032](https://doi.org/10.5281/zenodo.22239032) |
 | Archived release | [doi:10.5281/zenodo.22234657](https://doi.org/10.5281/zenodo.22234657) |
 | Corpus | [harukicoder/hsk30-graded-readers](https://huggingface.co/datasets/harukicoder/hsk30-graded-readers) on HuggingFace |
