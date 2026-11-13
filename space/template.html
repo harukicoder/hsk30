@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HSK level checker</title>
+<meta name="description" content="Grade Chinese text against a named HSK 3.0 document: the 2025 exam syllabus or the 2021 standard.">
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1b1f24;--muted:#5d6670;--line:#dfe3e8;--accent:#1a5fb4;--warn:#9a5b00;--warn-bg:#fdf3e1}
+@media (prefers-color-scheme:dark){:root{--bg:#121417;--card:#1b1e22;--ink:#e8eaed;--muted:#a1a9b3;--line:#2e333a;--accent:#8ab4f8;--warn:#f2b660;--warn-bg:#33270f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI","PingFang SC","Noto Sans SC",sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 16px 48px;display:grid;gap:18px}
+h1{font-size:clamp(24px,4vw,32px);margin:0}
+p{margin:0}
+.lede{color:var(--muted);max-width:68ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:12px}
+label{font-weight:600;font-size:14px}
+textarea{width:100%;min-height:150px;font:18px/1.6 "PingFang SC","Noto Sans SC",system-ui,sans-serif;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical}
+.row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.row label{font-weight:500}
+select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);max-width:100%}
+.level{font-size:42px;font-weight:800;line-height:1}
+.std{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--muted)}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 12px;font-size:15px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-size:15px}
+td.bar{width:55%}
+.b{height:10px;border-radius:5px;background:var(--accent)}
+.muted{color:var(--muted);font-size:14px}
+a{color:var(--accent)}
+.chars span{display:inline-block;margin:2px 6px 2px 0;font-size:17px}
+footer{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <h1>HSK level checker</h1>
+  <p class="lede">Paste Chinese text to see the HSK level a reader needs: the lowest level at which they know 95% of its characters. "HSK 3.0" names two official documents that put 41.5% of their shared words at different levels, so the result says which one it used, and what the other would say.</p>
+
+  <section class="card" aria-label="Input">
+    <label for="t">Chinese text</label>
+    <textarea id="t" spellcheck="false">我每天早上七点起床，然后去公园跑步。跑步以后，我回家吃早饭。</textarea>
+    <div class="row">
+      <label>Document
+        <select id="std">
+          <option value="2025">HSK 3.0 exam syllabus (2025), used by the exam from 13 Dec 2026</option>
+          <option value="2021">HSK 3.0 national standard GF0025-2021</option>
+        </select>
+      </label>
+      <label>Threshold
+        <select id="thr"><option value="0.95" selected>95%</option><option value="0.98">98%</option><option value="0.9">90%</option></select>
+      </label>
+    </div>
+    <p class="muted">Nothing you type leaves your browser. Traditional characters are converted first; the result is then an upper bound.</p>
+  </section>
+
+  <section class="card" aria-live="polite" id="out"></section>
+
+  <footer>Built on <a href="https://github.com/harukicoder/hsk30">hsk30</a> (<code>pip install hsk30</code>, doi:10.5281/zenodo.22234657), from the official syllabus character lists: 3,088 recognition characters in the 2025 syllabus, 3,000 in GF0025-2021. MIT licence. Source: <code>space/</code> in that repository.</footer>
+</main>
+<script>
+(function(){
+  var DATA = __DATA__;
+  var BAND = 7, LEVELS = [1,2,3,4,5,6,7];
+  var IDS = {"2025":"hsk-syllabus-2025","2021":"gf0025-2021"};
+  var CH = {}, T2S = {};
+  Object.keys(DATA.chars).forEach(function(std){
+    var m = {}; var g = DATA.chars[std];
+    Object.keys(g).forEach(function(l){ Array.from(g[l]).forEach(function(c){ m[c] = +l; }); });
+    CH[std] = m;
+  });
+  var p = Array.from(DATA.t2s); for (var i = 0; i < p.length; i += 2) T2S[p[i]] = p[i+1];
+  function label(l){ return l == null ? "beyond HSK 9" : (l === BAND ? "7-9" : String(l)); }
+  function hanzi(s){ return s.match(/[一-鿿]/g) || []; }
+  function grade(text, std, thr){
+    var trad = Array.from(text).some(function(c){ return c in T2S; });
+    if (trad) text = Array.from(text).map(function(c){ return T2S[c] || c; }).join("");
+    var chars = hanzi(text), tbl = CH[std], counts = {}, n = chars.length;
+    chars.forEach(function(c){ var l = tbl[c] || 0; counts[l] = (counts[l]||0) + 1; });
+    var cum = 0, level = null, curve = {};
+    LEVELS.forEach(function(l){ cum += counts[l]||0; curve[l] = n ? cum/n : 0; if (level === null && n && cum/n >= thr) level = l; });
+    var over = {};
+    return { level: level, chars: n, ungraded: counts[0]||0, curve: curve, trad: trad, text: text, tbl: tbl };
+  }
+  function hardest(g, target){
+    var over = {}, n = g.chars;
+    hanzi(g.text).forEach(function(c){ var l = g.tbl[c]; if (!l || l > target) over[c] = (over[c]||0) + 1; });
+    var share = 0; Object.keys(over).forEach(function(c){ share += over[c]; });
+    var list = Object.keys(over).sort(function(a,b){ return over[b]-over[a] || (a<b?-1:1); });
+    return { share: n ? share/n : 0, list: list.slice(0,10).map(function(c){ return [c, g.tbl[c] || null]; }) };
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  var t = document.getElementById("t"), s = document.getElementById("std"), th = document.getElementById("thr"), out = document.getElementById("out");
+  function render(){
+    var std = s.value, thr = +th.value, other = std === "2025" ? "2021" : "2025";
+    var g = grade(t.value || "", std, thr), q = grade(t.value || "", other, thr);
+    if (!g.chars){ out.innerHTML = '<p class="muted">Paste some Chinese text.</p>'; return; }
+    var h = '<div><div class="level">HSK ' + label(g.level) + '</div><div class="std">graded against ' + IDS[std] +
+      ' · ' + g.chars + ' characters · ' + g.ungraded + ' outside every level' + (g.trad ? ' · converted from traditional (upper bound)' : '') + '</div></div>';
+    if (q.level !== g.level) h += '<p class="note">The other document called "HSK 3.0" (' + IDS[other] + ') grades this text <strong>HSK ' + label(q.level) + '</strong>. Say which one you used.</p>';
+    h += '<table><thead><tr><th>Level</th><th>A reader at this level knows</th><th></th></tr></thead><tbody>';
+    LEVELS.forEach(function(l){ var v = g.curve[l]; h += '<tr><td>HSK ' + label(l) + '</td><td>' + (100*v).toFixed(1) + '%</td><td class="bar"><div class="b" style="width:' + (100*v).toFixed(1) + '%"></div></td></tr>'; });
+    h += '</tbody></table>';
+    var target = g.level === null ? BAND : g.level - 1;
+    if (target >= 1){
+      var hd = hardest(g, target);
+      h += '<p class="muted">To reach HSK ' + label(target) + ', ' + (100*hd.share).toFixed(1) + '% of the text is above it; the bar allows ' + Math.round(100*(1-thr)) + '%. Characters holding it there:</p><p class="chars">' +
+        hd.list.map(function(x){ return '<span lang="zh-CN">' + esc(x[0]) + ' <small>' + (x[1] ? 'HSK ' + label(x[1]) : 'off-list') + '</small></span>'; }).join("") + '</p>';
+    }
+    out.innerHTML = h;
+  }
+  [t, s, th].forEach(function(el){ el.addEventListener("input", render); el.addEventListener("change", render); });
+  render();
+})();
+</script>
+</body>
+</html>
