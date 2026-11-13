@@ -625,26 +625,59 @@ Underfull \hbox (badness 1210) in paragraph at lines 26--45
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 72.
+(Font)              <9> on input line 73.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 72.
+(Font)              <5> on input line 73.
 [1
 
 
 
 ] [2]
-Underfull \hbox (badness 10000) in paragraph at lines 226--232
+Underfull \hbox (badness 10000) in paragraph at lines 227--233
 \TU/lmtt/m/n/10.95 scripts/tbcl_extract.py \TU/lmr/m/n/10.95 and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 226--232
+Underfull \hbox (badness 10000) in paragraph at lines 227--233
 \TU/lmtt/m/n/10.95 scripts/crossstrait.py \TU/lmr/m/n/10.95 in the \TU/lmtt/m/n
 /10.95 hsk30
  []
 
-(main.bbl) [3] (main.aux)
+
+Underfull \vbox (badness 2012) has occurred while \output is active []
+
+ (main.bbl
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 14.
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--16
+[]\TU/lmr/m/n/10 Shanghai Municipal Education Commis-
+ []
+
+
+Underfull \hbox (badness 2103) in paragraph at lines 11--16
+\TU/lmr/m/n/10 sion. 2026.  HSK 3.0 to officially launch
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--16
+\TU/lmr/m/n/10 worldwide on December 13.  [][]$[][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--16
+[] [] [][][] [] [][] [] [][][] [] [][] [] [][][][][] [] [][] [] [][][][] [] [][
+][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11--16
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][]$[]
+[]\TU/lmr/m/n/10 .
+ []
+
+) [3] (main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 624B529BBB22E3BDF6805E145D5442C6;795.
  )
-Output written on main.xdv (3 pages, 104464 bytes).
+Output written on main.xdv (3 pages, 108792 bytes).

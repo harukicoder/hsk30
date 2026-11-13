@@ -15,7 +15,7 @@ Nothing here needs editing; the two fields you must set by hand are marked.
 **Title**
 
 ```
-Four Repositories, One List: The Open HSK 3.0 Datasets Encode a Document the Examination No Longer Uses
+Four Repositories, One List: The Open HSK 3.0 Datasets Encode a Document the Examination Does Not Use
 ```
 
 **Publication date:** the date you upload.
@@ -41,7 +41,7 @@ paragraph breaks survive the paste, and any bold can be applied afterwards with
 the toolbar.
 
 ```
-Tools that show a learner an HSK level almost never derive it from the issuing body's PDF. They take it from a small number of open datasets. We audit the five most-starred, comparing each word by word against the three documents in circulation: the 2012 syllabus, the GF0025-2021 national grading standard, and the 2025 examination syllabus in force since July 2026.
+Tools that show a learner an HSK level almost never derive it from the issuing body's PDF. They take it from a small number of open datasets. We audit the five most-starred, comparing each word by word against the three documents in circulation: the 2012 syllabus, the GF0025-2021 national grading standard, and the 2025 examination syllabus, which the HSK uses from 13 December 2026.
 
 Four of the five encode GF0025-2021, and only one encodes the examination. Worse for anyone treating their agreement as corroboration, the four are not independent: across every pair, over roughly 10,940 shared words, they disagree about the level of not one word. They are one list. The derivation is documented rather than hidden — one repository credits another as its source, and that one links the March 2021 ministry PDF it was OCR'd from — so the ecosystem is not careless; it is singly rooted, which is a different and more durable problem. A consumer three hops downstream sees only "HSK 3.0".
 

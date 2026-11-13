@@ -30,8 +30,8 @@ published inventory, with no learned parameters and no network access.
 
 It ships validated machine-readable extractions of three documents: the HSK 2.0
 word list, the national grading standard 《国际中文教育中文水平等级标准》
-(GF0025-2021) [@moe2021standard], and the examination syllabus in force since
-July 2026 [@clec2025syllabus], including its separate 1,200-character
+(GF0025-2021) [@moe2021standard], and the examination syllabus the HSK uses from
+13 December 2026 [@clec2025syllabus; @smec2026launch], including its separate 1,200-character
 handwriting inventory. It grades strings or pre-segmented tokens, reports
 coverage curves rather than a single label, flags characters over a level
 budget, converts and grades traditional-script input, and profiles a whole
@@ -55,8 +55,8 @@ changes the level of roughly half of them [@serrano2026whichhsk]. A level
 reported without naming its source is not reproducible.
 
 The ambiguity is not hypothetical. An audit of the five most-used open HSK 3.0
-word lists finds four encoding the superseded 2021 standard rather than the
-syllabus students now sit, only one naming the document it contains, and across
+word lists finds four encoding the 2021 national standard rather than the
+syllabus the examination uses from 13 December 2026, only one naming the document it contains, and across
 every pair of those four zero words assigned a different level — they are one
 artifact under four names [@serrano2026audit]. Agreement between them
 corroborates nothing. The package therefore ships a one-field convention for

@@ -16,8 +16,8 @@
 
 "HSK 3.0" names two different official documents. 《国际中文教育中文水平等级标准》
 (GF0025-2021) is a national grading standard in force since 1 July 2021; the
-新版HSK考试大纲 is the examination syllabus published in November 2025 and in
-force since July 2026. They are widely conflated — by learners, by commercial
+新版HSK考试大纲 is the examination syllabus published in November 2025, on which
+the examination is built when HSK 3.0 launches worldwide on 13 December 2026. They are widely conflated — by learners, by commercial
 learning platforms, and by the tooling both rely on. We show the conflation is
 consequential. The two documents assign different levels to **41.5% of the
 10,977 and 10,896 words they respectively grade**, and to **40.7% of the 2,945
@@ -81,7 +81,7 @@ Contributions:
 | --- | --- | --- | ---: |
 | HSK 2.0 examination lists | 2009–10 | Exam vocabulary, six levels | 4,991 |
 | 《国际中文教育中文水平等级标准》 (GF0025-2021) | in force 1 Jul 2021 | National language standard | 10,977 |
-| 新版HSK考试大纲 (HSK 3.0 exam syllabus) | pub. Nov 2025, in force Jul 2026 | The examination, 406 pp | 10,896 |
+| 新版HSK考试大纲 (HSK 3.0 exam syllabus) | pub. Nov 2025, exam from 13 Dec 2026 | The examination, 406 pp | 10,896 |
 
 **Table 1: What "HSK 3.0" can mean.**
 
@@ -671,8 +671,11 @@ corpus CC BY 4.0.
 Verified as of September 2026 unless marked ⚠.
 
 - Center for Language Education and Cooperation (中外语言交流合作中心) (2025).
-  新版HSK考试大纲 [HSK Examination Syllabus]. Published November 2025, in force
-  July 2026.
+  新版HSK考试大纲 [HSK Examination Syllabus]. Published November 2025; used by the
+  examination from 13 December 2026.
+- Shanghai Municipal Education Commission (2026, 15 September). HSK 3.0 to
+  officially launch worldwide on December 13.
+  https://edu.sh.gov.cn/study_en_news/20260915/f7034aa15cad4a92a6183abeea104895.html
 - Serrano, A. (2026). hsk30: grading Chinese text against either document
   called HSK 3.0. Zenodo. doi:10.5281/zenodo.22234657
 - Feng, L., Huang, L., Xie, N., Yu, T., Liu, S., Zhang, H., & Yun, T. (2026).
