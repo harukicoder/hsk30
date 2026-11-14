@@ -3,6 +3,8 @@
 [![Paper](https://img.shields.io/badge/paper-zenodo.22239032-b31b1b.svg)](https://doi.org/10.5281/zenodo.22239032)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22234657.svg)](https://doi.org/10.5281/zenodo.22234657)
 [![PyPI](https://img.shields.io/pypi/v/hsk30.svg)](https://pypi.org/project/hsk30/)
+[![npm](https://img.shields.io/npm/v/hsk30.svg)](https://www.npmjs.com/package/hsk30)
+[![Demo](https://img.shields.io/badge/demo-Hugging%20Face-yellow.svg)](https://huggingface.co/spaces/harukicoder/hsk-level-checker)
 [![tests](https://github.com/harukicoder/hsk30/actions/workflows/tests.yml/badge.svg)](https://github.com/harukicoder/hsk30/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -340,7 +342,9 @@ widely reported.
 
 | | |
 | --- | --- |
-| Package | [`pip install hsk30`](https://pypi.org/project/hsk30/) · `npm install hsk30` ([js/](js/)) |
+| Package | [`pip install hsk30`](https://pypi.org/project/hsk30/) · [`npm install hsk30`](https://www.npmjs.com/package/hsk30) ([js/](js/)) |
+| Demo | [huggingface.co/spaces/harukicoder/hsk-level-checker](https://huggingface.co/spaces/harukicoder/hsk-level-checker) |
+| Benchmark data | [harukicoder/writetolevel](https://huggingface.co/datasets/harukicoder/writetolevel) on Hugging Face |
 | Paper | [doi:10.5281/zenodo.22239032](https://doi.org/10.5281/zenodo.22239032) |
 | Archived release | [doi:10.5281/zenodo.22234657](https://doi.org/10.5281/zenodo.22234657) |
 | Corpus | [harukicoder/hsk30-graded-readers](https://huggingface.co/datasets/harukicoder/hsk30-graded-readers) on HuggingFace |
