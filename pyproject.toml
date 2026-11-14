@@ -1,20 +1,20 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "hsk30"
-version = "0.2.1"
+version = "0.3.0"
 description = "Grade Chinese text against either official document called HSK 3.0"
 readme = "README.md"
 requires-python = ">=3.9"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["chinese", "mandarin", "hsk", "readability", "language-learning", "cefr"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Education",
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: MIT License",
   "Natural Language :: Chinese (Simplified)",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
